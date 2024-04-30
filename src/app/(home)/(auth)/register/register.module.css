@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
+}
+
+.wrapper {
+  width: 500px;
+  background: var(--bg);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 30px;
+  border-radius: 5px;
+}

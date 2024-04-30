@@ -1,0 +1,176 @@
+:root {
+  --bg: #ffffff;
+  --bgSoft: #2d2b42;
+  --text: #2d2d2d;
+  --text-active: #9acf78;
+  --btn: #141414;
+  --btn-hover: #3a3a3a;
+  --btn-text: #ffffff;
+  --red: #ff0000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  width: 1536px;
+  margin: auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.children {
+  position: relative;
+  top: 80px;
+}
+
+.layoutAdmin {
+  display: flex;
+  background: #000000;
+  color: var(--bg);
+}
+
+.leftAdmin {
+  width: 250px;
+}
+
+.rightAdmin {
+  width: 100%;
+}
+
+.contentAdmin {
+  background: #000000;
+  padding: 30px 28px;
+  width: 100%;
+}
+
+.breadcrumbs {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.breadcrumbs-link {
+  text-transform: capitalize;
+}
+
+.breadcrumbs-link:first-child {
+  margin-left: 0;
+}
+
+.breadcrumbs-link:last-child {
+  margin-right: 0;
+  font-weight: 600;
+}
+
+.slick-next:before,
+.slick-prev:before {
+  color: var(--text) !important;
+  font-size: 34px !important;
+}
+
+.slick-list {
+  padding-left: 30px !important;
+}
+
+.slick-prev {
+  left: -40px !important;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+@media (max-width: 1536px) {
+  .container {
+    width: 1366px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .container {
+    width: 1280px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .container {
+    width: 1024px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 640px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: 475px;
+  }
+}
+
+@media (max-width: 475px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 430px;
+  }
+
+  .breadcrumbs {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+
+  .children {
+    position: relative;
+    top: 60px;
+  }
+
+  .slick-next:before,
+  .slick-prev:before {
+    color: var(--text) !important;
+    font-size: 20px !important;
+  }
+
+  .slick-list {
+    padding-left: 0 !important;
+  }
+}

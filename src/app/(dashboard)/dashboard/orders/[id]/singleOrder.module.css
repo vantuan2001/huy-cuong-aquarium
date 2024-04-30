@@ -1,0 +1,171 @@
+.container {
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+  margin: 0px 0px 20px;
+}
+
+.link,
+.text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.text span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.text span:first-child {
+  align-items: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  display: flex;
+  padding: 0 10px 0 0;
+  margin: 0 5px 0 0;
+  text-align: right;
+}
+
+.status {
+  text-transform: uppercase;
+  color: #ee4d2d;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.buttons {
+  width: 100%;
+  padding: 20px;
+  background: #fffcf5;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0px 0px 20px;
+  gap: 20px;
+}
+
+.button {
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 15px 35px;
+  background-color: var(--btnBg);
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.btnCancel {
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  color: #555;
+  background-color: var(--bg);
+}
+
+.btnCancel:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  color: #cc5833;
+  background-color: #e9ecef;
+}
+
+.cancel {
+  color: #ee4d2d;
+  font-size: 20px !important;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.user {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+  margin: 0px 0px 20px;
+}
+
+.user h2 {
+  margin-left: 10px;
+  font-weight: 500;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addButton {
+  padding: 10px;
+  background-color: var(--btnBg);
+  color: var(--bgSoft);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+}
+
+.table td {
+  padding: 10px;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.productImage {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.price {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  padding: 15px 10px;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.priceList {
+  width: 50%;
+}
+
+.priceItem {
+  font-size: 16px;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #dedddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.priceItem:last-child {
+  border-bottom: none;
+  font-weight: 600;
+}
+
+.payment {
+  display: flex;
+  gap: 20px;
+}

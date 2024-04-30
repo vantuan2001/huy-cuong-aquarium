@@ -1,0 +1,89 @@
+.banner {
+  position: relative;
+  top: -80px;
+}
+
+.videopos,
+.images,
+.error {
+  background: white;
+  margin: 0 auto;
+  height: auto;
+}
+.videoWrapper,
+.imageWrapper {
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.video,
+.image {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.image {
+  height: 750px;
+  object-fit: cover;
+}
+.switcherContainer {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  opacity: 0.8;
+  filter: invert(1);
+  background-color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease-in 0s;
+}
+
+.switcherContainer:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0);
+  -webkit-transition: all 0.3s ease-in;
+  -moz-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in 0s;
+}
+
+.switcherContainer:after {
+  content: "";
+  border: 0px solid black;
+  background: url(https://res.cloudinary.com/quentindigital/image/upload/v1598656567/icons/sound-off_rhwz0o.svg)
+    center center;
+  background-size: 100%;
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+
+.switcherOpen:after {
+  background: url(https://res.cloudinary.com/quentindigital/image/upload/v1598656567/icons/sound-on_vztd3h.svg)
+    center center;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+@media (max-width: 475px) {
+  .switcherContainer:after {
+    width: 25px;
+    height: 25px;
+  }
+
+  .videoWrapper,
+  .imageWrapper {
+    padding-bottom: 56.25%;
+    height: 0;
+  }
+}

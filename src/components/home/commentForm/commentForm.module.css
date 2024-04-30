@@ -1,0 +1,90 @@
+.container {
+  flex: 5;
+}
+
+.container h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.star button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.on {
+  color: #d26e4b;
+}
+
+.off {
+  color: #ccc;
+}
+
+.item {
+  margin-bottom: 20px;
+  gap: 10px;
+  display: flex;
+}
+
+.item input,
+.item textarea {
+  width: 100%;
+  background-color: #f2f3f7;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.item input {
+  height: 50px;
+  padding: 0 15px;
+}
+
+.item textarea {
+  padding: 15px;
+  resize: none;
+}
+
+.button {
+  width: 250px;
+  height: 50px;
+  background-color: var(--btn);
+  color: var(--bg);
+  border-radius: 6px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--btn-hover);
+}
+
+@media (max-width: 475px) {
+  .item {
+    margin-bottom: 10px;
+  }
+
+  .item input {
+    height: 45px;
+    padding: 0 10px;
+  }
+
+  .item textarea {
+    padding: 10px;
+    height: 100px;
+    resize: none;
+  }
+
+  .button {
+    width: 180px;
+    height: 45px;
+  }
+}

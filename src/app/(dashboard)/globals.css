@@ -1,0 +1,44 @@
+:root {
+  --bg: #f5f4fe;
+  --bgSoft: #fff;
+  --bgHover: rgba(255, 110, 64, 0.15);
+  --text: #000;
+  --textSoft: #ff6e40;
+  --btnBg: #ff6e40;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ql-editor {
+  min-height: 200px !important;
+}
+
+.editor .ql-toolbar,
+.editor .ql-container {
+  border: 2px solid #ced4da !important;
+  border-radius: 5px;
+}
+.editor .ql-container {
+  border-top: 0px !important;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}

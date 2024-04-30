@@ -1,0 +1,41 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 30px;
+}
+
+.form input {
+  padding: 20px;
+  background-color: var(--bg);
+  border: 1px solid var(--btn-hover);
+  color: var(--text);
+  border-radius: 5px;
+  outline: none;
+}
+
+.form button {
+  padding: 20px;
+  cursor: pointer;
+  background-color: var(--btn);
+  color: var(--bg);
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+}
+
+.form button:hover {
+  background-color: var(--btn-hover);
+}
+
+@media (max-width: 475px) {
+  .form {
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  .form input,
+  .form button {
+    padding: 15px;
+  }
+}

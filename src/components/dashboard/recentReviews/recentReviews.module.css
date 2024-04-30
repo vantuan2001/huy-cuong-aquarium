@@ -1,0 +1,71 @@
+.salesItem {
+  flex: 1;
+  padding: 24px;
+  background-color: var(--bgSoft);
+  border-radius: 10px;
+  width: 300px;
+}
+
+.itemHeader {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon {
+  font-size: 32px;
+}
+
+.link {
+  font-size: 16px;
+  text-decoration: none;
+  color: #ff470d;
+}
+
+.link:hover {
+  color: #cc5833;
+}
+
+.salesItem h4 {
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info span {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.slider {
+  width: 300px !important;
+}
+
+.user {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.text h3 {
+  font-weight: 600;
+}
+
+.text span {
+  font-size: 16px;
+}
+
+.star {
+  font-size: 25px !important;
+  color: #d26e4b;
+}
+
+.comment {
+  font-size: 16px !important;
+}

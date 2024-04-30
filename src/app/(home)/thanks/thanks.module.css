@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.button {
+  display: flex;
+  gap: 30px;
+  width: 40%;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  height: 45px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: var(--bg);
+  background-color: var(--btn);
+  gap: 10px;
+}
+
+.link:hover {
+  background-color: var(--btn-hover);
+}
+
+@media (max-width: 475px) {
+  .container {
+    gap: 30px;
+    height: 85vh;
+  }
+
+  .button {
+    flex-direction: column;
+    width: 50%;
+    gap: 20px;
+  }
+
+  .link {
+    font-size: 14px;
+  }
+}
