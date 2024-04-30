@@ -8,9 +8,12 @@ import Link from "next/link";
 import { AiOutlineDoubleRight } from "react-icons/ai";
 
 const fetchCategories = async () => {
-  const res = await fetch("http://localhost:3000/api/category", {
-    next: { revalidate: 3600 },
-  });
+  const res = await fetch(
+    "https://huy-cuong-aquarium.vercel.app/api/category",
+    {
+      next: { revalidate: 3600 },
+    }
+  );
   if (!res.ok) {
     throw new Error("Đã xảy ra lỗi");
   }
@@ -18,7 +21,7 @@ const fetchCategories = async () => {
 };
 
 const fetchBrands = async () => {
-  const res = await fetch("http://localhost:3000/api/brands", {
+  const res = await fetch("https://huy-cuong-aquarium.vercel.app/api/brands", {
     next: { revalidate: 3600 },
   });
 

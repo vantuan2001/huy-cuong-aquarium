@@ -4,7 +4,7 @@ import Image from "next/image";
 import UserForm from "./userForm";
 
 // const getData = async (title) => {
-//   const res = await fetch(`http://localhost:3000/api/user/${title}`, {
+//   const res = await fetch(`https://huy-cuong-aquarium.vercel.app/api/user/${title}`, {
 //     next: { revalidate: 3600 },
 //   });
 

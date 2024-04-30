@@ -56,16 +56,22 @@ const CheckoutForm = ({ user }) => {
         userId: user._id,
       };
 
-      await axios.post("http://localhost:3000/api/orders", newOrder);
+      await axios.post(
+        "https://huy-cuong-aquarium.vercel.app/api/orders",
+        newOrder
+      );
       console.log("saved to db");
       products.map((item) => {
         const updateProduct = async () => {
           try {
-            await axios.put(`http://localhost:3000/api/products/quantity`, {
-              id: item.id,
-              stock: item.stock - item.quantity,
-              sold: item.sold + +item.quantity,
-            });
+            await axios.put(
+              `https://huy-cuong-aquarium.vercel.app/api/products/quantity`,
+              {
+                id: item.id,
+                stock: item.stock - item.quantity,
+                sold: item.sold + +item.quantity,
+              }
+            );
             console.log("Số lượng sản phẩm được cập nhật thành công");
           } catch (err) {
             console.error("Lỗi cập nhật số lượng sản phẩm:", err);
@@ -102,16 +108,22 @@ const CheckoutForm = ({ user }) => {
         userId: user._id,
       };
 
-      await axios.post("http://localhost:3000/api/orders", newOrder);
+      await axios.post(
+        "https://huy-cuong-aquarium.vercel.app/api/orders",
+        newOrder
+      );
       console.log("saved to db");
       products.map((item) => {
         const updateProduct = async () => {
           try {
-            await axios.put(`http://localhost:3000/api/products/quantity`, {
-              id: item.id,
-              stock: item.stock - item.quantity,
-              sold: item.sold + +item.quantity,
-            });
+            await axios.put(
+              `https://huy-cuong-aquarium.vercel.app/api/products/quantity`,
+              {
+                id: item.id,
+                stock: item.stock - item.quantity,
+                sold: item.sold + +item.quantity,
+              }
+            );
             console.log("Số lượng sản phẩm được cập nhật thành công");
           } catch (err) {
             console.error("Lỗi cập nhật số lượng sản phẩm:", err);
