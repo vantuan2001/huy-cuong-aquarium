@@ -2,7 +2,8 @@
 import Image from "next/image";
 import styles from "./singleProduct.module.css";
 import { useState } from "react";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import { updateProduct } from "@/lib/action";
 
 const UpdateProductForm = ({ product }) => {

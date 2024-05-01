@@ -3,7 +3,8 @@ import { useState } from "react";
 import styles from "./singleNews.module.css";
 import Image from "next/image";
 import { updateNews } from "@/lib/action";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const NewsForm = ({ news }) => {
   const [title, setTitle] = useState(news.title);

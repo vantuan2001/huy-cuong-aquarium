@@ -8,9 +8,12 @@ import moment from "moment";
 
 // LẤY DỮ LIỆU BẰNG API
 const getData = async (title) => {
-  const res = await fetch(`http://localhost:3000/api/news/${title}`, {
-    next: { revalidate: 3600 },
-  });
+  const res = await fetch(
+    `https://huy-cuong-aquarium.vercel.app/api/news/${title}`,
+    {
+      next: { revalidate: 3600 },
+    }
+  );
 
   if (!res.ok) {
     throw new Error("Đã xảy ra lỗi");

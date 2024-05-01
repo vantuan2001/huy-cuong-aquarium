@@ -12,7 +12,6 @@ pnpm install
 bun install
 ```
 
-
 run the development server:
 
 ```bash
@@ -25,4 +24,4 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [https://huy-cuong-aquarium.vercel.app](https://huy-cuong-aquarium.vercel.app) with your browser to see the result.

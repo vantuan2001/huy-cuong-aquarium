@@ -5,7 +5,7 @@ import { AiOutlineDoubleRight } from "react-icons/ai";
 import NewsCard from "@/components/home/cardNews/newsCard";
 
 const fetchData = async () => {
-  const res = await fetch("http://localhost:3000/api/news", {
+  const res = await fetch("https://huy-cuong-aquarium.vercel.app/api/news", {
     next: { revalidate: 3600 },
   });
 

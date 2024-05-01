@@ -7,9 +7,12 @@ import Link from "next/link";
 import ProductButton from "./productButton/productButton";
 
 const getData = async (title) => {
-  const res = await fetch(`http://localhost:3000/api/products/${title}`, {
-    next: { revalidate: 1 },
-  });
+  const res = await fetch(
+    `https://huy-cuong-aquarium.vercel.app/api/products/${title}`,
+    {
+      next: { revalidate: 1 },
+    }
+  );
 
   if (!res.ok) {
     throw new Error("Đã xảy ra lỗi");

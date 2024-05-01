@@ -4,7 +4,8 @@ import { addNews } from "@/lib/action";
 import styles from "./addNews.module.css";
 import Image from "next/image";
 import { useState } from "react";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const AddNewsPage = () => {
   const [file, setFile] = useState(null);

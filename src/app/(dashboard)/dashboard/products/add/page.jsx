@@ -8,7 +8,6 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const AddProductPage = () => {
-  // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const [file, setFile] = useState(null);
   const [info, setInfo] = useState("");
   const [desc, setDesc] = useState("");
