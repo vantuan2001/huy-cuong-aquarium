@@ -786,7 +786,7 @@ export const updateSetting = async (formData) => {
     await Setting.findByIdAndUpdate(id, updateFields);
   } catch (err) {
     console.log(err);
-    throw new Error("Không thể cập nhật hình logo!");
+    throw new Error("Không thể cập nhật cài đặt!");
   }
 
   revalidatePath("/dashboard/settings");

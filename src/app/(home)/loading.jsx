@@ -1,12 +1,13 @@
 "use client";
 
 // import { useState } from "react";
-import { RingLoader } from "react-spinners";
+import { BarLoader } from "react-spinners";
 
 const Loading = () => {
   return (
     <div className="loading">
-      <RingLoader color="#9acf78" loading size={80} />
+      <h2>HUY CƯỜNG AQUARIUM</h2>
+      <BarLoader color="#9acf78" height={10} width={300} />
     </div>
   );
 };

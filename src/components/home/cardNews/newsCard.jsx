@@ -28,7 +28,9 @@ const NewsCard = ({ post, type }) => {
           <h2 className={styles.title}>{post.title}</h2>
           <div
             className={styles.desc}
-            dangerouslySetInnerHTML={{ __html: post?.desc }}
+            dangerouslySetInnerHTML={{
+              __html: post?.desc.toString().slice(0, 100),
+            }}
           />
         </div>
       </Link>

@@ -4,6 +4,7 @@ import { fetchProduct } from "@/lib/data";
 
 const ProductItem = async ({ item }) => {
   const product = await fetchProduct(item.productId);
+  // const productObject = JSON.parse(JSON.stringify(product));
   return (
     <div className={styles.container}>
       <div className={styles.info}>

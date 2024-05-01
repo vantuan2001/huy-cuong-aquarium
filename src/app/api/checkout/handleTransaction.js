@@ -1,5 +1,5 @@
 const { default: axios } = require("axios");
-const BASE_URL = "http://localhost:8888/order";
+const BASE_URL = "https://vnpay-fd5k.onrender.com/order";
 import https from "https";
 
 const agent = new https.Agent({
@@ -39,11 +39,14 @@ axiosclient.interceptors.response.use(
 
 export const handleTransaction = {
   bank: async (amount, orderId) => {
-    return axios.post("http://localhost:8888/order/create_payment_url", {
-      amount: amount,
-      orderId: orderId,
-      bankCode: "VNBANK",
-      language: "vn",
-    });
+    return axios.post(
+      "https://vnpay-fd5k.onrender.com/order/create_payment_url",
+      {
+        amount: amount,
+        orderId: orderId,
+        bankCode: "VNBANK",
+        language: "vn",
+      }
+    );
   },
 };

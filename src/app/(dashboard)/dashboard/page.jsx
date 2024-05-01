@@ -19,6 +19,7 @@ const Dashboard = async () => {
   const page = 1;
   const number = 5;
   const { reviews } = await fetchReviews(q, page, number);
+  const reviewsObject = JSON.parse(JSON.stringify(reviews));
   const { orders } = await getOrders();
   const productsSelling = await getbestSellingProduct(number);
   const productsViewed = await getViewedProduct(number);
@@ -39,7 +40,7 @@ const Dashboard = async () => {
           </div>
         </div>
         <TotalSales orders={orders} />
-        <RecentReviews reviews={reviews} />
+        <RecentReviews reviews={reviewsObject} />
       </div>
       <Chart />
 

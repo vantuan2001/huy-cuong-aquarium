@@ -9,6 +9,7 @@ const ReviewsPage = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const number = 10;
   const { count, reviews } = await fetchReviews(q, page, number);
+  const reviewsObject = JSON.parse(JSON.stringify(reviews));
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -24,7 +25,7 @@ const ReviewsPage = async ({ searchParams }) => {
           </tr>
         </thead>
         <tbody>
-          {reviews.map((review) => (
+          {reviewsObject.map((review) => (
             <tr key={review._id}>
               <td>{review.username}</td>
               <td>{review.email}</td>

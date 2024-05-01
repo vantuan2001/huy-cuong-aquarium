@@ -15,7 +15,9 @@ const Home = async () => {
   const id = "661a894e2c902060a3e28ed9";
   const banner = await fetchSetting(id);
   const categories = await getCategories();
+  const categoriesObject = JSON.parse(JSON.stringify(categories));
   const products = await fetchProductsNews();
+  const productsObject = JSON.parse(JSON.stringify(products));
   const limit = 10;
   const news = await fetchLimitNews(limit);
 
@@ -23,8 +25,8 @@ const Home = async () => {
     <div className={styles.container}>
       <Banner bannerUrl={banner.imgBanner} />
       <div className="container">
-        <Category categories={categories} />
-        <FeaturedProducts title="Hàng mới về" products={products} />
+        <Category categories={categoriesObject} />
+        <FeaturedProducts title="Hàng mới về" products={productsObject} />
         <div className={styles.adv}>
           <Image
             src="/mid_banner_image_1.png"

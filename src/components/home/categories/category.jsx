@@ -56,7 +56,7 @@ const Category = ({ categories }) => {
         {isClient ? (
           <Slider {...settings}>
             {categories.map((item) => (
-              <div key={item._id}>
+              <div key={item._id.toString()}>
                 <Link className={styles.item} href={`/products?c=${item.name}`}>
                   <Image
                     src={item.img_logo}

@@ -6,12 +6,9 @@ import { fetchNews } from "@/lib/data";
 // import { getCategories } from "@/app/lib/data";
 
 const getCategories = async () => {
-  const res = await fetch(
-    "https://huy-cuong-aquarium.vercel.app/api/category",
-    {
-      next: { revalidate: 1 },
-    }
-  );
+  const res = await fetch("http://localhost:3000/api/category", {
+    next: { revalidate: 1 },
+  });
 
   if (!res.ok) {
     throw new Error("Đã xảy ra lỗi");

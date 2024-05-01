@@ -8,12 +8,9 @@ import Link from "next/link";
 import { AiOutlineDoubleRight } from "react-icons/ai";
 
 const fetchCategories = async () => {
-  const res = await fetch(
-    "https://huy-cuong-aquarium.vercel.app/api/category",
-    {
-      next: { revalidate: 3600 },
-    }
-  );
+  const res = await fetch("http://localhost:3000/api/category", {
+    next: { revalidate: 3600 },
+  });
   if (!res.ok) {
     throw new Error("Đã xảy ra lỗi");
   }
@@ -21,7 +18,7 @@ const fetchCategories = async () => {
 };
 
 const fetchBrands = async () => {
-  const res = await fetch("https://huy-cuong-aquarium.vercel.app/api/brands", {
+  const res = await fetch("http://localhost:3000/api/brands", {
     next: { revalidate: 3600 },
   });
 
@@ -38,6 +35,7 @@ const Products = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const number = 16;
   const { count, products } = await fetchProducts(q, b, c, page, number);
+  const productsObject = JSON.parse(JSON.stringify(products));
   const categories = await fetchCategories();
   const brands = await fetchBrands();
   return (
@@ -71,11 +69,14 @@ const Products = async ({ searchParams }) => {
 
             <div className={styles.bottomProduct}>
               <div className={styles.list}>
-                {products.length === 0 ? (
+                {productsObject.length === 0 ? (
                   <div className={styles.noProduct}>Không có sản phẩm nào.</div>
                 ) : (
-                  products.map((product) => (
-                    <ProductCard product={product} key={product._id} />
+                  productsObject.map((product) => (
+                    <ProductCard
+                      product={product}
+                      key={product._id.toString()}
+                    />
                   ))
                 )}
               </div>

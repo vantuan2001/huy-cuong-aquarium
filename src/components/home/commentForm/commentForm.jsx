@@ -23,10 +23,7 @@ const CommentForm = ({ post, session }) => {
         userId: session.user._id,
       };
 
-      await axios.post(
-        "https://huy-cuong-aquarium.vercel.app/api/reviews",
-        newReview
-      );
+      await axios.post("http://localhost:3000/api/reviews", newReview);
       console.log("saved to db");
       window.location.reload();
     } catch (err) {
@@ -62,6 +59,7 @@ const CommentForm = ({ post, session }) => {
             placeholder="Họ Và Tên"
             name="username"
             value={username}
+            required
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
@@ -69,6 +67,7 @@ const CommentForm = ({ post, session }) => {
             placeholder="Email"
             name="email"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -80,6 +79,7 @@ const CommentForm = ({ post, session }) => {
             rows="10"
             placeholder="Nhận Xét Của Bạn"
             value={comment}
+            required
             onChange={(e) => setComment(e.target.value)}
           ></textarea>
         </div>

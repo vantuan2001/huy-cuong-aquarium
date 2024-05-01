@@ -12,6 +12,7 @@ const OrdersPage = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const number = 10;
   const { count, orders } = await fetchOrders(q, number, page);
+  const ordersObject = JSON.parse(JSON.stringify(orders));
   const totalPrice = () => {
     let total = 0;
     orders.forEach((item) => {
@@ -49,7 +50,7 @@ const OrdersPage = async ({ searchParams }) => {
             </td>
             <td></td>
           </tr>
-          {orders.map((order) => (
+          {ordersObject.map((order) => (
             <tr key={order._id}>
               <td>{order.username}</td>
               <td>

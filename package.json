@@ -30,11 +30,12 @@
     "recharts": "^2.12.5",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.10.8",
     "use-debounce": "^10.0.0"
   },
   "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "14.0.4"
   },
-  "proxy": "http://localhost:8888/order/create_payment_url/"
+  "proxy": "https://vnpay-fd5k.onrender.com/order/"
 }

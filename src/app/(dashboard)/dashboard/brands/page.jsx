@@ -12,6 +12,7 @@ const BrandsPage = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const number = 10;
   const { count, brands } = await fetchBrands(q, page, number);
+  const brandsObject = JSON.parse(JSON.stringify(brands));
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -28,7 +29,7 @@ const BrandsPage = async ({ searchParams }) => {
           </tr>
         </thead>
         <tbody>
-          {brands.map((brand) => (
+          {brandsObject.map((brand) => (
             <tr key={brand._id}>
               <td>{brand._id}</td>
               <td>{brand.name}</td>

@@ -12,6 +12,7 @@ const CategoriesPage = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const number = 10;
   const { count, categories } = await fetchCategories(q, page, number);
+  const categoriesObject = JSON.parse(JSON.stringify(categories));
 
   return (
     <div className={styles.container}>
@@ -29,7 +30,7 @@ const CategoriesPage = async ({ searchParams }) => {
           </tr>
         </thead>
         <tbody>
-          {categories.map((category) => (
+          {categoriesObject.map((category) => (
             <tr key={category._id}>
               <td>{category.id}</td>
               <td>{category.name}</td>
@@ -47,7 +48,7 @@ const CategoriesPage = async ({ searchParams }) => {
 
               <td>
                 <div className={styles.buttons}>
-                  <UpdateCategory category={category} />
+                  <UpdateCategory category={categoriesObject} />
                   <form action={deleteCategory}>
                     <input type="hidden" name="id" value={category.id} />
                     <button className={`${styles.button} ${styles.delete}`}>

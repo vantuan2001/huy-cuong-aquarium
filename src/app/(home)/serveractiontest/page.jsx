@@ -58,7 +58,7 @@ const ServerActionTestPage = async () => {
   // useEffect(() => {
   //   const fetchAllData = async () => {
   //     try {
-  //       const res = await axios.get("https://huy-cuong-aquarium.vercel.app/api/products");
+  //       const res = await axios.get("http://localhost:3000/api/products");
   //       setData(res.data);
   //     } catch (err) {
   //       console.log(err);
@@ -70,7 +70,7 @@ const ServerActionTestPage = async () => {
   // console.log(data);
   // const updateProduct = async () => {
   //   try {
-  //     await axios.put(`https://huy-cuong-aquarium.vercel.app/api/products/quantity`, {
+  //     await axios.put(`http://localhost:3000/api/products/quantity`, {
   //       sold: data.SoLuong - sold,
   //       stock: data.DaBan + +stock,
   //     });

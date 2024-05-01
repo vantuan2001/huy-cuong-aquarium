@@ -10,6 +10,7 @@ import { cancelOrder, updateStatusOrder } from "@/lib/action";
 const SinglePurchasePage = async ({ params }) => {
   const { id } = params;
   const order = await fetchOrder(id);
+  const orderObject = JSON.parse(JSON.stringify(order));
   const status = 1;
   // const status = order.status;
   const hasPrev = status === 4;
@@ -24,18 +25,18 @@ const SinglePurchasePage = async ({ params }) => {
         </Link>
         {status <= 0 ? (
           <div className={styles.text}>
-            <span>MÃ ĐƠN HÀNG: {order._id}</span>
+            <span>MÃ ĐƠN HÀNG: {orderObject._id}</span>
           </div>
         ) : (
           <div className={styles.text}>
-            <span>MÃ ĐƠN HÀNG: {order._id}</span>
+            <span>MÃ ĐƠN HÀNG: {orderObject._id}</span>
             <span className={styles.status}>
               <Status status={status} />
             </span>
           </div>
         )}
       </div>
-      <StatusOrder order={order} />
+      <StatusOrder order={orderObject} />
       {status <= 0 ? (
         <div className={styles.buttons}>
           <p className={styles.cancel}>Đã hủy đơn hàng</p>
@@ -49,7 +50,7 @@ const SinglePurchasePage = async ({ params }) => {
           </p>
           <div className={styles.btnGroup}>
             <form action={cancelOrder}>
-              <input type="hidden" name="id" value={order._id} />
+              <input type="hidden" name="id" value={orderObject._id} />
               <button
                 className={`${styles.button} ${styles.btnCancel}`}
                 disabled={cancel}
@@ -59,8 +60,8 @@ const SinglePurchasePage = async ({ params }) => {
             </form>
 
             <form action={updateStatusOrder}>
-              <input type="hidden" name="id" value={order._id} />
-              <input type="hidden" name="status" value={order.status} />
+              <input type="hidden" name="id" value={orderObject._id} />
+              <input type="hidden" name="status" value={orderObject.status} />
               <button className={styles.button} disabled={!hasPrev}>
                 Đã Nhận Hàng
               </button>
@@ -80,7 +81,7 @@ const SinglePurchasePage = async ({ params }) => {
             </li>
           </ul>
         </div>
-        {order.products.map((item) => (
+        {orderObject.products.map((item) => (
           <ProductItem item={item} key={item._id} />
         ))}
       </div>

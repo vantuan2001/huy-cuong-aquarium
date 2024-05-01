@@ -6,11 +6,11 @@ import { auth } from "@/lib/auth";
 const Purchase = async () => {
   const session = await auth();
   const userId = session?.user._id;
-
   const orders = await fetchOrderByUserId(userId);
+  const ordersObject = JSON.parse(JSON.stringify(orders));
   return (
     <div className={styles.container}>
-      {orders.map((order) => (
+      {ordersObject.map((order) => (
         <PurchaseOrder order={order} key={order._id} />
       ))}
     </div>
