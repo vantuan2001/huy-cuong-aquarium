@@ -137,6 +137,81 @@
   bottom: 0;
 }
 
+@media (max-width: 1536px) {
+}
+
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
+}
+
+@media (max-width: 1024px) {
+  .links {
+    display: none;
+  }
+
+  .cart {
+    padding-left: 10px;
+    color: var(--text);
+  }
+
+  .cart p {
+    display: flex;
+  }
+
+  .logout {
+    color: var(--text);
+  }
+
+  .menu {
+    display: flex;
+    z-index: 99;
+    height: 15px;
+    width: 25px;
+  }
+
+  .menu:before,
+  .menu:after,
+  .menu div {
+    width: 25px;
+    height: 2px;
+    z-index: 99;
+  }
+
+  .menu.active:before {
+    background-color: #fff;
+  }
+
+  .menu.active:after {
+    background-color: #fff;
+  }
+
+  .mobileLinks {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    cursor: default;
+    display: flex;
+  }
+
+  .mobileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: var(--bg);
+    width: 60%;
+    padding: 60px 40px;
+    z-index: 99;
+    height: 100%;
+    gap: 10px;
+  }
+}
+
 @media (max-width: 768px) {
   .links {
     display: none;
@@ -166,6 +241,67 @@
 
   .logoutHome {
     color: var(--text);
+  }
+}
+
+@media (max-width: 640px) {
+  .links {
+    display: none;
+  }
+
+  .cart {
+    padding-left: 10px;
+  }
+
+  .cart p {
+    display: flex;
+  }
+
+  .menu {
+    display: flex;
+    z-index: 99;
+    height: 15px;
+    width: 25px;
+  }
+
+  .menu:before,
+  .menu:after,
+  .menu div {
+    width: 25px;
+    height: 2px;
+    z-index: 99;
+  }
+
+  .menu.active:before {
+    background-color: #fff;
+  }
+
+  .menu.active:after {
+    background-color: #fff;
+  }
+
+  .mobileLinks {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    cursor: default;
+    display: flex;
+  }
+
+  .mobileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: var(--bg);
+    width: 60%;
+    padding: 60px 40px;
+    z-index: 99;
+    height: 100%;
+    gap: 10px;
   }
 }
 

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/cartReducer";
 import axios from "axios";
 import { BsDashLg, BsPlusLg } from "react-icons/bs";
+import Swal from "sweetalert2";
 
 const ProductButton = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -49,6 +50,14 @@ const ProductButton = ({ product }) => {
         quantity: 1,
       })
     );
+    Swal.fire({
+      position: "top-end",
+      // icon: "success",
+      title: `${product.title} thêm vào giỏ hàng thành công!`,
+      showConfirmButton: false,
+      timer: 1500,
+      height: 40,
+    });
   };
   return (
     <>

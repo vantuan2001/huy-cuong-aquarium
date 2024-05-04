@@ -2,9 +2,10 @@ import Image from "next/image";
 import styles from "./singleNews.module.css";
 import Link from "next/link";
 import { AiOutlineDoubleRight } from "react-icons/ai";
-import WidgetNews from "@/components/home/widget/widgetNews";
 import Comment from "@/components/home/comment/comment";
 import moment from "moment";
+import Filter from "@/components/home/filter/filter";
+import { fetchLimitNews, getCategories } from "@/lib/data";
 
 // LẤY DỮ LIỆU BẰNG API
 const getData = async (title) => {
@@ -35,7 +36,10 @@ export const generateMetadata = async ({ params }) => {
 
 const SingleNewsPage = async ({ params }) => {
   const { title } = params;
-  const news = await getData(title);
+  const postNews = await getData(title);
+  const categories = await getCategories();
+  const limit = 5;
+  const news = await fetchLimitNews(limit);
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -47,19 +51,19 @@ const SingleNewsPage = async ({ params }) => {
           Tin tức
         </Link>
         <AiOutlineDoubleRight />
-        <p className="breadcrumbs-link">{news.title}</p>
+        <p className="breadcrumbs-link">{postNews.title}</p>
       </div>
       <div className={styles.container}>
         <div className={styles.left}>
-          <WidgetNews />
+          <Filter news={news} categories={categories} />
         </div>
         <div className={styles.right}>
-          <h3 className={styles.title}>{news.title}</h3>
+          <h3 className={styles.title}>{postNews.title}</h3>
           <span className={styles.date}>
-            {moment(news.createdAt).format("DD/MM/YYYY")}
+            {moment(postNews.createdAt).format("DD/MM/YYYY")}
           </span>
           <Image
-            src={news.img}
+            src={postNews.img}
             alt=""
             width={450}
             height={450}
@@ -67,9 +71,9 @@ const SingleNewsPage = async ({ params }) => {
           />
           <div
             className={styles.desc}
-            dangerouslySetInnerHTML={{ __html: news?.desc }}
+            dangerouslySetInnerHTML={{ __html: postNews?.desc }}
           />
-          <Comment post={news} />
+          <Comment post={postNews} />
         </div>
       </div>
     </div>

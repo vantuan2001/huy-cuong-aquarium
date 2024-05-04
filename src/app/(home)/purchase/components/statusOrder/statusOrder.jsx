@@ -1,5 +1,6 @@
+import { FaRegStar, FaShippingFast } from "react-icons/fa";
 import styles from "./statusOrder.module.css";
-import { BsInboxFill } from "react-icons/bs";
+import { BsCash, BsClipboard2Check, BsInboxFill } from "react-icons/bs";
 const StatusOrder = ({ order }) => {
   const status = order.status;
   const paymentMethods = order.paymentMethods;
@@ -24,11 +25,11 @@ const StatusOrder = ({ order }) => {
       ) : (
         <div className={styles.status}>
           <div className={`${styles.item} ${statusClass(2)}`}>
-            <BsInboxFill className={styles.icon} />
+            <BsClipboard2Check className={styles.icon} />
             {status > 1 ? <p>Đơn hàng đã đặt</p> : <p>Chờ xác nhận</p>}
           </div>
           <div className={`${styles.item} ${statusClass(2)}`}>
-            <BsInboxFill className={styles.icon} />
+            <BsCash className={styles.icon} />
             {status > 1 ? (
               paymentMethods === 1 ? (
                 <p>
@@ -47,7 +48,7 @@ const StatusOrder = ({ order }) => {
             )}
           </div>
           <div className={`${styles.item} ${statusClass(3)}`}>
-            <BsInboxFill className={styles.icon} />
+            <FaShippingFast className={styles.icon} />
             {status > 3 ? <p>Đã giao cho ĐVVC</p> : <p>Chờ giao cho ĐVVC</p>}
           </div>
           <div className={`${styles.item} ${statusClass(4)}`}>
@@ -55,7 +56,7 @@ const StatusOrder = ({ order }) => {
             {status > 4 ? <p>Đã nhận được hàng</p> : <p>Chờ giao hàng</p>}
           </div>
           <div className={`${styles.item} ${statusClass(5)}`}>
-            <BsInboxFill className={styles.icon} />
+            <FaRegStar className={styles.icon} />
             <p>Đơn hàng đã hoàn thành</p>
           </div>
           <div className={styles.stepper}>

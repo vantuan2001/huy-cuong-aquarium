@@ -68,38 +68,31 @@
   text-align: left;
 }
 
-.quantity div {
+.quantity {
   display: flex;
-  position: relative;
-  width: 70px;
 }
 
 .decrement {
-  position: absolute;
-  right: 4px;
-  bottom: 2px;
-  font-size: 14px;
   cursor: pointer;
-  border: none;
+  border: 1px solid #eaeaea;
+  height: 40px;
+  width: 40px;
   background: none;
 }
 
 .increment {
-  position: absolute;
-  right: 4px;
-  top: 2px;
-  font-size: 14px;
   cursor: pointer;
-  border: none;
+  border: 1px solid #eaeaea;
+  height: 40px;
+  width: 40px;
   background: none;
 }
 
-.quantity div input {
+.quantity input {
   border: 1px solid #eaeaea;
-  padding: 10px;
-  max-width: 50px;
-  font-size: 16px;
-  border-radius: 5px;
+  height: 40px;
+  width: 40px;
+  text-align: center;
   outline: none;
 }
 

@@ -3,49 +3,56 @@
 import { addCategory, deleteNews } from "@/lib/action";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
+import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 
 const FormTest = ({ product }) => {
-  const form = useRef();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const order = "313sdfwr233424";
+  const date = moment(Date.now()).format("h:mm DD-MM-YYYY");
+
+  const [name, setName] = useState("Văn Tuấn");
+  const [email, setEmail] = useState("bongcai2128@gmail.com");
+  const [message, setMessage] = useState(
+    `Đơn hàng #${order} của bạn đã được giao thành công ngày ${date}.`
+  );
   const [sold, setSold] = useState("");
   const [stock, setStock] = useState("");
 
-  const serviceID = "service_a0uwnv6";
-  const templateId = "template_r785pfh";
-  const publicKey = "M4Aev_KqPQXpxj4Sl";
+  const YOUR_SERVICE_ID = "service_a0uwnv6";
+  const YOUR_TEMPLATE_ID = "template_ksomju7";
+  const YOUR_PUBLIC_KEY = "M4Aev_KqPQXpxj4Sl";
+  const form = useRef();
 
-  const sendEmail = async (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
 
-    const data = {
-      service_id: serviceID,
-      template_id: templateId,
-      user_id: publicKey,
-      templatePrams: {
-        from_name: name,
-        from_email: email,
-        to_name: name,
-        message: message,
-      },
-    };
+    emailjs
+      .send(
+        YOUR_SERVICE_ID,
+        YOUR_TEMPLATE_ID,
+        {
+          to_name: "Văn Tuấn",
+          message: `Chúng tôi xin thông báo rằng có một đơn đặt hàng mới đã được nhận từ website của cửa hàng vào lúc ${date} hôm nay.`,
+          // from_name: order,
+        },
+        {
+          publicKey: YOUR_PUBLIC_KEY,
+        }
+      )
 
-    try {
-      const res = await axios.post(
-        "https://api.emailjs.com/api/v1.0/email/send",
-        data
+      // emailjs
+      //   .sendForm(YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, form.current, {
+      //     publicKey: YOUR_PUBLIC_KEY,
+      //   })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
       );
-      setName("");
-      setEmail("");
-      setMessage("");
-      console.log("SUCCESS!", res.data);
-    } catch (error) {
-      console.log("FAILED...", error.text);
-    }
   };
-  console.log(product._id);
   const updateProduct = async () => {
     try {
       await axios.put(
@@ -87,7 +94,9 @@ const FormTest = ({ product }) => {
         />
         <button onClick={updateProduct}>update product</button>
       </div>
-      <form ref={form} onSubmit={sendEmail}>
+      <button onClick={sendEmail}>email</button>
+      {/* <form ref={form} onSubmit={sendEmail}>
+        <input type="text" name="from_name" />
         <label>Name</label>
         <input
           type="text"
@@ -109,7 +118,7 @@ const FormTest = ({ product }) => {
           onChange={(e) => setMessage(e.target.value)}
         />
         <input type="submit" value="Send" />
-      </form>
+      </form> */}
       <div>add category</div>
       <form action={addCategory}>
         <input type="text" placeholder="name" name="name" />

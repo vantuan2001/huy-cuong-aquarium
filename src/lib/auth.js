@@ -9,16 +9,13 @@ const login = async (credentials) => {
   try {
     connectToDb();
     const user = await User.findOne({ phone: credentials.phone });
-
     if (!user) throw new Error("Thông tin đăng nhập không đúng!");
-
     const isPasswordCorrect = await bcrypt.compare(
       credentials.password,
       user.password
     );
 
     if (!isPasswordCorrect) throw new Error("Thông tin đăng nhập không đúng!");
-
     return user;
   } catch (err) {
     console.log(err);

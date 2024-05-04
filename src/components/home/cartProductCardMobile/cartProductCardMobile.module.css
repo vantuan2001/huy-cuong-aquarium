@@ -58,7 +58,8 @@
 }
 
 .quantity input {
-  border: 1px solid #eaeaea;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
   height: 30px;
   width: 30px;
   text-align: center;

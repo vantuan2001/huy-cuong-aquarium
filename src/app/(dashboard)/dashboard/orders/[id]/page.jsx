@@ -12,8 +12,8 @@ const SingleOrderPage = async ({ params }) => {
   const { id } = params;
   const order = await fetchOrder(id);
   const status = order.status;
-  const next = status >= 5;
-  const cancel = status === 5;
+  const next = order.status < 1 || order.status >= 5;
+  const cancel = order.status === 1;
   const totalPrice = () => {
     let total = 0;
     order.products.forEach((item) => {
@@ -52,7 +52,7 @@ const SingleOrderPage = async ({ params }) => {
             <input type="hidden" name="id" value={order._id} />
             <button
               className={`${styles.button} ${styles.btnCancel}`}
-              disabled={cancel}
+              disabled={!cancel}
             >
               Huỷ Đơn Hàng
             </button>

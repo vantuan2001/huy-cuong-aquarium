@@ -2,9 +2,9 @@
 import Image from "next/image";
 import styles from "./singleProduct.module.css";
 import { useState } from "react";
+import { updateProduct } from "@/lib/action";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import { updateProduct } from "@/lib/action";
 
 const UpdateProductForm = ({ product }) => {
   // const router = useRouter();

@@ -31,8 +31,8 @@ const CartProductCardMobile = ({ product }) => {
           }).format(product.price)}
         </p>
       </div>
-      <div div className={styles.button}>
-        <div div className={styles.quantity}>
+      <div className={styles.button}>
+        <div className={styles.quantity}>
           <button
             className={styles.decrement}
             onClick={() =>

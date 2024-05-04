@@ -27,6 +27,18 @@
   cursor: pointer;
 }
 
+@media (max-width: 1536px) {
+}
+
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
+  .advImage {
+    width: 49% !important;
+  }
+}
+
 @media (max-width: 1024px) {
   .container {
     flex-direction: column;
@@ -35,6 +47,14 @@
 
   .buttons {
     justify-content: center;
+  }
+
+  .adv {
+    margin-bottom: 30px;
+  }
+
+  .advImage {
+    width: 48% !important;
   }
 }
 
@@ -46,9 +66,18 @@
   .brands {
     width: 100%;
   }
+
+  .adv {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .advImage {
+    width: 100% !important;
+  }
 }
 
-@media (max-width: 475px) {
+@media (max-width: 640px) {
   .slick-next:before,
   .slick-prev:before {
     color: var(--text) !important;
@@ -59,17 +88,10 @@
     padding-left: 0 !important;
   }
 
-  .adv {
-    flex-direction: column;
-
-    margin-bottom: 20px;
-  }
-
-  .advImage {
-    width: 100% !important;
-  }
-
   .slider {
     margin-bottom: 5px;
   }
+}
+
+@media (max-width: 475px) {
 }

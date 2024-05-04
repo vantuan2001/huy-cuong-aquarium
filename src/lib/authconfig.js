@@ -26,6 +26,8 @@ export const authConfig = {
       const isOnCheckoutPage =
         request.nextUrl?.pathname.startsWith("/checkout");
       const isOnThanksPage = request.nextUrl?.pathname.startsWith("/thanks");
+      const isOnPurchasePage =
+        request.nextUrl?.pathname.startsWith("/purchase");
       const isOnLoginPage = request.nextUrl?.pathname.startsWith("/login");
       // Chỉ có quản trị viên mới có thể truy cập vào bảng điều khiển quản trị.
       if (isOnDashboardPanel && !user?.isAdmin) {
@@ -35,12 +37,19 @@ export const authConfig = {
       if (isOnCheckoutPage && !user) {
         return false;
       }
+      // Chỉ người dùng đã xác thực mới có thể truy cập trang quản lý đơn hàng.
+      if (isOnPurchasePage && !user) {
+        return false;
+      }
       // Chỉ người dùng đã xác thực mới có thể truy cập trang cảm ơn.
       if (isOnThanksPage && !user) {
         return false;
       }
-      // Chỉ những người dùng chưa được xác thực mới có thể truy cập trang đăng nhập.
-
+      // Kiểm tra xem người dùng có đang ở trên trang đăng nhập không và liệu người dùng có phải là quản trị viên hay không. Nếu cả hai điều kiện đều đúng, mã sẽ chuyển hướng người dùng đến trang dashboard
+      if (isOnLoginPage && user?.isAdmin) {
+        return Response.redirect(new URL("/dashboard", request.nextUrl));
+      }
+      // Kiểm tra xem người dùng có đang ở trang đăng nhập và có tồn tại không. Nếu cả hai điều kiện đều đúng, mã sẽ chuyển hướng người dùng về trang chủ,
       if (isOnLoginPage && user) {
         return Response.redirect(new URL("/", request.nextUrl));
       }

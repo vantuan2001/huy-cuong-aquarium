@@ -34,18 +34,36 @@
   background-color: var(--text-active);
 }
 
-@media (max-width: 768px) {
-  .small {
-    color: var(--text);
-  }
+@media (max-width: 1536px) {
 }
 
-@media (max-width: 475px) {
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
+}
+
+@media (max-width: 1024px) {
   .container {
     text-align-last: left;
   }
 
+  .active,
+  .container:hover {
+    color: var(--text-active) !important;
+  }
+
+  .small,
   .navHome {
     color: var(--text);
   }
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 640px) {
+}
+
+@media (max-width: 475px) {
 }

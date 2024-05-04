@@ -3,7 +3,7 @@
 import { useState } from "react";
 import styles from "./cartProductCard.module.css";
 import Image from "next/image";
-import { FaChevronDown, FaChevronUp, FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { removeItem, updateCart } from "@/redux/cartReducer";
 
@@ -22,7 +22,6 @@ const CartProductCard = ({ product }) => {
             alt=""
             className={styles.img}
           />
-
           <span className={styles.title}>{product.title}</span>
         </div>
       </td>
@@ -33,7 +32,7 @@ const CartProductCard = ({ product }) => {
         }).format(product.price)}{" "}
       </td>
       <td className={styles.quantity}>
-        <div>
+        <div className={styles.quantity}>
           <button
             className={styles.decrement}
             onClick={() =>
@@ -46,7 +45,7 @@ const CartProductCard = ({ product }) => {
               )
             }
           >
-            <FaChevronDown />
+            -
           </button>
           <input
             type={styles.text}
@@ -61,7 +60,6 @@ const CartProductCard = ({ product }) => {
               )
             }
           />
-
           <button
             className={styles.increment}
             onClick={() =>
@@ -74,7 +72,7 @@ const CartProductCard = ({ product }) => {
               )
             }
           >
-            <FaChevronUp />
+            +
           </button>
         </div>
       </td>

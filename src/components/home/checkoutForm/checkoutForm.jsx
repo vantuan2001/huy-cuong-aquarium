@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import styles from "./checkoutForm.module.css";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import CheckoutProductCard from "@/components/home/checkoutProductCard/checkoutProductCard";
 import { handleTransaction } from "@/app/api/checkout/handleTransaction";
 import axios from "axios";
+import emailjs from "@emailjs/browser";
 import { useRouter } from "next/navigation";
 import { resetCart } from "@/redux/cartReducer";
+import moment from "moment";
 
 const CheckoutForm = ({ user }) => {
   const dispatch = useDispatch();
@@ -34,14 +34,41 @@ const CheckoutForm = ({ user }) => {
     .filter(Boolean)
     .join(",");
   const [note, setNote] = useState("");
-
+  const date = moment(Date.now()).format("h:mm DD-MM-YYYY");
   const [isClient, setIsClient] = useState(false);
+
+  const YOUR_SERVICE_ID = "service_a0uwnv6";
+  const YOUR_TEMPLATE_ID = "template_ksomju7";
+  const YOUR_PUBLIC_KEY = "M4Aev_KqPQXpxj4Sl";
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const handleCreate = async () => {
+  const sendEmail = () => {
+    emailjs
+      .send(
+        YOUR_SERVICE_ID,
+        YOUR_TEMPLATE_ID,
+        {
+          to_name: "Văn Tuấn",
+          message: `Chúng tôi xin thông báo rằng có một đơn đặt hàng mới đã được nhận từ website của cửa hàng vào lúc ${date} hôm nay.`,
+        },
+        {
+          publicKey: YOUR_PUBLIC_KEY,
+        }
+      )
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
+  };
+
+  const handleCOD = async () => {
     try {
       const newOrder = {
         username,
@@ -81,6 +108,7 @@ const CheckoutForm = ({ user }) => {
         return updateProduct();
       });
 
+      sendEmail();
       router.push("/thanks");
       dispatch(resetCart());
     } catch (err) {
@@ -88,7 +116,7 @@ const CheckoutForm = ({ user }) => {
     }
   };
 
-  const fetchData = async () => {
+  const handleVNPAY = async () => {
     const orderId = Math.floor(Math.random() * 999999);
     const response = await handleTransaction.bank(totalPrice(), orderId);
     const data = response.data;
@@ -131,6 +159,7 @@ const CheckoutForm = ({ user }) => {
         };
         return updateProduct();
       });
+      sendEmail();
       window.location.href = url;
       dispatch(resetCart());
       return url;
@@ -276,10 +305,10 @@ const CheckoutForm = ({ user }) => {
           </div>
         </div>
         <div className={styles.payment}>
-          <button className={styles.button} onClick={handleCreate}>
+          <button className={styles.button} onClick={handleCOD}>
             Thanh toán khi nhận hàng
           </button>
-          <button className={styles.button} onClick={fetchData}>
+          <button className={styles.button} onClick={handleVNPAY}>
             Thanh toán VNPAY
           </button>
         </div>

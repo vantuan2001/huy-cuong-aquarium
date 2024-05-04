@@ -98,6 +98,17 @@ export const fetchBrands = async (q, page, number) => {
   }
 };
 
+export const getBrands = async () => {
+  try {
+    connectToDb();
+    const brands = await Brand.find().sort({ createdAt: -1 });
+    return brands;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Không thể truy xuất thương hiệu!");
+  }
+};
+
 export const fetchBrand = async (id) => {
   try {
     connectToDb();

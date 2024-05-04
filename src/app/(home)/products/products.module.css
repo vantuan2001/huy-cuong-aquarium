@@ -17,49 +17,6 @@
   display: flex;
 }
 
-.left {
-  flex: 1;
-  height: 100%;
-  padding-right: 20px;
-}
-
-.filterItem {
-  margin-bottom: 30px;
-}
-
-.filterItem h3 {
-  font-weight: 400;
-  margin-bottom: 20px;
-}
-
-.box {
-  padding: 20px;
-  border-radius: 5px;
-  border: 2px solid #e5e7eb;
-}
-
-.inputItem {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  border-bottom: 1px solid rgb(231 236 240/1);
-  padding-bottom: 10px;
-  cursor: pointer;
-}
-
-.inputItem label {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 30px;
-}
-
-.inputItem input {
-  width: 20px;
-  height: 20px;
-}
-
 .link {
   display: flex;
   align-items: center;
@@ -73,11 +30,6 @@
   font-weight: bold;
 }
 
-.inputItem label {
-  margin-right: 10px;
-  cursor: pointer;
-}
-
 .right {
   flex: 4.3;
 }
@@ -87,10 +39,12 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 15px;
+  gap: 20px;
 }
 
 .search {
-  width: 400px;
+  width: -webkit-fill-available;
+  max-width: 400px;
 }
 
 .sort {
@@ -101,11 +55,11 @@
 
 .sort span {
   margin-right: 10px;
+  width: max-content;
 }
 
 .sort select {
   margin-left: 15px;
-  /* // width: 230px; */
   height: 40px;
   line-height: 46px;
   border: 1px solid #dde1ef;
@@ -131,6 +85,34 @@
   justify-content: center;
   width: 100%;
   height: 380px;
+}
+
+@media (max-width: 1536px) {
+}
+
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
+  .right {
+    flex: 7;
+  }
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 640px) {
+  .topProduct {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
 }
 
 @media (max-width: 475px) {

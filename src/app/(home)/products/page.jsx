@@ -3,9 +3,9 @@ import ProductCard from "@/components/home/cardProduct/productCard";
 import { fetchProducts } from "@/lib/data";
 import Pagination from "@/components/dashboard/pagination/pagination";
 import Search from "@/components/home/search/search";
-import ProductLefttBar from "@/components/home/productLefttBar/productLefttBar";
 import Link from "next/link";
 import { AiOutlineDoubleRight } from "react-icons/ai";
+import Filter from "@/components/home/filter/filter";
 
 const fetchCategories = async () => {
   const res = await fetch(
@@ -37,23 +37,40 @@ const Products = async ({ searchParams }) => {
   const c = searchParams?.c || "";
   const page = searchParams?.page || 1;
   const number = 16;
+
   const { count, products } = await fetchProducts(q, b, c, page, number);
+
   const productsObject = JSON.parse(JSON.stringify(products));
   const categories = await fetchCategories();
   const brands = await fetchBrands();
   return (
     <div className="container">
       <div className="breadcrumbs">
-        <Link href="/" className="breadcrumbs-link">
-          Trang chủ
-        </Link>
-        <AiOutlineDoubleRight />
-        <p className="breadcrumbs-link">Sản phẩm</p>
+        {!searchParams?.c ? (
+          <>
+            <Link href="/" className="breadcrumbs-link">
+              Trang chủ
+            </Link>
+            <AiOutlineDoubleRight />
+            <p className="breadcrumbs-link">Sản phẩm</p>
+          </>
+        ) : (
+          <>
+            <Link href="/" className="breadcrumbs-link">
+              Trang chủ
+            </Link>
+            <AiOutlineDoubleRight />
+            <Link href="/products" className="breadcrumbs-link">
+              Sản phẩm
+            </Link>
+            <AiOutlineDoubleRight />
+            <p className="breadcrumbs-link">{searchParams?.c}</p>
+          </>
+        )}
       </div>
       <div className={styles.container}>
         <div className={styles.bottom}>
-          <ProductLefttBar categories={categories} brands={brands} />
-
+          <Filter categories={categories} brands={brands} />
           <div className={styles.right}>
             <div className={styles.topProduct}>
               <div className={styles.search}>

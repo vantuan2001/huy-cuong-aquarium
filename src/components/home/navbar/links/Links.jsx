@@ -131,7 +131,7 @@ const Links = ({ header, session }) => {
                   />
                 ) : (
                   <NavLink
-                    item={{ title: "Quản lý đơn hàng", path: "/orders" }}
+                    item={{ title: "Quản lý đơn hàng", path: "/purchase" }}
                     className={styles.container}
                     header={header}
                   />

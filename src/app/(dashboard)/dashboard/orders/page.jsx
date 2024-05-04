@@ -20,6 +20,7 @@ const OrdersPage = async ({ searchParams }) => {
     });
     return total;
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -50,32 +51,34 @@ const OrdersPage = async ({ searchParams }) => {
             </td>
             <td></td>
           </tr>
-          {ordersObject.map((order) => (
-            <tr key={order._id}>
-              <td>{order.username}</td>
-              <td>
-                <Status status={order.status} />
-              </td>
-              <td> {moment(order.createdAt).format("HH:mm DD/MM/YYYY")}</td>
-              <td>
-                {order.paymentMethods != "0"
-                  ? "Thanh toán VNPAY"
-                  : "Thanh toán khi nhận hàng"}
-              </td>
-              <td>
-                {new Intl.NumberFormat("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                }).format(order.total)}
-              </td>
-              <td>
-                <div className={styles.buttons}>
-                  <Link href={`/dashboard/orders/${order._id}`}>
-                    <button className={`${styles.button} ${styles.view}`}>
-                      Xem
-                    </button>
-                  </Link>
-                  {order.status === 1 ? (
+          {ordersObject.map((order) => {
+            const next = order.status < 1 || order.status >= 5;
+            const cancel = order.status === 1;
+            return (
+              <tr key={order._id}>
+                <td>{order.username}</td>
+                <td>
+                  <Status status={order.status} />
+                </td>
+                <td> {moment(order.createdAt).format("HH:mm DD/MM/YYYY")}</td>
+                <td>
+                  {order.paymentMethods != "0"
+                    ? "Thanh toán VNPAY"
+                    : "Thanh toán khi nhận hàng"}
+                </td>
+                <td>
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(order.total)}
+                </td>
+                <td>
+                  <div className={styles.buttons}>
+                    <Link href={`/dashboard/orders/${order._id}`}>
+                      <button className={`${styles.button} ${styles.view}`}>
+                        Xem
+                      </button>
+                    </Link>
                     <>
                       <form action={updateStatusOrder}>
                         <input type="hidden" name="id" value={order._id} />
@@ -84,30 +87,28 @@ const OrdersPage = async ({ searchParams }) => {
                           name="status"
                           value={order.status}
                         />
-                        <button className={`${styles.button} ${styles.delete}`}>
+                        <button
+                          className={`${styles.button} ${styles.next}`}
+                          disabled={next}
+                        >
                           Tiếp theo
                         </button>
                       </form>
                       <form action={cancelOrder}>
                         <input type="hidden" name="id" value={order._id} />
-                        <button className={`${styles.button} ${styles.delete}`}>
+                        <button
+                          className={`${styles.button} ${styles.delete}`}
+                          disabled={!cancel}
+                        >
                           Huỷ
                         </button>
                       </form>
                     </>
-                  ) : (
-                    <form action={updateStatusOrder}>
-                      <input type="hidden" name="id" value={order._id} />
-                      <input type="hidden" name="status" value={order.status} />
-                      <button className={`${styles.button} ${styles.delete}`}>
-                        Tiếp theo
-                      </button>
-                    </form>
-                  )}
-                </div>
-              </td>
-            </tr>
-          ))}
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <Pagination count={count} />

@@ -1,8 +1,9 @@
-import WidgetNews from "@/components/home/widget/widgetNews";
 import styles from "./news.module.css";
 import Link from "next/link";
 import { AiOutlineDoubleRight } from "react-icons/ai";
 import NewsCard from "@/components/home/cardNews/newsCard";
+import { fetchLimitNews, getCategories } from "@/lib/data";
+import Filter from "@/components/home/filter/filter";
 
 const fetchData = async () => {
   const res = await fetch("https://huy-cuong-aquarium.vercel.app/api/news", {
@@ -17,7 +18,10 @@ const fetchData = async () => {
 };
 
 const News = async () => {
-  const news = await fetchData();
+  const newsAll = await fetchData();
+  const categories = await getCategories();
+  const limit = 5;
+  const news = await fetchLimitNews(limit);
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -29,15 +33,15 @@ const News = async () => {
       </div>
       <div className={styles.container}>
         <div className={styles.left}>
-          <WidgetNews />
+          <Filter news={news} categories={categories} />
         </div>
         <div className={styles.right}>
           <h3 className={styles.title}>TIN TỨC</h3>
           <div className={styles.list}>
-            {news.length === 0 ? (
+            {newsAll.length === 0 ? (
               <div className={styles.noNews}>Không có tin tức nào.</div>
             ) : (
-              news.map((item) => <NewsCard post={item} key={item._id} />)
+              newsAll.map((item) => <NewsCard post={item} key={item._id} />)
             )}
           </div>
         </div>

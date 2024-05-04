@@ -2,9 +2,10 @@ import styles from "./product.module.css";
 import Image from "next/image";
 import Comment from "@/components/home/comment/comment";
 import { AiOutlineDoubleRight } from "react-icons/ai";
-import WidgetNews from "@/components/home/widget/widgetNews";
 import Link from "next/link";
 import ProductButton from "./productButton/productButton";
+import Filter from "@/components/home/filter/filter";
+import { getBrands, getCategories } from "@/lib/data";
 
 const getData = async (title) => {
   const res = await fetch(
@@ -34,6 +35,8 @@ export const generateMetadata = async ({ params }) => {
 const SingleProductPage = async ({ params }) => {
   const { title } = params;
   const product = await getData(title);
+  const categories = await getCategories();
+  const brands = await getBrands();
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -49,7 +52,7 @@ const SingleProductPage = async ({ params }) => {
       </div>
       <div className={styles.container}>
         <div className={styles.containerLeft}>
-          <WidgetNews />
+          <Filter categories={categories} brands={brands} />
         </div>
         <div className={styles.containerRight}>
           <div className={styles.content}>

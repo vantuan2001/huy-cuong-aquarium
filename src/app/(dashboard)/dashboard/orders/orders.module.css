@@ -56,6 +56,16 @@
   background-color: teal;
 }
 
+.next {
+  background-color: var(--btnBg);
+}
+
 .delete {
   background-color: crimson;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  color: #cc5833;
+  background-color: #e9ecef;
 }
