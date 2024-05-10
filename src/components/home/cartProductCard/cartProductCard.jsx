@@ -6,6 +6,7 @@ import Image from "next/image";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { removeItem, updateCart } from "@/redux/cartReducer";
+import Link from "next/link";
 
 const CartProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -14,16 +15,18 @@ const CartProductCard = ({ product }) => {
   return (
     <tr>
       <td className={styles.name}>
-        <div className={styles.customer}>
-          <Image
-            src={product.img}
-            width={60}
-            height={60}
-            alt=""
-            className={styles.img}
-          />
-          <span className={styles.title}>{product.title}</span>
-        </div>
+        <Link href={`/products/${product.title}`}>
+          <div className={styles.customer}>
+            <Image
+              src={product.img}
+              width={60}
+              height={60}
+              alt=""
+              className={styles.img}
+            />
+            <span className={styles.title}>{product.title}</span>
+          </div>
+        </Link>
       </td>
       <td className={styles.price}>
         {new Intl.NumberFormat("vi-VN", {

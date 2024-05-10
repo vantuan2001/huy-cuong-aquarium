@@ -2,22 +2,6 @@ import { Brand } from "@/lib/models";
 import { connectToDb } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-// export async function PUT(request) {
-//   const {
-//     id,
-//     name,
-//     img,
-
-//   } = await request.json();
-//   await connectToDb();
-//   await Brand.create({
-//     id,
-//     name,
-//     img,
-//   });
-//   return NextResponse.json({ message: "Product Created" }, { status: 201 });
-// }
-
 export async function POST(request) {
   try {
     const { name, img } = await request.json();

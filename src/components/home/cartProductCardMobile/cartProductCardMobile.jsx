@@ -6,6 +6,7 @@ import Image from "next/image";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { removeItem, updateCart } from "@/redux/cartReducer";
+import Link from "next/link";
 
 const CartProductCardMobile = ({ product }) => {
   const dispatch = useDispatch();
@@ -13,24 +14,27 @@ const CartProductCardMobile = ({ product }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.imgConatiner}>
-        <Image
-          src={product.img}
-          width={70}
-          height={70}
-          alt=""
-          className={styles.img}
-        />
-      </div>
-      <div className={styles.name}>
-        <h3>{product.title}</h3>
-        <p>
-          {new Intl.NumberFormat("vi-VN", {
-            style: "currency",
-            currency: "VND",
-          }).format(product.price)}
-        </p>
-      </div>
+      <Link href={`/products/${product.title}`}>
+        <div className={styles.imgConatiner}>
+          <Image
+            src={product.img}
+            width={70}
+            height={70}
+            alt=""
+            className={styles.img}
+          />
+          <div className={styles.name}>
+            <h3>{product.title}</h3>
+            <p>
+              {new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              }).format(product.price)}
+            </p>
+          </div>
+        </div>
+      </Link>
+
       <div className={styles.button}>
         <div className={styles.quantity}>
           <button
