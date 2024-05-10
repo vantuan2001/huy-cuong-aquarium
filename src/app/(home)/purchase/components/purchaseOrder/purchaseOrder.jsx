@@ -2,8 +2,8 @@ import { MdOutlineLocalShipping } from "react-icons/md";
 import styles from "./purchaseOrder.module.css";
 import ProductItem from "../productItem/productItem";
 import Link from "next/link";
-import Status from "@/components/status/status";
-import { cancelOrder, updateStatusOrder } from "@/lib/action";
+import { cancelOrder, updateStatusOrder } from "@/lib/orders/action";
+import Status from "@/components/home/status/status";
 
 const PurchaseOrder = ({ order }) => {
   const status = order.status;

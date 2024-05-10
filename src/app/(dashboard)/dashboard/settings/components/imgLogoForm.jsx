@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "../settings.module.css";
-import { updateLogo } from "@/lib/action";
+import { updateLogo } from "@/lib/settings/action";
 
 const ImgBannerForm = ({ setting }) => {
   const [imgLogo, setImgLogo] = useState(null);

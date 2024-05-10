@@ -101,7 +101,7 @@
   background-color: var(--btn-hover);
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .container {
     flex-direction: column;
   }

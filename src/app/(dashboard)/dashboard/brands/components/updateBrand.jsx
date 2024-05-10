@@ -3,9 +3,8 @@
 import { useState } from "react";
 import styles from "./formBrand.module.css";
 import { BsSave, BsXLg } from "react-icons/bs";
-
 import Image from "next/image";
-import { updateBrand } from "@/lib/action";
+import { updateBrand } from "@/lib/brands/action";
 
 const UpdateBrand = ({ brand }) => {
   const [openAdd, setOpenAdd] = useState(false);

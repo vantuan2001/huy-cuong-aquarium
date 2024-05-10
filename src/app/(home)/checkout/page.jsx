@@ -1,6 +1,5 @@
 import { auth } from "@/lib/auth";
 import styles from "./checkout.module.css";
-
 import CheckoutForm from "@/components/home/checkoutForm/checkoutForm";
 
 const CheckOut = async () => {

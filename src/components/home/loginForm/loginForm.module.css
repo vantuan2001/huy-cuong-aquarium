@@ -28,7 +28,7 @@
   background-color: var(--btn-hover);
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .form {
     gap: 20px;
     font-size: 14px;

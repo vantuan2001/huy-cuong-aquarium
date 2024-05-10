@@ -2,11 +2,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "../settings.module.css";
-import { updateBanner } from "@/lib/action";
+import { updateBanner } from "@/lib/settings/action";
 
 const BannerForm = ({ setting }) => {
-  const [file, setFile] = useState(null);
-  const bannerUrl = setting.imgBanner;
+  const [imgBanner, setImgBanner] = useState(null);
+  const bannerUrl = imgBanner?.name || setting.imgBanner;
   const getFileExtension = (bannerUrl) => {
     return bannerUrl.split(".").pop();
   };
@@ -37,26 +37,26 @@ const BannerForm = ({ setting }) => {
     <form className={styles.imgContainer} action={updateBanner}>
       <div className={styles.bannerContainer}>
         <div className={styles.imgContainer}>
-          <label htmlFor="img_banner">
+          <label htmlFor="img_Banner">
             <input
+              type="hidden"
               name="id"
               value={id}
               onChange={(e) => setId(e.target.value)}
-              style={{ display: "none" }}
+              // style={{ display: "none" }}
             />
             <input
               type="file"
-              id="img_banner"
-              name="file"
+              id="img_Banner"
+              name="imgBanner"
               style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => setImgBanner(e.target.files[0])}
             />
-
             {fileFormat === "image" && (
               <div className={styles.images}>
                 <div className={styles.imageWrapper}>
                   <Image
-                    src={file ? URL.createObjectURL(file) : bannerUrl}
+                    src={imgBanner ? URL.createObjectURL(imgBanner) : bannerUrl}
                     alt=""
                     width={600}
                     height={310}
@@ -68,7 +68,7 @@ const BannerForm = ({ setting }) => {
               <div className={styles.videopos}>
                 <div className={styles.videoWrapper}>
                   <video
-                    src={file ? URL.createObjectURL(file) : bannerUrl}
+                    src={imgBanner ? URL.createObjectURL(imgBanner) : bannerUrl}
                     autoPlay
                     muted
                     loop

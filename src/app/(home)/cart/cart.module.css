@@ -193,7 +193,7 @@
   background-color: var(--btn-hover);
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .cartNoProduct {
     margin: 190px 20px;
   }

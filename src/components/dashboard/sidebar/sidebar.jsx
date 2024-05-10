@@ -1,4 +1,3 @@
-import Image from "next/image";
 import MenuLink from "./menuLink/menuLink";
 import styles from "./sidebar.module.css";
 import {
@@ -108,13 +107,11 @@ const Sidebar = async () => {
   return (
     <div className={styles.container}>
       <div className={styles.user}>
-        <Image
-          className={styles.userImage}
-          src="/noavatar.png"
-          alt=""
-          width="50"
-          height="50"
-        />
+        <div className={styles.avatar}>
+          <div className={styles.text}>
+            {user.username.toString().slice(0, 1)}
+          </div>
+        </div>
         <div className={styles.userDetail}>
           <span className={styles.username}>{user.username}</span>
           <span className={styles.userTitle}>Quản trị viên</span>

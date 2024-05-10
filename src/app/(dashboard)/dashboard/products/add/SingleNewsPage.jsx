@@ -1,4 +1,4 @@
-import { getCategories } from "@/lib/data";
+import { getCategories } from "@/lib/products/data";
 
 const SingleNewsPage = async (categoryName, setCategoryName) => {
   const categories = await getCategories();

@@ -1,10 +1,10 @@
 "use client";
 
-import { addNews } from "@/lib/action";
 import styles from "./addNews.module.css";
 import Image from "next/image";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { addNews } from "@/lib/news/action";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const AddNewsPage = () => {
@@ -36,6 +36,7 @@ const AddNewsPage = () => {
           <div className={styles.input}>
             <label>Tên tin tức</label>
             <input type="text" name="title" placeholder="Nhập tên tin tức" />
+            <label>Mô tả tin tức</label>
             <textarea
               name="desc"
               id="desc"

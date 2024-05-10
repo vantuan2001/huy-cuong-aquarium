@@ -165,7 +165,7 @@
 @media (max-width: 640px) {
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .filterItem {
     margin-bottom: 30px;
   }

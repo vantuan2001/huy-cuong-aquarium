@@ -107,7 +107,7 @@
   white-space: nowrap;
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .header {
     font-size: 14px;
   }

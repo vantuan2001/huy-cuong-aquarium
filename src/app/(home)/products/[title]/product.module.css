@@ -79,7 +79,7 @@
   border: 1px solid rgb(238, 237, 237);
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .containerLeft {
     display: none;
   }

@@ -3,7 +3,6 @@
 import styles from "./cart.module.css";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-
 import CartProductCard from "@/components/home/cartProductCard/cartProductCard";
 import { useEffect, useState } from "react";
 import CartProductCardMobile from "@/components/home/cartProductCardMobile/cartProductCardMobile";

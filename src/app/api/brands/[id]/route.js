@@ -1,4 +1,3 @@
-import { updateBrand } from "@/lib/action";
 import { Brand } from "@/lib/models";
 import { connectToDb } from "@/lib/utils";
 import { NextResponse } from "next/server";

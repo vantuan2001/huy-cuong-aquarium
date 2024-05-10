@@ -50,7 +50,6 @@
   border: 2px solid #ced4da;
   border-radius: 5px;
   color: var(--text);
-  margin: 20px 0px;
 }
 
 .input input:focus,
@@ -61,7 +60,8 @@
 }
 
 .input label {
-  font-size: 12px;
+  font-size: 14px;
+  margin: 10px 0px;
 }
 
 .input button {

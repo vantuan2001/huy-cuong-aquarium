@@ -1,4 +1,4 @@
-import { addUser } from "@/lib/action";
+import { addUser } from "@/lib/users/action";
 import styles from "./addUser.module.css";
 import Image from "next/image";
 

@@ -1,4 +1,4 @@
-import { getNews } from "@/lib/data";
+import { getNews } from "@/lib/news/data";
 import styles from "./singleNews.module.css";
 import NewsForm from "./newsForm";
 

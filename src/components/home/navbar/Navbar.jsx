@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import NavbarItem from "./NavbarItem";
-import { fetchSetting } from "@/lib/data";
+import { fetchSetting } from "@/lib/settings/data";
 
 const Navbar = async () => {
   const session = await auth();

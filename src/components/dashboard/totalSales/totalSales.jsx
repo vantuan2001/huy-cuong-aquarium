@@ -1,5 +1,3 @@
-// "use client";
-
 import { BsCreditCard2Front } from "react-icons/bs";
 import styles from "./totalSales.module.css";
 import Image from "next/image";

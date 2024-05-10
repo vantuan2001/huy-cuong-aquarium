@@ -1,35 +1,13 @@
 import styles from "./products.module.css";
 import ProductCard from "@/components/home/cardProduct/productCard";
-import { fetchProducts } from "@/lib/data";
 import Pagination from "@/components/dashboard/pagination/pagination";
 import Search from "@/components/home/search/search";
 import Link from "next/link";
 import { AiOutlineDoubleRight } from "react-icons/ai";
 import Filter from "@/components/home/filter/filter";
-
-const fetchCategories = async () => {
-  const res = await fetch(
-    "https://huy-cuong-aquarium.vercel.app/api/category",
-    {
-      next: { revalidate: 3600 },
-    }
-  );
-  if (!res.ok) {
-    throw new Error("Đã xảy ra lỗi");
-  }
-  return res.json();
-};
-
-const fetchBrands = async () => {
-  const res = await fetch("https://huy-cuong-aquarium.vercel.app/api/brands", {
-    next: { revalidate: 3600 },
-  });
-
-  if (!res.ok) {
-    throw new Error("Đã xảy ra lỗi");
-  }
-  return res.json();
-};
+import { fetchProducts } from "@/lib/products/data";
+import { getCategories } from "@/lib/categories/data";
+import { getBrands } from "@/lib/brands/data";
 
 const Products = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -39,10 +17,13 @@ const Products = async ({ searchParams }) => {
   const number = 16;
 
   const { count, products } = await fetchProducts(q, b, c, page, number);
+  const categories = await getCategories();
+  const brands = await getBrands();
 
   const productsObject = JSON.parse(JSON.stringify(products));
-  const categories = await fetchCategories();
-  const brands = await fetchBrands();
+  const categoriesObject = JSON.parse(JSON.stringify(categories));
+  const brandsObject = JSON.parse(JSON.stringify(brands));
+
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -70,7 +51,7 @@ const Products = async ({ searchParams }) => {
       </div>
       <div className={styles.container}>
         <div className={styles.bottom}>
-          <Filter categories={categories} brands={brands} />
+          <Filter categories={categoriesObject} brands={brandsObject} />
           <div className={styles.right}>
             <div className={styles.topProduct}>
               <div className={styles.search}>

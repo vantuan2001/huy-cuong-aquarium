@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import styles from "./chart.module.css";
 import {
   LineChart,
@@ -12,48 +13,46 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const data = [
-  {
-    name: "Thứ hai",
-    sales: 4000,
-    orders: 2400,
-  },
-  {
-    name: "Thứ ba",
-    sales: 3000,
-    orders: 1398,
-  },
-  {
-    name: "Thứ tư",
-    sales: 2000,
-    orders: 3800,
-  },
-  {
-    name: "Thứ năm",
-    sales: 2780,
-    orders: 3908,
-  },
-  {
-    name: "Thứ sáu",
-    sales: 1890,
-    orders: 4800,
-  },
-  {
-    name: "Thứ bảy",
-    sales: 2390,
-    orders: 3800,
-  },
-  {
-    name: "Chủ nhật",
-    sales: 3490,
-    orders: 4300,
-  },
-];
+const Chart = ({ orders }) => {
+  const [dailyStats, setDailyStats] = useState(null);
 
-const Chart = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Xử lý dữ liệu để nhóm các giao dịch theo ngày và tính tổng số tiền cho mỗi ngày
+        const dailyData = {};
+        orders.forEach((transaction) => {
+          const date = new Date(transaction.createdAt);
+          const dayIdentifier = `${date.getDate()}-${
+            date.getMonth() + 1
+          }-${date.getFullYear()}`;
+          if (!dailyData[dayIdentifier]) {
+            dailyData[dayIdentifier] = 0;
+          }
+          dailyData[dayIdentifier] += transaction.total;
+        });
+
+        // Đặt dữ liệu thống kê hàng ngày đã tính toán
+        setDailyStats(dailyData);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const data = dailyStats
+    ? Object.keys(dailyStats).map((dayIdentifier) => ({
+        name: dayIdentifier,
+        price: dailyStats[dayIdentifier],
+      }))
+    : [];
+
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Tóm tắt hàng tuần</h2>
+      <h2 className={styles.title}>Tóm tắt hàng ngày</h2>
+
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
@@ -68,49 +67,32 @@ const Chart = () => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
+          <YAxis
+            tickFormatter={(value) =>
+              new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              }).format(value)
+            }
+          />
+          <Tooltip
+            formatter={(value) =>
+              new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              }).format(value)
+            }
+          />
           <Legend />
           <Line
             type="monotone"
-            dataKey="sales"
-            stroke="#8884d8"
-            activeDot={{ orders: 4800 }}
+            dataKey="price"
+            name="Tổng tiền"
+            stroke="#82ca9d"
+            dot={true}
           />
-          <Line type="monotone" dataKey="orders" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
-
-      {/* <ResponsiveContainer width="100%" height="90%">
-        <LineChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip contentStyle={{ background: "#151c2c", border: "none" }} />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="sales"
-            stroke="#8884d8"
-            strokeDasharray="5 5"
-          />
-          <Line
-            type="monotone"
-            dataKey="orders"
-            stroke="#82ca9d"
-            strokeDasharray="3 4 5 2"
-          />
-        </LineChart>
-      </ResponsiveContainer> */}
     </div>
   );
 };

@@ -3,16 +3,15 @@ import styles from "./singlePurchasePage.module.css";
 import { BsChevronLeft } from "react-icons/bs";
 import ProductItem from "../../purchase/components/productItem/productItem";
 import StatusOrder from "../../purchase/components/statusOrder/statusOrder";
-import { fetchOrder } from "@/lib/data";
-import Status from "@/components/status/status";
-import { cancelOrder, updateStatusOrder } from "@/lib/action";
+import Status from "@/components/home/status/status";
+import { cancelOrder, updateStatusOrder } from "@/lib/orders/action";
+import { fetchOrder } from "@/lib/orders/data";
 
 const SinglePurchasePage = async ({ params }) => {
   const { id } = params;
   const order = await fetchOrder(id);
   const orderObject = JSON.parse(JSON.stringify(order));
-  const status = 1;
-  // const status = order.status;
+  const status = order.status;
   const hasPrev = status === 4;
   const cancel = status === 5;
 

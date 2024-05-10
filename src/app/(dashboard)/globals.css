@@ -5,6 +5,7 @@
   --text: #000;
   --textSoft: #ff6e40;
   --btnBg: #ff6e40;
+  --white: #fff;
 }
 
 * {
@@ -41,4 +42,16 @@ a {
   align-items: center;
   justify-content: center;
   min-height: 50vh;
+}
+
+.recharts-wrapper {
+  padding: 15px;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.txt-end {
+  text-align: right;
 }

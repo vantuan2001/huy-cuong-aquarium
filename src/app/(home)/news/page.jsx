@@ -2,8 +2,9 @@ import styles from "./news.module.css";
 import Link from "next/link";
 import { AiOutlineDoubleRight } from "react-icons/ai";
 import NewsCard from "@/components/home/cardNews/newsCard";
-import { fetchLimitNews, getCategories } from "@/lib/data";
 import Filter from "@/components/home/filter/filter";
+import { getCategories } from "@/lib/categories/data";
+import { fetchLimitNews } from "@/lib/news/data";
 
 const fetchData = async () => {
   const res = await fetch("https://huy-cuong-aquarium.vercel.app/api/news", {
@@ -18,10 +19,12 @@ const fetchData = async () => {
 };
 
 const News = async () => {
+  const number = 5;
   const newsAll = await fetchData();
   const categories = await getCategories();
-  const limit = 5;
-  const news = await fetchLimitNews(limit);
+  const categoriesObject = JSON.parse(JSON.stringify(categories));
+  const news = await fetchLimitNews(number);
+  const newsObject = JSON.parse(JSON.stringify(news));
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -33,7 +36,7 @@ const News = async () => {
       </div>
       <div className={styles.container}>
         <div className={styles.left}>
-          <Filter news={news} categories={categories} />
+          <Filter news={newsObject} categories={categoriesObject} />
         </div>
         <div className={styles.right}>
           <h3 className={styles.title}>TIN TỨC</h3>

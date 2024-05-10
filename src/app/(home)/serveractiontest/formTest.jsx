@@ -1,6 +1,7 @@
 "use client";
 
-import { addCategory, deleteNews } from "@/lib/action";
+import { addCategory } from "@/lib/categories/action";
+import { deleteNews } from "@/lib/news/action";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
 import moment from "moment";

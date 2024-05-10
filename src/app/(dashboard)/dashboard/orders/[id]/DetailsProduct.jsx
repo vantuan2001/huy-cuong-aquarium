@@ -1,4 +1,4 @@
-import { fetchProduct } from "@/lib/data";
+import { fetchProduct } from "@/lib/products/data";
 import styles from "./singleOrder.module.css";
 import Image from "next/image";
 

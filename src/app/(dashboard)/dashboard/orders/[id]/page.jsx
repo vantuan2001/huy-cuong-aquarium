@@ -1,12 +1,11 @@
-import { fetchOrder } from "@/lib/data";
 import styles from "./singleOrder.module.css";
-
 import DetailsProduct from "./DetailsProduct";
 import moment from "moment";
 import Link from "next/link";
 import { BsChevronLeft } from "react-icons/bs";
-import Status from "@/components/status/status";
-import { cancelOrder, updateStatusOrder } from "@/lib/action";
+import Status from "@/components/home/status/status";
+import { cancelOrder, updateStatusOrder } from "@/lib/orders/action";
+import { fetchOrder } from "@/lib/orders/data";
 
 const SingleOrderPage = async ({ params }) => {
   const { id } = params;

@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import styles from "./sellingProducts.module.css";
 
 const SellingProducts = async ({ products, type }) => {

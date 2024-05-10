@@ -4,7 +4,7 @@ import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { register } from "@/lib/action";
+import { register } from "@/lib/auth/action";
 
 const RegisterForm = () => {
   const [state, formAction] = useFormState(register, undefined);

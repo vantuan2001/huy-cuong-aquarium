@@ -6,13 +6,10 @@ import Chart from "@/components/dashboard/chart/chart";
 import SellingProducts from "@/components/dashboard/sellingProducts/sellingProducts";
 import RecentOrders from "@/components/dashboard/recentOrders/recentOrders";
 import RecentReviews from "@/components/dashboard/recentReviews/recentReviews";
-import {
-  fetchReviews,
-  getOrders,
-  getViewedProduct,
-  getbestSellingProduct,
-} from "@/lib/data";
 import TotalSales from "@/components/dashboard/totalSales/totalSales";
+import { fetchReviews } from "@/lib/reviews/data";
+import { getOrders } from "@/lib/orders/data";
+import { getViewedProduct, getbestSellingProduct } from "@/lib/products/data";
 
 const Dashboard = async () => {
   const q = "";
@@ -20,7 +17,8 @@ const Dashboard = async () => {
   const number = 5;
   const { reviews } = await fetchReviews(q, page, number);
   const reviewsObject = JSON.parse(JSON.stringify(reviews));
-  const { orders } = await getOrders();
+  const orders = await getOrders();
+  const ordersObject = JSON.parse(JSON.stringify(orders));
   const productsSelling = await getbestSellingProduct(number);
   const productsViewed = await getViewedProduct(number);
   return (
@@ -42,7 +40,7 @@ const Dashboard = async () => {
         <TotalSales orders={orders} />
         <RecentReviews reviews={reviewsObject} />
       </div>
-      <Chart />
+      <Chart orders={ordersObject} />
 
       <div className={styles.recent}>
         <div style={{ flex: 1 }}>

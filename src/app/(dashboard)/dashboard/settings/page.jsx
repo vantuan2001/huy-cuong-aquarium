@@ -1,8 +1,8 @@
 import styles from "./settings.module.css";
-import { fetchSetting } from "@/lib/data";
 import ImgBannerForm from "./components/imgLogoForm";
 import FormUpdate from "./components/formUpdate";
 import BannerForm from "./components/bannerForm";
+import { fetchSetting } from "@/lib/settings/data";
 
 const SettingsPage = async () => {
   const id = "661a894e2c902060a3e28ed9";

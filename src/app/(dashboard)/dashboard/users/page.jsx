@@ -1,11 +1,10 @@
 import Search from "@/components/dashboard/search/search";
 import styles from "./users.module.css";
-import Image from "next/image";
 import Link from "next/link";
-import { fetchUsers } from "@/lib/data";
 import Pagination from "@/components/dashboard/pagination/pagination";
-import { deleteUser } from "@/lib/action";
 import moment from "moment";
+import { fetchUsers } from "@/lib/users/data";
+import { deleteUser } from "@/lib/users/action";
 
 const UsersPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -36,13 +35,11 @@ const UsersPage = async ({ searchParams }) => {
             <tr key={user._id}>
               <td>
                 <div className={styles.user}>
-                  <Image
-                    src="/noavatar.png"
-                    alt=""
-                    width={40}
-                    height={40}
-                    className={styles.userImage}
-                  />
+                  <div className={styles.avatar}>
+                    <div className={styles.text}>
+                      {user.username.toString().slice(0, 1)}
+                    </div>
+                  </div>
                   {user.username}
                 </div>
               </td>

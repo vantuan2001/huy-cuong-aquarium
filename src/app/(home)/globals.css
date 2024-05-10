@@ -112,6 +112,11 @@ a {
   font-size: 14px !important;
 }
 
+.star-rating {
+  font-size: 20px;
+  color: #d26e4b;
+}
+
 @media (max-width: 1536px) {
   .container {
     width: 1366px;
@@ -150,7 +155,7 @@ a {
   }
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .container {
     width: 430px;
   }

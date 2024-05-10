@@ -80,7 +80,7 @@
   border: 4px solid #e0e0e0;
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .status {
     flex-direction: column;
     gap: 15px;

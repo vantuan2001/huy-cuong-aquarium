@@ -50,7 +50,7 @@
   background-color: var(--btn-hover);
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .quantity button {
     width: 45px;
     height: 45px;

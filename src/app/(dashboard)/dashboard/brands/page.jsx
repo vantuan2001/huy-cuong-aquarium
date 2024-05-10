@@ -2,10 +2,10 @@ import Image from "next/image";
 import styles from "./brands.module.css";
 import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
-import { fetchBrands } from "@/lib/data";
-import { deleteBrand } from "@/lib/action";
 import AddBrand from "./components/addBrand";
 import UpdateBrand from "./components/updateBrand";
+import { fetchBrands } from "@/lib/brands/data";
+import { deleteBrand } from "@/lib/brands/action";
 
 const BrandsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -44,7 +44,6 @@ const BrandsPage = async ({ searchParams }) => {
                   />
                 </div>
               </td>
-
               <td>
                 <div className={styles.buttons}>
                   <UpdateBrand brand={brand} />

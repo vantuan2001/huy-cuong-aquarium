@@ -2,10 +2,10 @@ import Image from "next/image";
 import styles from "./categories.module.css";
 import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
-import { fetchCategories } from "@/lib/data";
-import { deleteCategory } from "@/lib/action";
 import AddCategory from "./components/addCategory";
 import UpdateCategory from "./components/updateCategory";
+import { fetchCategories } from "@/lib/categories/data";
+import { deleteCategory } from "@/lib/categories/action";
 
 const CategoriesPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -32,7 +32,7 @@ const CategoriesPage = async ({ searchParams }) => {
         <tbody>
           {categoriesObject.map((category) => (
             <tr key={category._id}>
-              <td>{category.id}</td>
+              <td>{category._id}</td>
               <td>{category.name}</td>
               <td>
                 <div className={styles.product}>
@@ -45,10 +45,9 @@ const CategoriesPage = async ({ searchParams }) => {
                   />
                 </div>
               </td>
-
               <td>
                 <div className={styles.buttons}>
-                  <UpdateCategory category={categoriesObject} />
+                  <UpdateCategory category={category} />
                   <form action={deleteCategory}>
                     <input type="hidden" name="id" value={category.id} />
                     <button className={`${styles.button} ${styles.delete}`}>

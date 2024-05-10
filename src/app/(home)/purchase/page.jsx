@@ -1,4 +1,4 @@
-import { fetchOrderByUserId } from "@/lib/data";
+import { fetchOrderByUserId } from "@/lib/orders/data";
 import PurchaseOrder from "./components/purchaseOrder/purchaseOrder";
 import styles from "./purchase.module.css";
 import { auth } from "@/lib/auth";

@@ -6,7 +6,6 @@ import styles from "./recentReviews.module.css";
 import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Image from "next/image";
 
 function RecentReviews({ reviews }) {
   const settings = {
@@ -31,13 +30,12 @@ function RecentReviews({ reviews }) {
             {reviews.map((item) => (
               <div key={item._id}>
                 <div className={styles.user}>
-                  <Image
-                    src="/noavatar.png"
-                    alt="no-avatar"
-                    width={50}
-                    height={50}
-                  />
-                  <div className={styles.text}>
+                  <div className={styles.avatar}>
+                    <div className={styles.text}>
+                      {item.username.toString().slice(0, 1)}
+                    </div>
+                  </div>
+                  <div className={styles.content}>
                     <h3>{item.username}</h3>
                     <span>
                       {Array.from({ length: item.rating }).map((_, index) => (
@@ -48,13 +46,6 @@ function RecentReviews({ reviews }) {
                           &#9733;
                         </span>
                       ))}
-                      {/* {[...Array(item.rating)].map((i) => {
-                        return (
-                          <span className={styles.star} key={i}>
-                            &#9733;
-                          </span>
-                        );
-                      })} */}
                       ({item.rating})
                     </span>
                   </div>

@@ -1,6 +1,5 @@
 .table {
   width: 100%;
-  /* // border-collapse: collapse; */
   border-collapse: separate;
   border-spacing: 0px 15px;
 }

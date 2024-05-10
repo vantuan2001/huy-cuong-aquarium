@@ -1,14 +1,15 @@
-import Status from "@/components/status/status";
+import Status from "@/components/dashboard/status/status";
 import styles from "./recentOrders.module.css";
-
-import { fetchOrders } from "@/lib/data";
 import moment from "moment";
+import { fetchOrders } from "@/lib/orders/data";
 
 const RecentOrders = async ({ searchParams }) => {
   const q = searchParams?.q || "";
+  const status = searchParams?.q || "";
+  const payments = searchParams?.q || "";
   const page = searchParams?.page || 1;
   const number = 5;
-  const { orders } = await fetchOrders(q, number, page);
+  const { orders } = await fetchOrders(q, status, payments, number, page);
   return (
     <div className={styles.container}>
       <table className={styles.table}>

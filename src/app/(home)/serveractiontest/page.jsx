@@ -1,6 +1,6 @@
 // "use client";
 
-import { fetchProduct } from "@/lib/data";
+import { fetchProduct } from "@/lib/products/data";
 import FormTest from "./formTest";
 
 // import { addCategory, deleteNews } from "@/lib/action";

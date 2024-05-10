@@ -6,8 +6,8 @@ import NavLink from "./navLink/navLink";
 import { BsBasket } from "react-icons/bs";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { handleLogout } from "@/lib/action";
 import { useSelector } from "react-redux";
+import { handleLogout } from "@/lib/auth/action";
 
 const links = [
   {

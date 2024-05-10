@@ -3,8 +3,8 @@
 import { useState } from "react";
 import styles from "./formCategory.module.css";
 import { BsSave, BsXLg } from "react-icons/bs";
-import { addCategory } from "@/lib/action";
 import Image from "next/image";
+import { addCategory } from "@/lib/categories/action";
 
 const AddCategory = () => {
   const [openAdd, setOpenAdd] = useState(false);

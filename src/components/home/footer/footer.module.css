@@ -6,7 +6,8 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: 50px;
   color: var(--bg);
   padding: 50px 0px;
 }
@@ -17,22 +18,67 @@
 }
 
 .title {
-  font-size: 20px;
-  font-weight: bold;
   margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.text {
+  font-size: 15px;
 }
 
 .ul {
-  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .ul li {
-  margin-top: 10px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  padding-right: 40px;
+}
+
+.ul li:hover {
+  color: var(--text-active);
+}
+
+.center {
+  display: flex;
+  flex: 2;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .item {
   display: flex;
-  gap: 5px;
+  flex-direction: column;
+  width: 71%;
+}
+
+.item:first-child {
+  height: 240px;
+  width: 100%;
+}
+
+.item:first-child .ul {
+  min-height: 180px;
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.social a {
+  background: #3a589d;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .copyright {
@@ -45,24 +91,100 @@
   justify-content: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1536px) {
+}
+
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
   .container {
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+    gap: 20px;
+  }
+
+  .ul li {
+    margin-left: 15px;
+    padding-right: 15px;
   }
 }
 
-@media (max-width: 475px) {
+@media (max-width: 1024px) {
   .container {
-    align-items: flex-start;
+    flex-flow: row wrap;
+    padding-bottom: 0;
+  }
+
+  .left,
+  .right {
+    max-width: 50%;
+    flex-basis: 48%;
+    order: -1;
+  }
+
+  .center {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+
+  .item {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .ul li,
+  .text {
+    font-size: 14px;
+  }
+
+  .item:first-child {
+    height: 215px;
+  }
+}
+
+@media (max-width: 640px) {
+  .center {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item:first-child {
+    height: 210px;
+    width: 100%;
+  }
+
+  .item {
+    height: fit-content;
+  }
+
+  .left,
+  .right {
+    max-width: 50%;
+    flex-basis: 47%;
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
     padding: 30px 0px;
     gap: 25px;
   }
 
   .title {
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 10px;
+  }
+
+  .text,
+  .ul li {
+    font-size: 13px;
+  }
+
+  .left,
+  .right {
+    max-width: 100%;
+    flex-basis: 100%;
   }
 
   .address {

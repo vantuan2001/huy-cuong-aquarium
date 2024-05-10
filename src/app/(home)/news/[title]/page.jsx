@@ -5,7 +5,8 @@ import { AiOutlineDoubleRight } from "react-icons/ai";
 import Comment from "@/components/home/comment/comment";
 import moment from "moment";
 import Filter from "@/components/home/filter/filter";
-import { fetchLimitNews, getCategories } from "@/lib/data";
+import { getCategories } from "@/lib/categories/data";
+import { fetchLimitNews } from "@/lib/news/data";
 
 // LẤY DỮ LIỆU BẰNG API
 const getData = async (title) => {
@@ -25,9 +26,7 @@ const getData = async (title) => {
 
 export const generateMetadata = async ({ params }) => {
   const { title } = params;
-
   const post = await getData(title);
-
   return {
     title: post.title,
     description: post.desc,
@@ -36,10 +35,12 @@ export const generateMetadata = async ({ params }) => {
 
 const SingleNewsPage = async ({ params }) => {
   const { title } = params;
+  const number = 5;
   const postNews = await getData(title);
   const categories = await getCategories();
-  const limit = 5;
-  const news = await fetchLimitNews(limit);
+  const news = await fetchLimitNews(number);
+  const categoriesObject = JSON.parse(JSON.stringify(categories));
+  const brandsObject = JSON.parse(JSON.stringify(news));
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -55,7 +56,7 @@ const SingleNewsPage = async ({ params }) => {
       </div>
       <div className={styles.container}>
         <div className={styles.left}>
-          <Filter news={news} categories={categories} />
+          <Filter news={brandsObject} categories={categoriesObject} />
         </div>
         <div className={styles.right}>
           <h3 className={styles.title}>{postNews.title}</h3>

@@ -235,7 +235,7 @@
   }
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .container {
     width: 185px;
   }
@@ -249,4 +249,8 @@
     width: 185px;
     height: 100px;
   }
+
+  /* .containerSmall {
+    width: fit-content;
+  } */
 }

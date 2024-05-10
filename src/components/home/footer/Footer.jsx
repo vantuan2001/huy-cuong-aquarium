@@ -1,55 +1,64 @@
 import Link from "next/link";
 import styles from "./footer.module.css";
-import { fetchSetting } from "@/lib/data";
+import { getCategories } from "@/lib/categories/data";
+import { FaFacebookF, FaTiktok } from "react-icons/fa";
 
 const Footer = async () => {
-  const id = "661a894e2c902060a3e28ed9";
-  const setting = await fetchSetting(id);
+  const categories = await getCategories();
   return (
     <div className={styles.footer}>
       <div className="container">
         <div className={styles.container}>
           <div className={styles.left}>
-            <div className={styles.title}>{setting.title}</div>
-            <ul className={styles.ul}>
-              <li>
-                <div className={styles.item}>
-                  <span className={styles.address}>Địa chỉ:</span>
-                  <p>{setting.address}</p>
-                </div>
-              </li>
-              <li>
-                <div className={styles.item}>
-                  <span>Số điện thoại:</span>
-                  <p>{setting.phone}</p>
-                </div>
-              </li>
-              <li>
-                <div className={styles.item}>
-                  <span>Email:</span>
-                  <p>{setting.email}</p>
-                </div>
-              </li>
-            </ul>
+            <h5 className={styles.title}>Về chúng tôi</h5>
+            <p className={styles.text}>
+              Website chính thức và duy nhất của Huy Cường Aquarium. Hiện tại
+              chúng mình chỉ nhận đơn hàng trên website chứ không nhận bất kỳ
+              nơi nào khác nhé!
+            </p>
+          </div>
+          <div className={styles.center}>
+            <div className={styles.item}>
+              <h5 className={styles.title}>Danh mục sản phẩm</h5>
+              <ul className={styles.ul}>
+                {categories.map((category) => (
+                  <li key={category._id}>
+                    <Link href={`/products?c=${category.name}`}>
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={styles.item}>
+              <h5 className={styles.title}>Thông tin</h5>
+              <ul className={styles.ul}>
+                <li>
+                  <Link href="/about">Giới thiệu</Link>
+                </li>
+                <li>
+                  <Link href="/">Chính sách bảo mật</Link>
+                </li>
+                <li>
+                  <Link href="/">Điều khoản </Link>
+                </li>
+              </ul>
+            </div>
           </div>
           <div className={styles.right}>
-            <div className={styles.title}>Hướng dẫn khách hàng</div>
-            <ul className={styles.ul}>
-              <li>
-                <Link href="/">Hướng dẫn mua hàng</Link>
-              </li>
-              <li>
-                <Link href="/">Hướng dẫn thanh toán</Link>
-              </li>
-              <li>
-                <Link href="/">Hướng dẫn giao nhận</Link>
-              </li>
-            </ul>
-            {/* Bạn đang tìm : Aqua setup bể cá thuỷ sinh đẹp uy tín, chất lượng.
-            <br />
-            Một shop cung cấp phụ kiện thuỷ sinh chất lượng hàng đầu.
-            <br />
-            Hay một cửa hàng có thiết bị cho bể cá cảnh phong phú nhất. */}
+            <h5 className={styles.title}>Hỗ trợ</h5>
+            <p className={styles.text}>
+              Mọi thắc mắc và góp ý cần hỗ trợ xin vui lòng liên hệ Fanpage và
+              TikTok nhé!
+            </p>
+            <div className={styles.social}>
+              <a href="https://www.facebook.com/profile.php?id=100076359561396">
+                <FaFacebookF />
+              </a>
+              <a href="https://www.tiktok.com/@thuysinhhuycuong?lang=vi-VN">
+                <FaTiktok />
+              </a>
+            </div>
           </div>
         </div>
       </div>

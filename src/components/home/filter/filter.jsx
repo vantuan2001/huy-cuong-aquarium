@@ -7,7 +7,7 @@ import Image from "next/image";
 import FilterBrand from "../filterBrand/FilterBrand";
 import { FaFilter, FaTimes } from "react-icons/fa";
 import { useState } from "react";
-import NewsCard from "../cardNews/newsCard";
+import NewsCardSmall from "../cardNews/newsCardSmall";
 
 const Filter = ({ news, categories, brands }) => {
   const pathName = usePathname();
@@ -38,8 +38,8 @@ const Filter = ({ news, categories, brands }) => {
           <div className={styles.filterItem}>
             <h3>Kiến thức và tư vấn</h3>
             <div className={styles.list}>
-              {news?.map((post) => (
-                <NewsCard post={post} key={post._id} type="small" />
+              {news.map((post) => (
+                <NewsCardSmall post={post} key={post._id} type="small" />
               ))}
             </div>
           </div>

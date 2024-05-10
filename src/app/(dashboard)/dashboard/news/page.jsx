@@ -3,8 +3,8 @@ import Link from "next/link";
 import styles from "./news.module.css";
 import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
-import { fetchNews } from "@/lib/data";
-import { deleteNews } from "@/lib/action";
+import { fetchNews } from "@/lib/news/data";
+import { deleteNews } from "@/lib/news/action";
 
 const NewsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -23,7 +23,6 @@ const NewsPage = async ({ searchParams }) => {
         <thead>
           <tr>
             <td>Tên tin tức</td>
-            <td>Hình ảnh</td>
             <td>Nội dung</td>
             <td>Hành động</td>
           </tr>
@@ -31,7 +30,6 @@ const NewsPage = async ({ searchParams }) => {
         <tbody>
           {news.map((news) => (
             <tr key={news._id}>
-              <td className={styles.title}>{news.title}</td>
               <td>
                 <div className={styles.product}>
                   <Image
@@ -41,10 +39,15 @@ const NewsPage = async ({ searchParams }) => {
                     height={100}
                     className={styles.productImage}
                   />
+                  {news.title}
                 </div>
               </td>
               <td className={styles.desc}>
-                <div dangerouslySetInnerHTML={{ __html: news?.desc }} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: news?.desc.toString().slice(0, 250),
+                  }}
+                />
               </td>
               <td>
                 <div className={styles.buttons}>

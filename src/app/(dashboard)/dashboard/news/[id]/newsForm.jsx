@@ -2,8 +2,8 @@
 import { useState } from "react";
 import styles from "./singleNews.module.css";
 import Image from "next/image";
-import { updateNews } from "@/lib/action";
 import dynamic from "next/dynamic";
+import { updateNews } from "@/lib/news/action";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const NewsForm = ({ news }) => {
@@ -22,7 +22,6 @@ const NewsForm = ({ news }) => {
               style={{ display: "none" }}
               onChange={(e) => setFile(e.target.files[0])}
             />
-
             <Image
               src={file ? URL.createObjectURL(file) : news.img}
               alt=""
@@ -42,6 +41,7 @@ const NewsForm = ({ news }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
+          <label>Mô tả tin tức</label>
           <textarea
             name="desc"
             id="desc"

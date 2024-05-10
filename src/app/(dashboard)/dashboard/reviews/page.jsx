@@ -1,8 +1,8 @@
 import styles from "./reviews.module.css";
 import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
-import { fetchReviews } from "@/lib/data";
-import { deleteReview } from "@/lib/action";
+import { fetchReviews } from "@/lib/reviews/data";
+import { deleteReview } from "@/lib/reviews/action";
 
 const ReviewsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";

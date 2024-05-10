@@ -1,13 +1,40 @@
 "use client";
 import Image from "next/image";
 import styles from "./singleProduct.module.css";
-import { useState } from "react";
-import { updateProduct } from "@/lib/action";
+import { useEffect, useState } from "react";
+import { updateProduct } from "@/lib/products/action";
 import dynamic from "next/dynamic";
+import axios from "axios";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const UpdateProductForm = ({ product }) => {
-  // const router = useRouter();
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get(
+          "https://huy-cuong-aquarium.vercel.app/api/category"
+        );
+        setCategories(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchCategories();
+
+    const fetchBrands = async () => {
+      try {
+        const res = await axios.get(
+          "https://huy-cuong-aquarium.vercel.app/api/brands"
+        );
+        setBrands(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchBrands();
+  }, []);
   const [file, setFile] = useState(null);
   const [id, setId] = useState(product._id);
   const [title, setTitle] = useState(product.title);
@@ -147,17 +174,17 @@ const UpdateProductForm = ({ product }) => {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">Chọn danh mục</option>
-            <option value="Bể cá">Bể cá</option>
-            <option value="Cá tép">Cá tép</option>
-            <option value="Cây thuỷ sinh">Cây thuỷ sinh</option>
-            <option value="Đèn">Đèn</option>
-            <option value="Bình CO2">Bình CO2</option>
-            <option value="Đá lũa">Đá lũa</option>
-            <option value="Máy lọc">Máy lọc</option>
-            <option value="Vật liệu lọc">Vật liệu lọc</option>
-            <option value="Đất nền">Đất nền</option>
-            <option value="Phụ kiện">Phụ kiện</option>
-            <option value="Hoá chất">Hoá chất</option>
+            {categories.map((category) => (
+              <option
+                id={category.name}
+                value={category.name}
+                name="category"
+                key={category._id}
+                className={styles.option}
+              >
+                {category.name}
+              </option>
+            ))}
           </select>
           <label>Thương hiệu sản phẩm</label>
           <select
@@ -167,26 +194,20 @@ const UpdateProductForm = ({ product }) => {
             onChange={(e) => setBrand(e.target.value)}
           >
             <option value="">Chọn thương hiệu</option>
-            <option value="Extra Bio">Extra Bio</option>
-            <option value="Biozym">Biozym</option>
-            <option value="Chihiros">Chihiros</option>
-            <option value="ADA">ADA</option>
-            <option value="Week Aqua">Week Aqua</option>
-            <option value="Control Soid">Control Soid</option>
-            <option value="Vũ Aqua">Vũ Aqua</option>
-            <option value="Atman">Atman</option>
-            <option value="GEX">GEX</option>
-            <option value="Seachem">Seachem</option>
-            <option value="Mufan">Mufan</option>
-            <option value="Vivid">Vivid</option>
-            <option value="Sunsun">Sunsun</option>
-            <option value="AquaBlue">AquaBlue</option>
+            {brands.map((brand) => (
+              <option
+                id={brand.name}
+                value={brand.name}
+                name="brand"
+                key={brand._id}
+                className={styles.option}
+              >
+                {brand.name}
+              </option>
+            ))}
           </select>
 
-          <button type="submit">
-            {/* <button type="submit" onClick={handleCreate}> */}
-            Cập nhật
-          </button>
+          <button type="submit">Cập nhật</button>
         </div>
       </div>
     </form>

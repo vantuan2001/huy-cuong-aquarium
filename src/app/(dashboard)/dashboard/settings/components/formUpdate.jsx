@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import styles from "../settings.module.css";
-import { updateSetting } from "@/lib/action";
+import { updateSetting } from "@/lib/settings/action";
 
 const FormUpdate = ({ setting }) => {
   const [id, setId] = useState(setting._id);

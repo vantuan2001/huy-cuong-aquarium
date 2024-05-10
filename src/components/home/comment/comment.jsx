@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./comment.module.css";
 import CommentForm from "../commentForm/commentForm";
 import moment from "moment";
@@ -32,13 +31,11 @@ const Comment = async ({ post }) => {
           {reviews.map((review) => (
             <div className={styles.item} key={review._id}>
               <div className={styles.images}>
-                <Image
-                  src="/noavatar.png"
-                  alt=""
-                  width={50}
-                  height={50}
-                  className={styles.img}
-                />
+                <div className={styles.avatar}>
+                  <div className={styles.avatarText}>
+                    {review.username.toString().slice(0, 1)}
+                  </div>
+                </div>
               </div>
               <div className={styles.text}>
                 <div className={styles.star}>

@@ -4,22 +4,20 @@ import Image from "next/image";
 import Category from "@/components/home/categories/category";
 import FeaturedProducts from "@/components/home/featured/featuredProducts";
 import FeaturedNews from "@/components/home/featured/featuredNews";
-import {
-  fetchLimitNews,
-  fetchProductsNews,
-  fetchSetting,
-  getCategories,
-} from "@/lib/data";
+import { fetchSetting } from "@/lib/settings/data";
+import { getCategories } from "@/lib/categories/data";
+import { getViewedProduct } from "@/lib/products/data";
+import { fetchLimitNews } from "@/lib/news/data";
 
 const Home = async () => {
   const id = "661a894e2c902060a3e28ed9";
   const banner = await fetchSetting(id);
   const categories = await getCategories();
   const categoriesObject = JSON.parse(JSON.stringify(categories));
-  const products = await fetchProductsNews();
+  const number = 10;
+  const products = await getViewedProduct(number);
   const productsObject = JSON.parse(JSON.stringify(products));
-  const limit = 10;
-  const news = await fetchLimitNews(limit);
+  const news = await fetchLimitNews(number);
 
   return (
     <div className={styles.container}>

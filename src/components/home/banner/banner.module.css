@@ -75,7 +75,7 @@
   font-size: 40px;
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .switcherContainer:after {
     width: 25px;
     height: 25px;

@@ -52,7 +52,7 @@
   align-items: center;
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .container {
     font-size: 14px;
   }

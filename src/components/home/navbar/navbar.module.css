@@ -86,15 +86,28 @@
 
 @media (max-width: 1280px) {
   .boxMenu {
-    margin: 35px 0 0;
+    margin: 20px 0 0;
+    font-size: 14px;
   }
 
   .small .boxMenu {
-    margin: 25px 0 0;
+    margin: 10px 0 0;
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 16px;
   }
 }
 
 @media (max-width: 1024px) {
+  .boxMenu {
+    font-size: 16px;
+  }
+
+  .small .boxMenu {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -132,7 +145,7 @@
   }
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
   .navbar {
     height: 60px;
   }

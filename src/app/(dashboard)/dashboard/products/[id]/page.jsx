@@ -1,4 +1,4 @@
-import { fetchProduct } from "@/lib/data";
+import { fetchProduct } from "@/lib/products/data";
 import styles from "./singleProduct.module.css";
 import UpdateProductForm from "./updateProductForm";
 

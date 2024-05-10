@@ -5,7 +5,8 @@ import { AiOutlineDoubleRight } from "react-icons/ai";
 import Link from "next/link";
 import ProductButton from "./productButton/productButton";
 import Filter from "@/components/home/filter/filter";
-import { getBrands, getCategories } from "@/lib/data";
+import { getCategories } from "@/lib/categories/data";
+import { fetchLimitNews } from "@/lib/news/data";
 
 const getData = async (title) => {
   const res = await fetch(
@@ -33,10 +34,13 @@ export const generateMetadata = async ({ params }) => {
 };
 
 const SingleProductPage = async ({ params }) => {
+  const number = 5;
   const { title } = params;
   const product = await getData(title);
   const categories = await getCategories();
-  const brands = await getBrands();
+  const news = await fetchLimitNews(number);
+  const categoriesObject = JSON.parse(JSON.stringify(categories));
+  const newsObject = JSON.parse(JSON.stringify(news));
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -52,7 +56,8 @@ const SingleProductPage = async ({ params }) => {
       </div>
       <div className={styles.container}>
         <div className={styles.containerLeft}>
-          <Filter categories={categories} brands={brands} />
+          {/* <Filter categories={categoriesObject} /> */}
+          <Filter news={newsObject} categories={categoriesObject} />
         </div>
         <div className={styles.containerRight}>
           <div className={styles.content}>
