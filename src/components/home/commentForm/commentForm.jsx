@@ -23,7 +23,10 @@ const CommentForm = ({ post, session }) => {
         userId: session.user._id,
       };
 
-      await axios.post("http://localhost:3000/api/reviews", newReview);
+      await axios.post(
+        "https://huy-cuong-aquarium.vercel.app/api/reviews",
+        newReview
+      );
       console.log("saved to db");
       window.location.reload();
     } catch (err) {
