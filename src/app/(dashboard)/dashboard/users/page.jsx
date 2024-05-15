@@ -49,7 +49,7 @@ const UsersPage = async ({ searchParams }) => {
               <td>{user.isAdmin ? "Quản trị viên" : "Khách hàng"}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/dashboard/users/${user.id}}`}>
+                  <Link href={`/dashboard/users/${user.id}`}>
                     <button className={`${styles.button} ${styles.view}`}>
                       Xem
                     </button>

@@ -14,9 +14,7 @@ const AddProductPage = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get(
-          "https://huy-cuong-aquarium.vercel.app/api/category"
-        );
+        const res = await axios.get("http://localhost:3000/api/category");
         setCategories(res.data);
       } catch (err) {
         console.log(err);
@@ -26,9 +24,7 @@ const AddProductPage = () => {
 
     const fetchBrands = async () => {
       try {
-        const res = await axios.get(
-          "https://huy-cuong-aquarium.vercel.app/api/brands"
-        );
+        const res = await axios.get("http://localhost:3000/api/brands");
         setBrands(res.data);
       } catch (err) {
         console.log(err);
@@ -39,6 +35,26 @@ const AddProductPage = () => {
   const [file, setFile] = useState(null);
   const [info, setInfo] = useState("");
   const [desc, setDesc] = useState("");
+  const toolbarOptions = [
+    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["blockquote", "code-block"],
+    ["link", "image", "video", "formula"],
+
+    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+    [{ script: "sub" }, { script: "super" }], // superscript/subscript
+    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+    [{ direction: "rtl" }], // text direction
+
+    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ["clean"], // remove formatting button
+  ];
 
   return (
     <div className={styles.container}>
@@ -69,7 +85,6 @@ const AddProductPage = () => {
               placeholder="Nhập tên sản phẩm"
               name="title"
               required
-              // onChange={(e) => setTitle(e.target.value)}
             />
 
             <input
@@ -77,7 +92,6 @@ const AddProductPage = () => {
               placeholder="Nhập giá vốn"
               name="costPrice"
               required
-              // onChange={(e) => setPrice(e.target.value)}
             />
 
             <input
@@ -85,14 +99,12 @@ const AddProductPage = () => {
               placeholder="Nhập giá bán"
               name="price"
               required
-              // onChange={(e) => setPrice(e.target.value)}
             />
             <input
               type="number"
               placeholder="Nhập Số lượng tồn kho"
               name="stock"
               required
-              // onChange={(e) => setStock(e.target.value)}
             />
             <input
               type="text"
@@ -122,6 +134,9 @@ const AddProductPage = () => {
               value={info}
               onChange={setInfo}
               style={{ minHeight: "280px" }}
+              modules={{
+                toolbar: toolbarOptions,
+              }}
             />
             <label
               htmlFor="info"
@@ -136,6 +151,9 @@ const AddProductPage = () => {
               value={desc}
               onChange={setDesc}
               style={{ minHeight: "300px" }}
+              modules={{
+                toolbar: toolbarOptions,
+              }}
             />
             <select name="category" id="category">
               <option value="">Chọn danh mục</option>

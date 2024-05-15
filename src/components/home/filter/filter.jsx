@@ -2,15 +2,13 @@
 
 import Link from "next/link";
 import styles from "./filter.module.css";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 import FilterBrand from "../filterBrand/FilterBrand";
 import { FaFilter, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import NewsCardSmall from "../cardNews/newsCardSmall";
 
-const Filter = ({ news, categories, brands }) => {
-  const pathName = usePathname();
+const Filter = ({ news, categories, brands, c, b }) => {
   const [open, setOpen] = useState(false);
   return (
     <div className={styles.container}>
@@ -50,11 +48,8 @@ const Filter = ({ news, categories, brands }) => {
           <div className={styles.box}>
             <div className={styles.inputItem}>
               <Link className={styles.link} href="/products">
-                {/* <span className={`${styles.title}   ${styles.active}`}> */}
                 <span
-                  className={`${styles.title}  ${
-                    pathName === "/products" && styles.active
-                  }`}
+                  className={`${styles.title}  ${c === "" && styles.active}`}
                 >
                   Tất cả
                 </span>
@@ -67,15 +62,20 @@ const Filter = ({ news, categories, brands }) => {
                   {item.img_logo && (
                     <Image src={item.img_logo} alt="" width={30} height={30} />
                   )}
-
-                  <span className={styles.title}>{item.name}</span>
+                  <span
+                    className={`${styles.title}  ${
+                      c === item.name && styles.active
+                    }`}
+                  >
+                    {item.name}
+                  </span>
                 </Link>
               </div>
             ))}
           </div>
         </div>
 
-        {!brands ? "" : <FilterBrand brands={brands} />}
+        {!brands ? "" : <FilterBrand brands={brands} b={b} />}
       </div>
     </div>
   );

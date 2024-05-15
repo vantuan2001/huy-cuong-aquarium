@@ -6,14 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckoutProductCard from "@/components/home/checkoutProductCard/checkoutProductCard";
 import { handleTransaction } from "@/app/api/checkout/handleTransaction";
 import axios from "axios";
-import emailjs from "@emailjs/browser";
 import { useRouter } from "next/navigation";
 import { resetCart } from "@/redux/cartReducer";
-import moment from "moment";
+import Address from "@/components/address/address";
+import useSwal from "@/components/toast/useSwal";
+import { sendEmail } from "@/lib/email";
 
 const CheckoutForm = ({ user }) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { Error } = useSwal();
   const products = useSelector((state) => state.cart.products);
   const totalPrice = () => {
     let total = 0;
@@ -22,97 +24,97 @@ const CheckoutForm = ({ user }) => {
     });
     return total;
   };
-
+  const [error, setError] = useState(false);
   const [specificAddress, setSpecificAddress] = useState("");
   const [username, setUsername] = useState(user.username);
   const [phone, setPhone] = useState(user.phone);
   const [email, setEmail] = useState(user.email);
-  const [province, setProvince] = useState("");
-  const [district, setDistrict] = useState("");
-  const [ward, setWard] = useState("");
+  const {
+    getProvince,
+    getDistrict,
+    getWard,
+    SelectProvince,
+    SelectDistrict,
+    SelectWard,
+  } = Address(error);
+  const province = getProvince;
+  const district = getDistrict;
+  const ward = getWard;
   const address = [specificAddress, ward, district, province]
     .filter(Boolean)
     .join(",");
   const [note, setNote] = useState("");
-  const date = moment(Date.now()).format("h:mm DD-MM-YYYY");
   const [isClient, setIsClient] = useState(false);
-
-  const YOUR_SERVICE_ID = "service_a0uwnv6";
-  const YOUR_TEMPLATE_ID = "template_ksomju7";
-  const YOUR_PUBLIC_KEY = "M4Aev_KqPQXpxj4Sl";
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const sendEmail = () => {
-    emailjs
-      .send(
-        YOUR_SERVICE_ID,
-        YOUR_TEMPLATE_ID,
-        {
-          to_name: "Văn Tuấn",
-          message: `Chúng tôi xin thông báo rằng có một đơn đặt hàng mới đã được nhận từ website của cửa hàng vào lúc ${date} hôm nay.`,
-        },
-        {
-          publicKey: YOUR_PUBLIC_KEY,
-        }
-      )
-      .then(
-        () => {
-          console.log("SUCCESS!");
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-        }
-      );
-  };
+  let errorPhone;
+  if (!phone) {
+    errorPhone = (
+      <div className="error">Xin vui lòng nhập vào số điện thoại</div>
+    );
+  } else if (phone.length < 10) {
+    errorPhone = (
+      <div className="error"> Xin vui lòng nhập đầy đủ số điện thoại</div>
+    );
+  } else {
+    errorPhone = "";
+  }
 
   const handleCOD = async () => {
-    try {
-      const newOrder = {
-        username,
-        phone,
-        email,
-        address,
-        products,
-        note,
-        paymentMethods: 0,
-        paymentStatus: 0,
-        total: totalPrice(),
-        userId: user._id,
-      };
+    if (
+      !username ||
+      !phone ||
+      !email ||
+      !specificAddress ||
+      !ward ||
+      !district ||
+      !province
+    ) {
+      setError(true);
+      Error({ title: "Đã có lỗi trong quá trình thanh toán" });
+    } else {
+      try {
+        const newOrder = {
+          username,
+          phone,
+          email,
+          address,
+          products,
+          note,
+          paymentMethods: 0,
+          paymentStatus: 0,
+          total: totalPrice(),
+          userId: user._id,
+        };
 
-      await axios.post(
-        "https://huy-cuong-aquarium.vercel.app/api/orders",
-        newOrder
-      );
-      console.log("saved to db");
-      products.map((item) => {
-        const updateProduct = async () => {
-          try {
-            await axios.put(
-              `https://huy-cuong-aquarium.vercel.app/api/products/quantity`,
-              {
+        await axios.post("http://localhost:3000/api/orders", newOrder);
+        console.log("saved to db");
+        products.map((item) => {
+          const updateProduct = async () => {
+            try {
+              await axios.put(`http://localhost:3000/api/products/quantity`, {
                 id: item.id,
                 stock: item.stock - item.quantity,
                 sold: item.sold + +item.quantity,
-              }
-            );
-            console.log("Số lượng sản phẩm được cập nhật thành công");
-          } catch (err) {
-            console.error("Lỗi cập nhật số lượng sản phẩm:", err);
-          }
-        };
+              });
+              console.log("Số lượng sản phẩm được cập nhật thành công");
+            } catch (err) {
+              console.error("Lỗi cập nhật số lượng sản phẩm:", err);
+            }
+          };
 
-        return updateProduct();
-      });
+          return updateProduct();
+        });
 
-      sendEmail();
-      router.push("/thanks");
-      dispatch(resetCart());
-    } catch (err) {
-      console.log(err);
+        sendEmail();
+        router.push("/thanks");
+        dispatch(resetCart());
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -123,48 +125,55 @@ const CheckoutForm = ({ user }) => {
 
     // Trích xuất URL từ trường "data"
     const url = data;
-    try {
-      const newOrder = {
-        username,
-        phone,
-        email,
-        address,
-        products,
-        note,
-        paymentMethods: 1,
-        total: totalPrice(),
-        userId: user._id,
-      };
+    if (
+      !username ||
+      !phone ||
+      !email ||
+      !specificAddress ||
+      !ward ||
+      !district ||
+      !province
+    ) {
+      setError(true);
+      Error({ title: "Đã có lỗi trong quá trình thanh toán" });
+    } else {
+      try {
+        const newOrder = {
+          username,
+          phone,
+          email,
+          address,
+          products,
+          note,
+          paymentMethods: 1,
+          total: totalPrice(),
+          userId: user._id,
+        };
 
-      await axios.post(
-        "https://huy-cuong-aquarium.vercel.app/api/orders",
-        newOrder
-      );
-      console.log("saved to db");
-      products.map((item) => {
-        const updateProduct = async () => {
-          try {
-            await axios.put(
-              `https://huy-cuong-aquarium.vercel.app/api/products/quantity`,
-              {
+        await axios.post("http://localhost:3000/api/orders", newOrder);
+        console.log("saved to db");
+        products.map((item) => {
+          const updateProduct = async () => {
+            try {
+              await axios.put(`http://localhost:3000/api/products/quantity`, {
                 id: item.id,
                 stock: item.stock - item.quantity,
                 sold: item.sold + +item.quantity,
-              }
-            );
-            console.log("Số lượng sản phẩm được cập nhật thành công");
-          } catch (err) {
-            console.error("Lỗi cập nhật số lượng sản phẩm:", err);
-          }
-        };
-        return updateProduct();
-      });
-      sendEmail();
-      window.location.href = url;
-      dispatch(resetCart());
-      return url;
-    } catch (err) {
-      console.log(err);
+              });
+              console.log("Số lượng sản phẩm được cập nhật thành công");
+            } catch (err) {
+              console.error("Lỗi cập nhật số lượng sản phẩm:", err);
+            }
+          };
+          return updateProduct();
+        });
+        sendEmail();
+        window.location.href = url;
+        dispatch(resetCart());
+        return url;
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -175,7 +184,7 @@ const CheckoutForm = ({ user }) => {
           <h3>THÔNG TIN THANH TOÁN</h3>
         </div>
         <div className={styles.content}>
-          <div>
+          <div className={styles.item}>
             <input
               type="text"
               className={styles.input}
@@ -185,63 +194,66 @@ const CheckoutForm = ({ user }) => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
+            {error && username.length < 3 ? (
+              <div className="error">
+                Xin vui lòng nhập vào số điện thoại người mua
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className={styles.center}>
-            <div>
-              <input
-                type="text"
-                className={styles.input}
-                placeholder="Nhập số điện thoại"
-                name="phone"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-
-              <input
-                type="text"
-                className={styles.input}
-                placeholder="Nhập địa chỉ email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-
-              <input
-                type="text"
-                className={styles.input}
-                placeholder="Nhập địa chỉ cụ thể. Số nhà, tên đường,..."
-                value={specificAddress}
-                onChange={(e) => setSpecificAddress(e.target.value)}
-              />
+            <div className={styles.itemContainer}>
+              <div className={styles.item}>
+                <input
+                  type="text"
+                  className={styles.input}
+                  placeholder="Nhập số điện thoại"
+                  name="phone"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+                {errorPhone}
+              </div>
+              <div className={styles.item}>
+                <input
+                  type="text"
+                  className={styles.input}
+                  placeholder="Nhập địa chỉ email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {error && !email ? (
+                  <div className="error">
+                    Xin vui lòng nhập vào địa chỉ email
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className={styles.item}>
+                <input
+                  type="text"
+                  className={styles.input}
+                  placeholder="Nhập địa chỉ cụ thể. Số nhà, tên đường,..."
+                  value={specificAddress}
+                  onChange={(e) => setSpecificAddress(e.target.value)}
+                />
+                {error && specificAddress.length < 3 ? (
+                  <div className="error">
+                    Xin vui lòng nhập vào địa chỉ cụ thể
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
-            <div>
-              <input
-                type="text"
-                className={styles.input}
-                placeholder="Nhập phường/xã"
-                required
-                value={ward}
-                onChange={(e) => setWard(e.target.value)}
-              />
-
-              <input
-                type="text"
-                className={styles.input}
-                placeholder="Nhập quận/huyện"
-                required
-                value={district}
-                onChange={(e) => setDistrict(e.target.value)}
-              />
-
-              <input
-                type="text"
-                className={styles.input}
-                placeholder="Nhập tỉnh/thành phố"
-                required
-                value={province}
-                onChange={(e) => setProvince(e.target.value)}
-              />
+            <div className={styles.itemContainer}>
+              <SelectProvince />
+              <SelectDistrict />
+              <SelectWard />
             </div>
           </div>
           <div>

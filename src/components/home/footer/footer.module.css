@@ -65,13 +65,13 @@
   min-height: 180px;
 }
 
-.social {
+/* .social {
   display: flex;
   gap: 10px;
   margin-top: 20px;
-}
+} */
 
-.social a {
+/* .social a {
   background: #3a589d;
   width: 30px;
   height: 30px;
@@ -79,6 +79,84 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+} */
+
+.social {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.icon {
+  position: relative;
+  background: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background: #fff;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #fff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.icon:hover span,
+.icon:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.facebook:hover,
+.facebook:hover .tooltip,
+.facebook:hover .tooltip::before {
+  background: #1877f2;
+  color: #fff;
+}
+
+.twitter:hover,
+.twitter:hover .tooltip,
+.twitter:hover .tooltip::before {
+  background: #1da1f2;
+  color: #fff;
+}
+
+.social a {
+  color: #222222;
 }
 
 .copyright {

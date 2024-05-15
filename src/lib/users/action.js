@@ -41,7 +41,6 @@ export const updateUser = async (formData) => {
     const updateFields = {
       username,
       email,
-      password,
       phone,
       address,
       isAdmin,

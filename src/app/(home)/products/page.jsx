@@ -8,6 +8,7 @@ import Filter from "@/components/home/filter/filter";
 import { fetchProducts } from "@/lib/products/data";
 import { getCategories } from "@/lib/categories/data";
 import { getBrands } from "@/lib/brands/data";
+import SortProduct from "@/components/home/sort/sortProduct";
 
 const Products = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -15,11 +16,11 @@ const Products = async ({ searchParams }) => {
   const c = searchParams?.c || "";
   const page = searchParams?.page || 1;
   const number = 16;
+  const sort = searchParams?.sort || "";
 
-  const { count, products } = await fetchProducts(q, b, c, page, number);
+  const { count, products } = await fetchProducts(q, b, c, page, number, sort);
   const categories = await getCategories();
   const brands = await getBrands();
-
   const productsObject = JSON.parse(JSON.stringify(products));
   const categoriesObject = JSON.parse(JSON.stringify(categories));
   const brandsObject = JSON.parse(JSON.stringify(brands));
@@ -51,21 +52,18 @@ const Products = async ({ searchParams }) => {
       </div>
       <div className={styles.container}>
         <div className={styles.bottom}>
-          <Filter categories={categoriesObject} brands={brandsObject} />
+          <Filter
+            categories={categoriesObject}
+            brands={brandsObject}
+            c={c}
+            b={b}
+          />
           <div className={styles.right}>
             <div className={styles.topProduct}>
               <div className={styles.search}>
                 <Search placeholder="Tìm kiếm tên sản phẩm" />
               </div>
-              <div className={styles.sort}>
-                <span>Sắp xếp theo</span>
-                <select name="" id="">
-                  <option value="">Mặc định</option>
-                  <option value="">Mới nhất</option>
-                  <option value="">Thứ tự theo giá: thấp đến cao </option>
-                  <option value="">Thứ tự theo giá: cao xuống thấp</option>
-                </select>
-              </div>
+              <SortProduct />
             </div>
 
             <div className={styles.bottomProduct}>

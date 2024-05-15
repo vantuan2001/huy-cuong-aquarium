@@ -20,7 +20,7 @@
 }
 
 .active {
-  color: var(--text-active);
+  color: var(--text-active) !important;
   position: relative;
 }
 

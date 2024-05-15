@@ -66,7 +66,7 @@ const AddUserPage = () => {
             />
           </div>
 
-          <button>Cập nhật</button>
+          <button>Thêm mới</button>
         </form>
       </div>
     </div>

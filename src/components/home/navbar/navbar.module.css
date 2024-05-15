@@ -108,6 +108,10 @@
   .small .boxMenu {
     font-size: 16px;
   }
+
+  .small .boxMenu {
+    margin: 25px 0 0;
+  }
 }
 
 @media (max-width: 768px) {

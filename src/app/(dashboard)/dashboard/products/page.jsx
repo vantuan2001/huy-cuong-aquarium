@@ -4,21 +4,39 @@ import styles from "./products.module.css";
 import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
 import { deleteProduct } from "@/lib/products/action";
-import { fetchProducts } from "@/lib/products/data";
+import { fetchProducts, getProducts } from "@/lib/products/data";
 import SelectCategory from "./components/selectCategory";
 import { getCategories } from "@/lib/categories/data";
 import SelectBrand from "./components/selectBrand";
 import { getBrands } from "@/lib/brands/data";
+import SortProduct from "@/components/home/sort/sortProduct";
 
 const ProductsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const b = searchParams?.b || "";
   const c = searchParams?.c || "";
+  const sort = searchParams?.sort || "";
   const page = searchParams?.page || 1;
   const number = 10;
-  const { count, products } = await fetchProducts(q, b, c, page, number);
+  const { count, products } = await fetchProducts(q, b, c, page, number, sort);
   const categories = await getCategories();
   const brands = await getBrands();
+  const totalProducts = await getProducts();
+  const totalSold = () => {
+    let total = 0;
+    totalProducts.forEach((item) => {
+      total += item.sold;
+    });
+    return total;
+  };
+  const stock = () => {
+    let total = 0;
+    totalProducts.forEach((item) => {
+      total += item.stock;
+    });
+    return total;
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -26,6 +44,7 @@ const ProductsPage = async ({ searchParams }) => {
           <Search placeholder="Tìm kiếm sản phẩm..." />
           <SelectCategory categories={categories} />
           <SelectBrand brands={brands} />
+          <SortProduct />
         </div>
         <Link href="/dashboard/products/add">
           <button className={styles.addButton}>Thêm mới</button>
@@ -36,7 +55,7 @@ const ProductsPage = async ({ searchParams }) => {
           <tr>
             <td>Tên sản phẩm</td>
             <td>Danh mục</td>
-            <td className="txt-end">Giá tiền</td>
+            <td className="txt-center">Giá tiền</td>
             <td className="txt-center">Thương hiệu</td>
             <td className="txt-center">Đã bán</td>
             <td className="txt-center">Tồn kho</td>
@@ -44,6 +63,15 @@ const ProductsPage = async ({ searchParams }) => {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>Tổng {totalProducts.length} sản phẩm</td>
+            <td className="txt-center"></td>
+            <td className="txt-end"></td>
+            <td className="txt-center"></td>
+            <td className="txt-center">{totalSold()}</td>
+            <td className="txt-center">{stock()}</td>
+            <td></td>
+          </tr>
           {products.map((product) => (
             <tr key={product._id}>
               <td>

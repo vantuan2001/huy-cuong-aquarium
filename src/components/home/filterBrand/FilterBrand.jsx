@@ -3,7 +3,7 @@ import styles from "./filterBrand.module.css";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
-const FilterBrand = ({ brands }) => {
+const FilterBrand = ({ brands, b }) => {
   const filterParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -43,7 +43,7 @@ const FilterBrand = ({ brands }) => {
               value=""
               name="brand"
               onClick={handleDelete}
-              // checked="true"
+              checked={b === ""}
             />
           </label>
         </div>
@@ -58,6 +58,7 @@ const FilterBrand = ({ brands }) => {
                 value={brand.name}
                 name="brand"
                 onClick={handleFilter}
+                checked={b === brand.name}
               />
             </label>
           </div>

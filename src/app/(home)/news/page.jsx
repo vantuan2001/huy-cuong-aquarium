@@ -4,27 +4,19 @@ import { AiOutlineDoubleRight } from "react-icons/ai";
 import NewsCard from "@/components/home/cardNews/newsCard";
 import Filter from "@/components/home/filter/filter";
 import { getCategories } from "@/lib/categories/data";
-import { fetchLimitNews } from "@/lib/news/data";
+import { fetchLimitNews, fetchNews } from "@/lib/news/data";
+import Pagination from "@/components/dashboard/pagination/pagination";
 
-const fetchData = async () => {
-  const res = await fetch("https://huy-cuong-aquarium.vercel.app/api/news", {
-    next: { revalidate: 3600 },
-  });
-
-  if (!res.ok) {
-    throw new Error("Đã xảy ra lỗi");
-  }
-
-  return res.json();
-};
-
-const News = async () => {
-  const number = 5;
-  const newsAll = await fetchData();
+const News = async ({ searchParams }) => {
+  const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
+  const number = 10;
+  const { count, news } = await fetchNews(q, page, number);
+  const newsSmall = await fetchLimitNews(5);
   const categories = await getCategories();
-  const categoriesObject = JSON.parse(JSON.stringify(categories));
-  const news = await fetchLimitNews(number);
   const newsObject = JSON.parse(JSON.stringify(news));
+  const newsSmallObject = JSON.parse(JSON.stringify(newsSmall));
+  const categoriesObject = JSON.parse(JSON.stringify(categories));
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -36,17 +28,18 @@ const News = async () => {
       </div>
       <div className={styles.container}>
         <div className={styles.left}>
-          <Filter news={newsObject} categories={categoriesObject} />
+          <Filter news={newsSmallObject} categories={categoriesObject} />
         </div>
         <div className={styles.right}>
           <h3 className={styles.title}>TIN TỨC</h3>
           <div className={styles.list}>
-            {newsAll.length === 0 ? (
+            {newsObject.length === 0 ? (
               <div className={styles.noNews}>Không có tin tức nào.</div>
             ) : (
-              newsAll.map((item) => <NewsCard post={item} key={item._id} />)
+              newsObject.map((item) => <NewsCard post={item} key={item._id} />)
             )}
           </div>
+          <Pagination count={count} />
         </div>
       </div>
     </div>

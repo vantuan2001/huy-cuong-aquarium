@@ -51,14 +51,20 @@ const Footer = async () => {
               Mọi thắc mắc và góp ý cần hỗ trợ xin vui lòng liên hệ Fanpage và
               TikTok nhé!
             </p>
-            <div className={styles.social}>
-              <a href="https://www.facebook.com/profile.php?id=100076359561396">
-                <FaFacebookF />
-              </a>
-              <a href="https://www.tiktok.com/@thuysinhhuycuong?lang=vi-VN">
-                <FaTiktok />
-              </a>
-            </div>
+            <ul className={styles.social}>
+              <li className={`${styles.icon} ${styles.facebook}`}>
+                <span className={styles.tooltip}>Facebook</span>
+                <a href="https://www.facebook.com/profile.php?id=100076359561396">
+                  <FaFacebookF />
+                </a>
+              </li>
+              <li className={`${styles.icon} ${styles.twitter}`}>
+                <span className={styles.tooltip}>TikTok</span>
+                <a href="https://www.tiktok.com/@thuysinhhuycuong?lang=vi-VN">
+                  <FaTiktok />
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

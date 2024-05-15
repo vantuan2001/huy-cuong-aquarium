@@ -54,7 +54,7 @@
 
 .item input:focus,
 .item textarea:focus,
-.from select:focus {
+.from select:focus-visible {
   border: 2px solid var(--btnBg);
   outline: none;
 }

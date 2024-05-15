@@ -21,10 +21,9 @@ export const fetchNews = async (q, page, number) => {
 
 export const fetchLimitNews = async (number) => {
   const ITEM_PER_PAGE = number;
-
   try {
     connectToDb();
-    const news = await News.find().limit(ITEM_PER_PAGE);
+    const news = await News.find().limit(ITEM_PER_PAGE).sort({ createdAt: -1 });
     return news;
   } catch (err) {
     console.log(err);

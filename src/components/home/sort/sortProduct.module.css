@@ -1,0 +1,26 @@
+.sort {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.sort span {
+  margin-right: 10px;
+  width: max-content;
+}
+
+.sort select {
+  margin-left: 15px;
+  height: 40px;
+  line-height: 46px;
+  border: 1px solid #dde1ef;
+  display: inline-block;
+  border-radius: 4px;
+  padding: 0 15px;
+  outline: none;
+  cursor: pointer;
+}
+
+.sort select option {
+  outline: none;
+}

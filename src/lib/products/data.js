@@ -1,7 +1,7 @@
 import { Product } from "../models";
 import { connectToDb } from "../utils";
 
-export const fetchProducts = async (q, b, c, page, number) => {
+export const fetchProducts = async (q, b, c, page, number, sort) => {
   const regex = new RegExp(q, "i");
   const brandFilter = new RegExp(b, "i");
   const categoryFilter = new RegExp(c, "i");
@@ -19,9 +19,17 @@ export const fetchProducts = async (q, b, c, page, number) => {
     if (c) {
       query.category = { $regex: categoryFilter };
     }
+    let sortOption = { createdAt: -1 }; // Default sort: newest
+    if (sort === "best-selling") {
+      sortOption = { sales: -1 }; // Assuming `sales` is a field in your model
+    } else if (sort === "price-asc") {
+      sortOption = { price: 1 };
+    } else if (sort === "price-desc") {
+      sortOption = { price: -1 };
+    }
     const count = await Product.find(query).count();
     const products = await Product.find(query)
-      .sort({ createdAt: -1 })
+      .sort(sortOption)
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1));
     return { count, products };
@@ -80,7 +88,7 @@ export const getProducts = async () => {
   try {
     connectToDb();
     const products = await Product.find();
-    return { products };
+    return products;
   } catch (err) {
     console.log(err);
     throw new Error("Không thể truy xuất phẩm!");

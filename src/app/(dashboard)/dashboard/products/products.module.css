@@ -20,12 +20,36 @@
 }
 
 .addButton {
+  position: relative;
+  background-color: rgb(255, 110, 66);
+  border-radius: 5px;
+  box-shadow: rgb(121, 18, 55) 0px 4px 0px 0px;
   padding: 13.3px 20px;
-  background-color: var(--btnBg);
-  color: var(--bgSoft);
-  border: none;
-  border-radius: 8px;
+  background-repeat: no-repeat;
   cursor: pointer;
+  box-sizing: border-box;
+  color: #fff;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.addButton::before {
+  content: "";
+  background-color: rgb(273, 126, 82);
+  width: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: width 700ms ease-in-out;
+  display: inline-block;
+}
+
+.addButton:hover::before {
+  width: 100%;
 }
 
 .table {
