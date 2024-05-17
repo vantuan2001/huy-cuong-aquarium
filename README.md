@@ -24,4 +24,4 @@ pnpm dev
 bun dev
 ```
 
-Open [https://huy-cuong-aquarium.vercel.app](https://huy-cuong-aquarium.vercel.app) with your browser to see the result.
+Open [https://huycuongaquarium.vercel.app](https://huycuongaquarium.vercel.app) with your browser to see the result.

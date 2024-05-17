@@ -28,25 +28,35 @@ const Products = async ({ searchParams }) => {
   return (
     <div className="container">
       <div className="breadcrumbs">
-        {!searchParams?.c ? (
-          <>
-            <Link href="/" className="breadcrumbs-link">
-              Trang chủ
-            </Link>
-            <AiOutlineDoubleRight />
-            <p className="breadcrumbs-link">Sản phẩm</p>
-          </>
+        {!searchParams?.q ? (
+          !searchParams?.c ? (
+            <>
+              <Link href="/" className="breadcrumbs-link">
+                Trang chủ
+              </Link>
+              <AiOutlineDoubleRight />
+              <p className="breadcrumbs-link">Sản phẩm</p>
+            </>
+          ) : (
+            <>
+              <Link href="/" className="breadcrumbs-link">
+                Trang chủ
+              </Link>
+              <AiOutlineDoubleRight />
+              <Link href="/products" className="breadcrumbs-link">
+                Sản phẩm
+              </Link>
+              <AiOutlineDoubleRight />
+              <p className="breadcrumbs-link">{searchParams?.c}</p>
+            </>
+          )
         ) : (
           <>
             <Link href="/" className="breadcrumbs-link">
               Trang chủ
             </Link>
             <AiOutlineDoubleRight />
-            <Link href="/products" className="breadcrumbs-link">
-              Sản phẩm
-            </Link>
-            <AiOutlineDoubleRight />
-            <p className="breadcrumbs-link">{searchParams?.c}</p>
+            <p className="breadcrumbs-link"> Kết quả cho từ khoá {q}</p>
           </>
         )}
       </div>

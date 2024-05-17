@@ -7,10 +7,11 @@ import ProductButton from "./productButton/productButton";
 import Filter from "@/components/home/filter/filter";
 import { getCategories } from "@/lib/categories/data";
 import { fetchLimitNews } from "@/lib/news/data";
+import StarRating from "@/components/home/starRating/starRating";
 
 const getData = async (title) => {
   const res = await fetch(
-    `https://huy-cuong-aquarium.vercel.app/api/products/${title}`,
+    `https://huycuongaquarium.vercel.app/api/products/${title}`,
     {
       next: { revalidate: 1 },
     }
@@ -56,7 +57,6 @@ const SingleProductPage = async ({ params }) => {
       </div>
       <div className={styles.container}>
         <div className={styles.containerLeft}>
-          {/* <Filter categories={categoriesObject} /> */}
           <Filter news={newsObject} categories={categoriesObject} />
         </div>
         <div className={styles.containerRight}>
@@ -72,15 +72,7 @@ const SingleProductPage = async ({ params }) => {
             </div>
             <div className={styles.text}>
               <h2>{product.title}</h2>
-              <div>
-                {[...Array(5)].map((i) => {
-                  return (
-                    <span className={styles.star} key={i}>
-                      &#9733;
-                    </span>
-                  );
-                })}
-              </div>
+              <StarRating postId={product._id} />
 
               <span className={styles.price}>
                 {new Intl.NumberFormat("vi-VN", {

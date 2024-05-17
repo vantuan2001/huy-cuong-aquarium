@@ -4,33 +4,41 @@ import styles from "./commentForm.module.css";
 import { FaArrowRight } from "react-icons/fa";
 import axios from "axios";
 import Link from "next/link";
+import useSwal from "@/components/toast/useSwal";
 
 const CommentForm = ({ post, session }) => {
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+  const { Error } = useSwal();
+  const [rating, setRating] = useState(1);
+  const [hover, setHover] = useState(1);
   const [username, setUsername] = useState(session?.user.username);
   const [email, setEmail] = useState(session?.user.email);
   const [comment, setComment] = useState("");
+  const [error, setError] = useState(false);
 
   const handleCreate = async () => {
-    try {
-      const newReview = {
-        rating: hover,
-        username,
-        email,
-        comment,
-        postId: post._id,
-        userId: session.user._id,
-      };
+    if (hover === 0 || !hover || !email || !comment) {
+      setError(true);
+      Error({ title: "Đã có lỗi trong quá trình đánh giá" });
+    } else {
+      try {
+        const newReview = {
+          rating: hover,
+          username,
+          email,
+          comment,
+          postId: post._id,
+          userId: session.user._id,
+        };
 
-      await axios.post(
-        "https://huy-cuong-aquarium.vercel.app/api/reviews",
-        newReview
-      );
-      console.log("saved to db");
-      window.location.reload();
-    } catch (err) {
-      console.log(err);
+        await axios.post(
+          "https://huycuongaquarium.vercel.app/api/reviews",
+          newReview
+        );
+        console.log("saved to db");
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

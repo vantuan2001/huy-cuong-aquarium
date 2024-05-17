@@ -91,7 +91,7 @@ const CheckoutForm = ({ user }) => {
         };
 
         await axios.post(
-          "https://huy-cuong-aquarium.vercel.app/api/orders",
+          "https://huycuongaquarium.vercel.app/api/orders",
           newOrder
         );
         console.log("saved to db");
@@ -99,7 +99,7 @@ const CheckoutForm = ({ user }) => {
           const updateProduct = async () => {
             try {
               await axios.put(
-                `https://huy-cuong-aquarium.vercel.app/api/products/quantity`,
+                `https://huycuongaquarium.vercel.app/api/products/quantity`,
                 {
                   id: item.id,
                   stock: item.stock - item.quantity,
@@ -157,7 +157,7 @@ const CheckoutForm = ({ user }) => {
         };
 
         await axios.post(
-          "https://huy-cuong-aquarium.vercel.app/api/orders",
+          "https://huycuongaquarium.vercel.app/api/orders",
           newOrder
         );
         console.log("saved to db");
@@ -165,7 +165,7 @@ const CheckoutForm = ({ user }) => {
           const updateProduct = async () => {
             try {
               await axios.put(
-                `https://huy-cuong-aquarium.vercel.app/api/products/quantity`,
+                `https://huycuongaquarium.vercel.app/api/products/quantity`,
                 {
                   id: item.id,
                   stock: item.stock - item.quantity,

@@ -1,6 +1,14 @@
 .container {
+  position: relative;
+}
+
+.wrapper {
   position: sticky;
   top: 40px;
+}
+
+.buttons {
+  display: none;
 }
 
 .user {
@@ -73,7 +81,6 @@
 
 .logout:hover {
   background-color: var(--bgHover);
-  /* background-color: var(--bgHover); */
 }
 
 .logout svg {
@@ -83,4 +90,73 @@
 .logout:hover {
   background-color: var(--bgHover);
   color: var(--textSoft);
+}
+
+@media (max-width: 1536px) {
+}
+
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
+  .buttons {
+    position: absolute;
+    display: flex;
+    top: 27px;
+    left: 20px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    z-index: 9;
+    font-size: 24px;
+    transition: all 0.35s ease;
+  }
+
+  .buttons:hover {
+    background: var(--btn-hover);
+  }
+
+  .buttonsOpen {
+    left: 300px;
+    position: fixed;
+    top: 47px;
+  }
+
+  .wrapper {
+    position: fixed;
+    background: #fff;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    width: 300px;
+    border-left: solid 1px #bbbbbb;
+    overflow: auto;
+    z-index: 99;
+    visibility: hidden;
+    transition: all 0.35s ease;
+    transform: translateX(-100%);
+  }
+
+  .wrapperOpen {
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  .wrapper::-webkit-scrollbar {
+    width: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 640px) {
+}
+
+@media (max-width: 480px) {
 }

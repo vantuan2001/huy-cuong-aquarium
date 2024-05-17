@@ -1,0 +1,133 @@
+.container {
+  position: relative;
+  box-sizing: border-box;
+  width: fit-content;
+}
+
+.iconContainer,
+.itemContainer {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f2f5;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.icon {
+  fill: #000;
+  font-size: 16px;
+}
+
+.wrapperHidden,
+.backgroundHidden {
+  display: none;
+}
+
+.backgroundShow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+}
+
+.wrapperShow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 360px;
+  max-height: 100vh;
+  background-color: var(--bg);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 9999;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.wrapperShow::-webkit-scrollbar {
+  width: auto;
+}
+
+.mainbox {
+  display: flex;
+  /* flex-direction: row-reverse; */
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.backContainer {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.backContainer:hover {
+  background-color: #f0f2f5;
+}
+
+.inputContainer {
+  box-sizing: border-box;
+  position: relative;
+  width: 270px;
+  height: 40px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 50px;
+  background-color: #f0f2f5;
+  transition: all 0.3s ease;
+}
+
+.input {
+  box-sizing: border-box;
+  height: 100%;
+  width: 215px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding-bottom: 4px;
+  padding-left: 10px;
+  font-size: 16px;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.input::placeholder {
+  color: #000;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.item:hover {
+  background-color: #f0f2f5;
+  border-radius: 8px;
+}
+
+.img {
+  border-radius: 50%;
+}

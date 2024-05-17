@@ -83,20 +83,6 @@
   color: var(--text-active);
 }
 
-.menu.active:before {
-  transform: rotate(-45deg) translate3d(0, -50%, 0);
-  top: 50%;
-}
-
-.menu.active:after {
-  transform: rotate(45deg) translate3d(0, 50%, 0);
-  bottom: 50%;
-}
-
-.menu.active div {
-  opacity: 0;
-}
-
 .menuButton,
 .mobileLinks,
 .mobileContainer {
@@ -135,6 +121,20 @@
 
 .menu:after {
   bottom: 0;
+}
+
+.menu.active:before {
+  transform: rotate(-45deg) translate3d(0, -50%, 0);
+  top: 50%;
+}
+
+.menu.active:after {
+  transform: rotate(45deg) translate3d(0, 50%, 0);
+  bottom: 50%;
+}
+
+.menu.active div {
+  opacity: 0;
 }
 
 @media (max-width: 1536px) {

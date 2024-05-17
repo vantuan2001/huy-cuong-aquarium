@@ -10,8 +10,6 @@ const SortProduct = () => {
   const handleFilter = useDebouncedCallback((e) => {
     const params = new URLSearchParams(filterParams);
 
-    params.set("page", 1);
-
     if (e.target.value) {
       params.set("sort", e.target.value);
     } else {

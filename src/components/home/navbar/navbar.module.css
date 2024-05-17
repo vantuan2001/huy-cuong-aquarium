@@ -102,6 +102,7 @@
 
 @media (max-width: 1024px) {
   .boxMenu {
+    margin: 30px 0 0;
     font-size: 16px;
   }
 

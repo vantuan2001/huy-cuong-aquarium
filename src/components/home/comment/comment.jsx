@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
 
 const getReviews = async (postId) => {
   const res = await fetch(
-    `https://huy-cuong-aquarium.vercel.app/api/reviews/${postId}`,
+    `https://huycuongaquarium.vercel.app/api/reviews/${postId}`,
     {
       next: { revalidate: 3600 },
     }

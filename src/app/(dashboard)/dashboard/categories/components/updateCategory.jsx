@@ -38,7 +38,7 @@ const UpdateFormCategory = ({ open, onClose, category }) => {
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className={styles.wapper}
+        className={styles.wrapper}
         style={{ width: "auto" }}
       >
         <div className={styles.title}>

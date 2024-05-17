@@ -57,7 +57,7 @@ const FormTest = ({ product }) => {
   const updateProduct = async () => {
     try {
       await axios.put(
-        `https://huy-cuong-aquarium.vercel.app/api/products/quantity`,
+        `https://huycuongaquarium.vercel.app/api/products/quantity`,
         {
           id: product._id,
           stock: product.stock - stock,

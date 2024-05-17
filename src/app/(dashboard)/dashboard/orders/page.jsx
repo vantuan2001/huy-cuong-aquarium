@@ -55,7 +55,7 @@ const OrdersPage = async ({ searchParams }) => {
         </thead>
         <tbody>
           <tr>
-            <td></td>
+            <td>Tổng {totalOrders.length} đơn hàng</td>
             <td></td>
             <td></td>
             <td></td>

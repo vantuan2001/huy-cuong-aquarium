@@ -29,7 +29,7 @@ const AddFormCategory = ({ open, onClose }) => {
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className={styles.wapper}
+        className={styles.wrapper}
         style={{ width: "auto" }}
       >
         <div className={styles.title}>

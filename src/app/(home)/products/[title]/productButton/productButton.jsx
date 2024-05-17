@@ -18,7 +18,7 @@ const ProductButton = ({ product }) => {
     const updateViews = async () => {
       try {
         await axios.put(
-          `https://huy-cuong-aquarium.vercel.app/api/products/views`,
+          `https://huycuongaquarium.vercel.app/api/products/views`,
           {
             id: id,
             views: product.views + +1,

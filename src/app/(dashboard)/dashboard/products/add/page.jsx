@@ -15,7 +15,7 @@ const AddProductPage = () => {
     const fetchCategories = async () => {
       try {
         const res = await axios.get(
-          "https://huy-cuong-aquarium.vercel.app/api/category"
+          "https://huycuongaquarium.vercel.app/api/category"
         );
         setCategories(res.data);
       } catch (err) {
@@ -27,7 +27,7 @@ const AddProductPage = () => {
     const fetchBrands = async () => {
       try {
         const res = await axios.get(
-          "https://huy-cuong-aquarium.vercel.app/api/brands"
+          "https://huycuongaquarium.vercel.app/api/brands"
         );
         setBrands(res.data);
       } catch (err) {

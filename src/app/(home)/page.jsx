@@ -24,7 +24,7 @@ const Home = async () => {
       <Banner bannerUrl={banner.imgBanner} />
       <div className="container">
         <Category categories={categoriesObject} />
-        <FeaturedProducts title="Hàng mới về" products={productsObject} />
+        <FeaturedProducts title="Sản phẩm nổi bật" products={productsObject} />
         <div className={styles.adv}>
           <Image
             src="/mid_banner_image_1.png"

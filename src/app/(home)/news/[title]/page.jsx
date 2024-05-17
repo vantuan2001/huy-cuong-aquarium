@@ -11,7 +11,7 @@ import { fetchLimitNews } from "@/lib/news/data";
 // LẤY DỮ LIỆU BẰNG API
 const getData = async (title) => {
   const res = await fetch(
-    `https://huy-cuong-aquarium.vercel.app/api/news/${title}`,
+    `https://huycuongaquarium.vercel.app/api/news/${title}`,
     {
       next: { revalidate: 3600 },
     }

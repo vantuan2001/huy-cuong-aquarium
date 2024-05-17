@@ -5,6 +5,7 @@ import styles from "./navbar.module.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import Search from "./search/search";
 
 const NavbarItem = ({ session, imgLogo, title }) => {
   const [header, setHeader] = useState(false);
@@ -30,22 +31,26 @@ const NavbarItem = ({ session, imgLogo, title }) => {
     <div className={`${styles.navbar} ${header === true && styles.small}`}>
       <div className="container">
         <div className={styles.menu}>
-          <Link href="/" className={styles.logo}>
-            <Image
-              src={imgLogo}
-              alt=""
-              height={40}
-              width={40}
-              className={styles.logoImg}
-            />
-            <span
-              className={`${styles.title} ${
-                pathName === "/" && styles.titleHome
-              }`}
-            >
-              {title}
-            </span>
-          </Link>
+          <div className={styles.logo}>
+            <Link href="/" className={styles.link}>
+              <Image
+                src={imgLogo}
+                alt=""
+                height={40}
+                width={40}
+                className={styles.logoImg}
+              />
+
+              {/* <span
+                className={`${styles.title} ${
+                  pathName === "/" && styles.titleHome
+                }`}
+              >
+                {title}
+              </span> */}
+            </Link>
+            <Search />
+          </div>
           <div className={styles.boxMenu}>
             <Links header={header} session={session} />
           </div>
