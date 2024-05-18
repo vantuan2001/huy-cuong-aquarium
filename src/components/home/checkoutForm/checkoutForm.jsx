@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckoutProductCard from "@/components/home/checkoutProductCard/checkoutProductCard";
 import { handleTransaction } from "@/app/api/checkout/handleTransaction";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { resetCart } from "@/redux/cartReducer";
 import Address from "@/components/address/address";
 import useSwal from "@/components/toast/useSwal";
@@ -17,6 +17,9 @@ const CheckoutForm = ({ user }) => {
   const router = useRouter();
   const { Error } = useSwal();
   const products = useSelector((state) => state.cart.products);
+  if (products.length === 0) {
+    redirect("/");
+  }
   const totalPrice = () => {
     let total = 0;
     products.forEach((item) => {
@@ -90,22 +93,16 @@ const CheckoutForm = ({ user }) => {
           userId: user._id,
         };
 
-        await axios.post(
-          "https://huycuongaquarium.vercel.app/api/orders",
-          newOrder
-        );
+        await axios.post("http://localhost:3000/api/orders", newOrder);
         console.log("saved to db");
         products.map((item) => {
           const updateProduct = async () => {
             try {
-              await axios.put(
-                `https://huycuongaquarium.vercel.app/api/products/quantity`,
-                {
-                  id: item.id,
-                  stock: item.stock - item.quantity,
-                  sold: item.sold + +item.quantity,
-                }
-              );
+              await axios.put(`http://localhost:3000/api/products/quantity`, {
+                id: item.id,
+                stock: item.stock - item.quantity,
+                sold: item.sold + +item.quantity,
+              });
               console.log("Số lượng sản phẩm được cập nhật thành công");
             } catch (err) {
               console.error("Lỗi cập nhật số lượng sản phẩm:", err);
@@ -156,22 +153,16 @@ const CheckoutForm = ({ user }) => {
           userId: user._id,
         };
 
-        await axios.post(
-          "https://huycuongaquarium.vercel.app/api/orders",
-          newOrder
-        );
+        await axios.post("http://localhost:3000/api/orders", newOrder);
         console.log("saved to db");
         products.map((item) => {
           const updateProduct = async () => {
             try {
-              await axios.put(
-                `https://huycuongaquarium.vercel.app/api/products/quantity`,
-                {
-                  id: item.id,
-                  stock: item.stock - item.quantity,
-                  sold: item.sold + +item.quantity,
-                }
-              );
+              await axios.put(`http://localhost:3000/api/products/quantity`, {
+                id: item.id,
+                stock: item.stock - item.quantity,
+                sold: item.sold + +item.quantity,
+              });
               console.log("Số lượng sản phẩm được cập nhật thành công");
             } catch (err) {
               console.error("Lỗi cập nhật số lượng sản phẩm:", err);

@@ -4,12 +4,9 @@ import moment from "moment";
 import { auth } from "@/lib/auth";
 
 const getReviews = async (postId) => {
-  const res = await fetch(
-    `https://huycuongaquarium.vercel.app/api/reviews/${postId}`,
-    {
-      next: { revalidate: 3600 },
-    }
-  );
+  const res = await fetch(`http://localhost:3000/api/reviews/${postId}`, {
+    next: { revalidate: 3600 },
+  });
   if (!res.ok) {
     throw new Error("Đã xảy ra lỗi");
   }

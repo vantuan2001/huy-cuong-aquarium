@@ -14,9 +14,7 @@ const AddProductPage = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get(
-          "https://huycuongaquarium.vercel.app/api/category"
-        );
+        const res = await axios.get("http://localhost:3000/api/category");
         setCategories(res.data);
       } catch (err) {
         console.log(err);
@@ -26,9 +24,7 @@ const AddProductPage = () => {
 
     const fetchBrands = async () => {
       try {
-        const res = await axios.get(
-          "https://huycuongaquarium.vercel.app/api/brands"
-        );
+        const res = await axios.get("http://localhost:3000/api/brands");
         setBrands(res.data);
       } catch (err) {
         console.log(err);

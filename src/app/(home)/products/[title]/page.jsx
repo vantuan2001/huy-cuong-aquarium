@@ -10,12 +10,9 @@ import { fetchLimitNews } from "@/lib/news/data";
 import StarRating from "@/components/home/starRating/starRating";
 
 const getData = async (title) => {
-  const res = await fetch(
-    `https://huycuongaquarium.vercel.app/api/products/${title}`,
-    {
-      next: { revalidate: 1 },
-    }
-  );
+  const res = await fetch(`http://localhost:3000/api/products/${title}`, {
+    next: { revalidate: 3600 },
+  });
 
   if (!res.ok) {
     throw new Error("Đã xảy ra lỗi");

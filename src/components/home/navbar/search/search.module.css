@@ -84,7 +84,7 @@
 .inputContainer {
   box-sizing: border-box;
   position: relative;
-  width: 270px;
+  width: 90%;
   height: 40px;
   padding: 0 20px;
   display: flex;
@@ -95,14 +95,18 @@
   transition: all 0.3s ease;
 }
 
+.form {
+  height: 100%;
+  width: 90%;
+}
+
 .input {
   box-sizing: border-box;
   height: 100%;
-  width: 215px;
+  width: 90%;
   background-color: transparent;
   border: none;
   outline: none;
-  padding-bottom: 4px;
   padding-left: 10px;
   font-size: 16px;
   color: #000;
@@ -110,7 +114,7 @@
 }
 
 .input::placeholder {
-  color: #000;
+  color: #abadb1;
 }
 
 .item {
@@ -128,6 +132,45 @@
   border-radius: 8px;
 }
 
+.item p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 .img {
   border-radius: 50%;
+}
+
+@media (max-width: 1536px) {
+}
+
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
+}
+
+@media (max-width: 1024px) {
+  .input {
+    font-size: 14px;
+  }
+
+  .item p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 640px) {
+}
+
+@media (max-width: 480px) {
+  .wrapperShow {
+    width: 100%;
+    border-radius: 0;
+  }
 }

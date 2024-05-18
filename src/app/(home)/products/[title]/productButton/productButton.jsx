@@ -17,14 +17,11 @@ const ProductButton = ({ product }) => {
   useEffect(() => {
     const updateViews = async () => {
       try {
-        await axios.put(
-          `https://huycuongaquarium.vercel.app/api/products/views`,
-          {
-            id: id,
-            views: product.views + +1,
-            next: { revalidate: 3600 },
-          }
-        );
+        await axios.put(`http://localhost:3000/api/products/views`, {
+          id: id,
+          views: product.views + +1,
+          next: { revalidate: 3600 },
+        });
         console.log("Đã cập nhật lượt xem sản phẩm thành công");
       } catch (err) {
         console.error("Lỗi cập nhật lượt xem sản phẩm:", err);

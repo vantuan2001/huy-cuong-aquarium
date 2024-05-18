@@ -4,6 +4,7 @@ import styles from "./search.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import axios from "axios";
 
 const Search = () => {
   const [open, setOpen] = useState(false);
@@ -22,12 +23,20 @@ const Search = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    if (query) {
-      fetch(`/api/search?title=${query}`)
-        .then((res) => res.json())
-        .then((data) => setProducts(data))
-        .catch((err) => console.error("Lỗi khi tải sản phẩm:", err));
-    }
+    const getData = async () => {
+      if (!query) return;
+
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/api/search?title=${query}`
+        );
+        setProducts(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getData();
   }, [query]);
 
   return (
@@ -52,7 +61,10 @@ const Search = () => {
           </div>
           <div className={styles.inputContainer}>
             <BsSearch className={styles.icon} />
-            <form action={() => handleNavigation(query)}>
+            <form
+              action={() => handleNavigation(query)}
+              className={styles.form}
+            >
               <input
                 className={styles.input}
                 placeholder="Tìm kiếm..."
