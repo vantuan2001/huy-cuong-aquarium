@@ -14,7 +14,9 @@ const AddProductPage = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/category");
+        const res = await axios.get(
+          "https://huycuongaquarium.online/api/category"
+        );
         setCategories(res.data);
       } catch (err) {
         console.log(err);
@@ -24,7 +26,9 @@ const AddProductPage = () => {
 
     const fetchBrands = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/brands");
+        const res = await axios.get(
+          "https://huycuongaquarium.online/api/brands"
+        );
         setBrands(res.data);
       } catch (err) {
         console.log(err);

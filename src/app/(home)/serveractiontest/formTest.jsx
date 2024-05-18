@@ -56,7 +56,7 @@ const FormTest = ({ product }) => {
   };
   const updateProduct = async () => {
     try {
-      await axios.put(`http://localhost:3000/api/products/quantity`, {
+      await axios.put(`https://huycuongaquarium.online/api/products/quantity`, {
         id: product._id,
         stock: product.stock - stock,
         sold: product.sold + +sold,

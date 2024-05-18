@@ -17,7 +17,7 @@ const ProductButton = ({ product }) => {
   useEffect(() => {
     const updateViews = async () => {
       try {
-        await axios.put(`http://localhost:3000/api/products/views`, {
+        await axios.put(`https://huycuongaquarium.online/api/products/views`, {
           id: id,
           views: product.views + +1,
           next: { revalidate: 3600 },
