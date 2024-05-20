@@ -29,7 +29,7 @@ const Search = () => {
 
       try {
         const res = await axios.get(
-          `https://huycuongaquarium.onlin/api/search?title=${query}`
+          `https://huycuongaquarium.online/api/search?title=${query}`
         );
         setProducts(res.data);
       } catch (err) {
