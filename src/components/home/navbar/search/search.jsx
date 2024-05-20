@@ -14,6 +14,7 @@ const Search = () => {
     router.push(`/products?q=${query}`);
     setOpen(false);
   };
+
   const handleLink = (title) => {
     router.push(`/products/${title}`);
     setOpen(false);
@@ -28,7 +29,7 @@ const Search = () => {
 
       try {
         const res = await axios.get(
-          `https://huycuongaquarium.online/api/search?title=${query}`
+          `http://localhost:3000/api/search?title=${query}`
         );
         setProducts(res.data);
       } catch (err) {

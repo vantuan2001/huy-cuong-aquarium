@@ -4,18 +4,22 @@ import { NextResponse } from "next/server";
 
 export const GET = async (request) => {
   try {
-    connectToDb();
-
-    const { searchParams } = new URL(request.url);
-    const titleQuery = searchParams.get("title");
-    const regex = new RegExp(titleQuery, "i");
+    await connectToDb();
+    const url = new URL(request.nextUrl);
+    const { searchParams } = url;
+    const name = searchParams.get("title");
+    // const titleQuery = searchParams.searchParams.get("title");
+    const regex = new RegExp(name, "i");
 
     const products = await Product.find({
       title: { $regex: regex },
     });
+
     return NextResponse.json(products);
   } catch (err) {
-    console.log(err);
-    throw new Error("Không thể truy xuất sản phẩm!");
+    console.error(err);
+    return NextResponse.error(new Error("Unable to retrieve products!"));
   }
 };
+
+export const dynamic = "auto";
