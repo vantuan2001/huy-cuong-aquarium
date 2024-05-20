@@ -153,6 +153,12 @@
 }
 
 @media (max-width: 1024px) {
+  .iconContainer,
+  .itemContainer {
+    width: 35px;
+    height: 35px;
+  }
+
   .input {
     font-size: 14px;
   }
@@ -166,11 +172,20 @@
 }
 
 @media (max-width: 640px) {
+  .iconContainer,
+  .itemContainer {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 @media (max-width: 480px) {
   .wrapperShow {
-    width: 100%;
+    width: 85%;
     border-radius: 0;
+  }
+
+  .wrapperShow {
+    z-index: 99999;
   }
 }

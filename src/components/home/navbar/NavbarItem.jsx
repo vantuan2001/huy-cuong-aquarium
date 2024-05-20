@@ -49,7 +49,9 @@ const NavbarItem = ({ session, imgLogo, title }) => {
                 {title}
               </span> */}
             </Link>
-            <Search />
+            <div className={styles.search}>
+              <Search />
+            </div>
           </div>
           <div className={styles.boxMenu}>
             <Links header={header} session={session} />

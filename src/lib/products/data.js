@@ -20,12 +20,19 @@ export const fetchProducts = async (q, b, c, page, number, sort) => {
       query.category = { $regex: categoryFilter };
     }
     let sortOption = { createdAt: -1 }; // Default sort: newest
+    if (sort === "best-view") {
+      sortOption = { view: -1 };
+    }
     if (sort === "best-selling") {
-      sortOption = { sales: -1 }; // Assuming `sales` is a field in your model
+      sortOption = { sold: -1 };
     } else if (sort === "price-asc") {
       sortOption = { price: 1 };
     } else if (sort === "price-desc") {
       sortOption = { price: -1 };
+    } else if (sort === "stock-asc") {
+      sortOption = { stock: 1 };
+    } else if (sort === "stock-desc") {
+      sortOption = { stock: -1 };
     }
     const count = await Product.find(query).count();
     const products = await Product.find(query)

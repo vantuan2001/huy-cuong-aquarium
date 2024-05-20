@@ -73,6 +73,18 @@
   -webkit-box-orient: vertical;
 }
 
+.sell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.sold {
+  margin: 0;
+}
+
 .price {
   font-size: 15px;
   font-weight: 500;

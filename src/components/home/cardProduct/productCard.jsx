@@ -25,8 +25,10 @@ const ProductCard = async ({ product }) => {
         <div className={styles.bottom}>
           <span className={styles.category}>{product.category}</span>
           <h2 className={styles.title}>{product.title}</h2>
-          <StarRating postId={product._id} />
-
+          <div className={styles.sell}>
+            <StarRating postId={product._id} />
+            <span className={styles.sold}>Đã bán {product.sold}</span>
+          </div>
           <h3 className={styles.price}>
             {new Intl.NumberFormat("vi-VN", {
               style: "currency",

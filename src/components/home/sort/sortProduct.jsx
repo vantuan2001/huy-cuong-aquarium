@@ -24,9 +24,12 @@ const SortProduct = () => {
       <select onClick={handleFilter}>
         <option value="">Mặc định</option>
         <option value="newest">Mới nhất</option>
+        <option value="best-view">Xem nhiều nhất</option>
         <option value="best-selling">Bán chạy nhất</option>
-        <option value="price-asc">Thứ tự theo giá: thấp đến cao</option>
-        <option value="price-desc">Thứ tự theo giá: cao xuống thấp</option>
+        <option value="price-asc">Thứ tự theo giá: Thấp đến cao</option>
+        <option value="price-desc">Thứ tự theo giá: Cao xuống thấp</option>
+        <option value="stock-asc">Thứ tự tồn kho: Ít đến nhiều</option>
+        <option value="stock-desc">Thứ tự tồn kho: Nhiều xuống ít</option>
       </select>
     </div>
   );
