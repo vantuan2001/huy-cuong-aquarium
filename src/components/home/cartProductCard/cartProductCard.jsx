@@ -51,14 +51,14 @@ const CartProductCard = ({ product }) => {
             -
           </button>
           <input
-            type={styles.text}
+            type="text"
             value={quantity}
             onChange={(e) =>
               setQuantity(e.target.value) ||
               dispatch(
                 updateCart({
                   productId: product.id,
-                  quantity: e.target.value,
+                  quantity: quantity === 1 ? 1 : e.target.value,
                 })
               )
             }
@@ -70,7 +70,7 @@ const CartProductCard = ({ product }) => {
               dispatch(
                 updateCart({
                   productId: product.id,
-                  quantity: quantity + 1,
+                  quantity: quantity + +1,
                 })
               )
             }

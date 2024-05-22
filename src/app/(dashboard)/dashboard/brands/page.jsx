@@ -2,10 +2,9 @@ import Image from "next/image";
 import styles from "./brands.module.css";
 import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
-import AddBrand from "./components/addBrand";
-import UpdateBrand from "./components/updateBrand";
 import { fetchBrands } from "@/lib/brands/data";
 import { deleteBrand } from "@/lib/brands/action";
+import BrandForm from "@/components/dashboard/brandForm/brandForm";
 
 const BrandsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -17,7 +16,7 @@ const BrandsPage = async ({ searchParams }) => {
     <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Tìm kiếm tên thương hiệu..." />
-        <AddBrand />
+        <BrandForm isUpdate={false} />
       </div>
       <table className={styles.table}>
         <thead>
@@ -46,7 +45,8 @@ const BrandsPage = async ({ searchParams }) => {
               </td>
               <td>
                 <div className={styles.buttons}>
-                  <UpdateBrand brand={brand} />
+                  <BrandForm isUpdate={true} brand={brand} />
+
                   <form action={deleteBrand}>
                     <input type="hidden" name="id" value={brand.id} />
                     <button className={`${styles.button} ${styles.delete}`}>

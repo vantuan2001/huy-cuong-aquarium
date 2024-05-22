@@ -20,7 +20,7 @@ export const addProduct = async (formData) => {
     );
 
     const { url } = uploadRes.data;
-    connectToDb();
+    await connectToDb();
     const newProduct = new Product({
       title,
       costPrice,
@@ -62,54 +62,36 @@ export const updateProduct = async (formData) => {
   data.append("upload_preset", "uploads");
 
   try {
-    connectToDb();
-    if (file.name === "undefined") {
-      const updateFields = {
-        title,
-        costPrice,
-        price,
-        stock,
-        sold,
-        views,
-        info,
-        desc,
-        category,
-        brand,
-      };
-
-      Object.keys(updateFields).forEach(
-        (key) =>
-          (updateFields[key] === "" || undefined) && delete updateFields[key]
-      );
-
-      await Product.findByIdAndUpdate(id, updateFields);
-    } else {
+    await connectToDb();
+    let updateFields = {
+      title,
+      costPrice,
+      price,
+      stock,
+      sold,
+      views,
+      info,
+      desc,
+      category,
+      brand,
+    };
+    if (file && file.name !== "undefined") {
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/dqf9hhpay/image/upload",
         data
       );
 
       const { url } = uploadRes.data;
-      const updateFields = {
-        title,
-        costPrice,
-        price,
-        stock,
-        sold,
-        views,
-        info,
-        desc,
-        category,
-        brand,
-        img: url,
-      };
-      Object.keys(updateFields).forEach(
-        (key) =>
-          (updateFields[key] === "" || undefined) && delete updateFields[key]
-      );
-
-      await Product.findByIdAndUpdate(id, updateFields);
+      updateFields.img = url;
     }
+
+    Object.keys(updateFields).forEach((key) => {
+      if (updateFields[key] === "" || updateFields[key] === undefined) {
+        delete updateFields[key];
+      }
+    });
+
+    await Product.findByIdAndUpdate(id, updateFields);
   } catch (err) {
     console.log(err);
     throw new Error("Không thể cập nhật sản phẩm!");

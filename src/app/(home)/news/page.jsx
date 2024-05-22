@@ -8,8 +8,7 @@ import { fetchLimitNews, fetchNews } from "@/lib/news/data";
 import Pagination from "@/components/dashboard/pagination/pagination";
 
 const News = async ({ searchParams }) => {
-  const q = searchParams?.q || "";
-  const page = searchParams?.page || 1;
+  const { q = "", page = 1 } = searchParams || {};
   const number = 10;
   const { count, news } = await fetchNews(q, page, number);
   const newsSmall = await fetchLimitNews(5);

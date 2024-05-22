@@ -2,10 +2,9 @@ import Image from "next/image";
 import styles from "./categories.module.css";
 import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
-import AddCategory from "./components/addCategory";
-import UpdateCategory from "./components/updateCategory";
 import { fetchCategories } from "@/lib/categories/data";
 import { deleteCategory } from "@/lib/categories/action";
+import CategoryForm from "@/components/dashboard/categoryForm/categoryForm";
 
 const CategoriesPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -18,7 +17,7 @@ const CategoriesPage = async ({ searchParams }) => {
     <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Tìm kiếm tên danh mục..." />
-        <AddCategory />
+        <CategoryForm isUpdate={false} />
       </div>
       <table className={styles.table}>
         <thead>
@@ -47,9 +46,9 @@ const CategoriesPage = async ({ searchParams }) => {
               </td>
               <td>
                 <div className={styles.buttons}>
-                  <UpdateCategory category={category} />
+                  <CategoryForm isUpdate={true} category={category} />
                   <form action={deleteCategory}>
-                    <input type="hidden" name="id" value={category.id} />
+                    <input type="hidden" name="id" value={category._id} />
                     <button className={`${styles.button} ${styles.delete}`}>
                       Xoá
                     </button>

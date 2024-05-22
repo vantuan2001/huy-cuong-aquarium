@@ -10,7 +10,7 @@ import { fetchLimitNews } from "@/lib/news/data";
 
 // LẤY DỮ LIỆU BẰNG API
 const getData = async (title) => {
-  const res = await fetch(`https://huycuongaquarium.online/api/news/${title}`, {
+  const res = await fetch(`http://localhost:3000/api/news/${title}`, {
     next: { revalidate: 3600 },
   });
 

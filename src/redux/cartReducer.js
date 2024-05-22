@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
         (item) => item.id === action.payload.productId
       );
       if (item) {
-        item.quantity += action.payload.quantity;
+        item.quantity = +action.payload.quantity;
       } else {
         state.products.push(action.payload);
       }
@@ -24,7 +24,7 @@ export const cartSlice = createSlice({
         (item) => item.id === action.payload.productId
       );
       if (item) {
-        item.quantity = action.payload.quantity;
+        item.quantity = +action.payload.quantity;
       }
     },
 

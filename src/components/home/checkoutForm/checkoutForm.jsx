@@ -20,13 +20,10 @@ const CheckoutForm = ({ user }) => {
   if (products.length === 0) {
     redirect("/");
   }
-  const totalPrice = () => {
-    let total = 0;
-    products.forEach((item) => {
-      total += item.price * item.quantity;
-    });
-    return total;
-  };
+  const totalPrice = products.reduce(
+    (total, item) => (total += item.price * item.quantity),
+    0
+  );
   const [error, setError] = useState(false);
   const [specificAddress, setSpecificAddress] = useState("");
   const [username, setUsername] = useState(user.username);
@@ -89,26 +86,20 @@ const CheckoutForm = ({ user }) => {
           note,
           paymentMethods: 0,
           paymentStatus: 0,
-          total: totalPrice(),
+          total: totalPrice,
           userId: user._id,
         };
 
-        await axios.post(
-          "https://huycuongaquarium.online/api/orders",
-          newOrder
-        );
+        await axios.post("http://localhost:3000/api/orders", newOrder);
         console.log("saved to db");
         products.map((item) => {
           const updateProduct = async () => {
             try {
-              await axios.put(
-                `https://huycuongaquarium.online/api/products/quantity`,
-                {
-                  id: item.id,
-                  stock: item.stock - item.quantity,
-                  sold: item.sold + +item.quantity,
-                }
-              );
+              await axios.put(`http://localhost:3000/api/products/quantity`, {
+                id: item.id,
+                stock: item.stock - item.quantity,
+                sold: item.sold + +item.quantity,
+              });
               console.log("Số lượng sản phẩm được cập nhật thành công");
             } catch (err) {
               console.error("Lỗi cập nhật số lượng sản phẩm:", err);
@@ -129,7 +120,7 @@ const CheckoutForm = ({ user }) => {
 
   const handleVNPAY = async () => {
     const orderId = Math.floor(Math.random() * 999999);
-    const response = await handleTransaction.bank(totalPrice(), orderId);
+    const response = await handleTransaction.bank(totalPrice, orderId);
     const data = response.data;
 
     // Trích xuất URL từ trường "data"
@@ -155,26 +146,20 @@ const CheckoutForm = ({ user }) => {
           products,
           note,
           paymentMethods: 1,
-          total: totalPrice(),
+          total: totalPrice,
           userId: user._id,
         };
 
-        await axios.post(
-          "https://huycuongaquarium.online/api/orders",
-          newOrder
-        );
+        await axios.post("http://localhost:3000/api/orders", newOrder);
         console.log("saved to db");
         products.map((item) => {
           const updateProduct = async () => {
             try {
-              await axios.put(
-                `https://huycuongaquarium.online/api/products/quantity`,
-                {
-                  id: item.id,
-                  stock: item.stock - item.quantity,
-                  sold: item.sold + +item.quantity,
-                }
-              );
+              await axios.put(`http://localhost:3000/api/products/quantity`, {
+                id: item.id,
+                stock: item.stock - item.quantity,
+                sold: item.sold + +item.quantity,
+              });
               console.log("Số lượng sản phẩm được cập nhật thành công");
             } catch (err) {
               console.error("Lỗi cập nhật số lượng sản phẩm:", err);
@@ -301,7 +286,7 @@ const CheckoutForm = ({ user }) => {
                 new Intl.NumberFormat("vi-VN", {
                   style: "currency",
                   currency: "VND",
-                }).format(totalPrice())
+                }).format(totalPrice)
               ) : (
                 <div>0 đ</div>
               )}
@@ -324,7 +309,7 @@ const CheckoutForm = ({ user }) => {
                 new Intl.NumberFormat("vi-VN", {
                   style: "currency",
                   currency: "VND",
-                }).format(totalPrice() + 30000)
+                }).format(totalPrice + 30000)
               ) : (
                 <div>0 đ</div>
               )}

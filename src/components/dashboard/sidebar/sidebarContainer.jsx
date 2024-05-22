@@ -20,7 +20,6 @@ import {
 import { FaBars, FaTags, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { handleLogout } from "@/lib/auth/action";
-import { BsList } from "react-icons/bs";
 
 const menuItems = [
   {

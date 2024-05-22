@@ -1,13 +1,30 @@
 .container {
-  height: 500px;
+  height: 600px;
   background-color: var(--bgSoft);
   padding: 20px;
   border-radius: 10px;
-  padding-bottom: 65px;
+  padding-bottom: 90px;
 }
 
 .title {
   font-weight: 200;
   color: var(--textSoft);
   margin-bottom: 20px;
+}
+
+.time {
+  display: flex;
+  gap: 20px;
+}
+
+.time label,
+.time input {
+  cursor: pointer;
+}
+
+.time label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }

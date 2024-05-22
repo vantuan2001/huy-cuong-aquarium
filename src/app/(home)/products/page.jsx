@@ -11,12 +11,8 @@ import { getBrands } from "@/lib/brands/data";
 import SortProduct from "@/components/home/sort/sortProduct";
 
 const Products = async ({ searchParams }) => {
-  const q = searchParams?.q || "";
-  const b = searchParams?.b || "";
-  const c = searchParams?.c || "";
-  const page = searchParams?.page || 1;
+  const { q = "", b = "", c = "", sort = "", page = 1 } = searchParams || {};
   const number = 16;
-  const sort = searchParams?.sort || "";
 
   const { count, products } = await fetchProducts(q, b, c, page, number, sort);
   const categories = await getCategories();

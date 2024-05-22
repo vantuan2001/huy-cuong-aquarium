@@ -13,13 +13,13 @@ export const addNews = async (formData) => {
   data.append("file", file);
   data.append("upload_preset", "uploads");
   try {
+    await connectToDb();
     const uploadRes = await axios.post(
       "https://api.cloudinary.com/v1_1/dqf9hhpay/image/upload",
       data
     );
 
     const { url } = uploadRes.data;
-    connectToDb();
     const newNews = new News({
       title,
       desc,
@@ -42,43 +42,31 @@ export const updateNews = async (formData) => {
   const data = new FormData();
   data.append("file", file);
   data.append("upload_preset", "uploads");
-  try {
-    connectToDb();
-    if (file.name === "undefined") {
-      const updateFields = {
-        title,
-        desc,
-      };
-      Object.keys(updateFields).forEach(
-        (key) =>
-          (updateFields[key] === "" || undefined) && delete updateFields[key]
-      );
 
-      await News.findByIdAndUpdate(id, updateFields);
-    } else {
+  try {
+    await connectToDb();
+    let updateFields = { title, desc };
+    if (file && file.name !== "undefined") {
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/dqf9hhpay/image/upload",
         data
       );
 
       const { url } = uploadRes.data;
-      const updateFields = {
-        title,
-        desc,
-        img: url,
-      };
-      Object.keys(updateFields).forEach(
-        (key) =>
-          (updateFields[key] === "" || undefined) && delete updateFields[key]
-      );
-
-      await News.findByIdAndUpdate(id, updateFields);
+      updateFields.img = url;
     }
+
+    Object.keys(updateFields).forEach((key) => {
+      if (updateFields[key] === "" || updateFields[key] === undefined) {
+        delete updateFields[key];
+      }
+    });
+
+    await News.findByIdAndUpdate(id, updateFields);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw new Error("Không thể cập nhật tin tức!");
   }
-
   revalidatePath("/dashboard/news");
   revalidatePath("/news");
   redirect("/dashboard/news");

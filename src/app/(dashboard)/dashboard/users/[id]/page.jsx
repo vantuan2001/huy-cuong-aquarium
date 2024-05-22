@@ -1,8 +1,8 @@
-// import { fetchUser } from "@/lib/data";
 import styles from "./singleUser.module.css";
 import Image from "next/image";
-import UserForm from "./userForm";
+
 import { fetchUser } from "@/lib/users/data";
+import UserForm from "@/components/dashboard/userForm/userForm";
 
 const SingleUserPage = async ({ params }) => {
   const { id } = params;
@@ -17,7 +17,7 @@ const SingleUserPage = async ({ params }) => {
       </div>
 
       <div className={styles.formContainer}>
-        <UserForm user={user} />
+        <UserForm isUpdate={true} user={user} />
       </div>
     </div>
   );

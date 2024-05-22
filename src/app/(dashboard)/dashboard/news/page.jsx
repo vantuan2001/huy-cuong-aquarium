@@ -7,8 +7,7 @@ import { fetchNews } from "@/lib/news/data";
 import { deleteNews } from "@/lib/news/action";
 
 const NewsPage = async ({ searchParams }) => {
-  const q = searchParams?.q || "";
-  const page = searchParams?.page || 1;
+  const { q = "", page = 1 } = searchParams || {};
   const number = 10;
   const { count, news } = await fetchNews(q, page, number);
   return (

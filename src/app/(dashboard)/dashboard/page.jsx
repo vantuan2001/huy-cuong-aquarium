@@ -1,15 +1,15 @@
-import { BsBasket } from "react-icons/bs";
+import { BsBasket, BsCreditCard2Front, BsHandbag } from "react-icons/bs";
 import styles from "./dashboard.module.css";
-import Image from "next/image";
-import Link from "next/link";
+
 import Chart from "@/components/dashboard/chart/chart";
 import SellingProducts from "@/components/dashboard/sellingProducts/sellingProducts";
 import RecentOrders from "@/components/dashboard/recentOrders/recentOrders";
 import RecentReviews from "@/components/dashboard/recentReviews/recentReviews";
-import TotalSales from "@/components/dashboard/totalSales/totalSales";
+
 import { fetchReviews } from "@/lib/reviews/data";
 import { getOrders } from "@/lib/orders/data";
 import { getViewedProduct, getbestSellingProduct } from "@/lib/products/data";
+import StatisticsCard from "@/components/dashboard/statisticsCard/statisticsCard";
 
 const Dashboard = async () => {
   const q = "";
@@ -21,23 +21,41 @@ const Dashboard = async () => {
   const ordersObject = JSON.parse(JSON.stringify(orders));
   const productsSelling = await getbestSellingProduct(number);
   const productsViewed = await getViewedProduct(number);
+
+  const totalPrice = () => {
+    let total = 0;
+    orders.forEach((item) => {
+      total += item.total;
+    });
+
+    return total;
+  };
   return (
     <div className={styles.container}>
       <div className={styles.sales}>
-        <div className={styles.salesItem}>
-          <div className={styles.itemHeader}>
-            <BsBasket className={styles.icon} />
-            <Link href="/dashboard/orders" className={styles.link}>
-              Xem tất cả
-            </Link>
-          </div>
-          <h4>Đơn đặt hàng</h4>
-          <div className={styles.info}>
-            <span>{orders.length}</span>
-            <Image src="/line-1.png" alt="" width={105} height={59} />
-          </div>
-        </div>
-        <TotalSales orders={orders} />
+        <StatisticsCard
+          icon={<BsHandbag />}
+          title="Đơn đặt hàng"
+          path="orders"
+          data={orders.length}
+        />
+        <StatisticsCard
+          icon={<BsCreditCard2Front />}
+          title="Doanh thu"
+          path="orders"
+          data={new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }).format(totalPrice())}
+          img="null"
+        />
+        <StatisticsCard
+          icon={<BsBasket />}
+          title="Đơn đặt hàng"
+          path="orders"
+          data={orders.length}
+        />
+
         <RecentReviews reviews={reviewsObject} />
       </div>
       <Chart orders={ordersObject} />
@@ -53,7 +71,7 @@ const Dashboard = async () => {
         </div>
       </div>
       <div className={styles.order}>
-        <h2>Đơn hàng gần đây</h2>
+        <h2>Đơn hàng cần xác nhận</h2>
         <RecentOrders />
       </div>
     </div>

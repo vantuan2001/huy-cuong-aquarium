@@ -39,41 +39,32 @@ export const updateBrand = async (formData) => {
   const data = new FormData();
   data.append("file", file);
   data.append("upload_preset", "uploads");
-  try {
-    connectToDb();
-    if (file.name === "undefined") {
-      const updateFields = {
-        name,
-      };
-      Object.keys(updateFields).forEach(
-        (key) =>
-          (updateFields[key] === "" || undefined) && delete updateFields[key]
-      );
 
-      await Brand.findByIdAndUpdate(id, updateFields);
-    } else {
+  try {
+    await connectToDb();
+
+    let updateFields = { name };
+    if (file && file.name !== "undefined") {
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/dqf9hhpay/image/upload",
         data
       );
 
       const { url } = uploadRes.data;
-      const updateFields = {
-        name,
-        img: url,
-      };
-      Object.keys(updateFields).forEach(
-        (key) =>
-          (updateFields[key] === "" || undefined) && delete updateFields[key]
-      );
-
-      await Brand.findByIdAndUpdate(id, updateFields);
+      updateFields.img = url;
     }
+
+    Object.keys(updateFields).forEach((key) => {
+      if (updateFields[key] === "" || updateFields[key] === undefined) {
+        delete updateFields[key];
+      }
+    });
+
+    await Brand.findByIdAndUpdate(id, updateFields);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw new Error("Không thể cập nhật thương hiệu!");
   }
-
   revalidatePath("/dashboard/brands");
   revalidatePath("/products");
   redirect("/dashboard/brands");

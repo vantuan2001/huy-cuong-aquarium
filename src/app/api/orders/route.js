@@ -48,66 +48,28 @@ export async function POST(request) {
   );
 }
 
-// export const POST = async (request) => {
-//   try {
-//     connectToDb();
-//     const product = await Product.create(request.body);
+export default function handler(req, res) {
+  // Set CORS headers
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://huycuongaquarium.online"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-//     return NextResponse.json(product);
-//   } catch (err) {
-//     console.log(err);
-//     throw new Error("Không thể truy xuất sản phẩm!");
-//   }
-// };
+  // Handle preflight request
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
+  }
 
-// export const POST = async (req) => {
-//   try {
-//     connectToDb();
-//     const body = await req.json();
-//     const products = await Product.create({
-//       data: { ...body },
-//     });
+  // Handle other HTTP methods
+  // Your actual API logic here
 
-//     return new NextResponse(JSON.stringify(products, { status: 200 }));
-//   } catch (err) {
-//     console.log(err);
-//     return new NextResponse(
-//       JSON.stringify({ message: "Đã xảy ra lỗi!" }, { status: 500 })
-//     );
-//   }
-// };
-
-// export async function POST(request) {
-//   // const product = await Product.create(request.body);
-//   // const body = await request.json(request.body);
-//   // await connectToDb();
-//   // await Product.create({
-//   //   ...body,
-//   // });
-//   // return NextResponse.json({ message: "Product Created" }, { status: 201 });
-
-//   try {
-//     const body = await request.json(request.body);
-//     await connectToDb();
-//     await Product.create({
-//       ...body,
-//     });
-//     return NextResponse.json({ message: "Product Created" }, { status: 201 });
-//   } catch (err) {
-//     console.log(err);
-//     throw new Error("Không thể truy xuất sản phẩm!");
-//   }
-// }
-
-// if (method === "POST") {
-//   if (!token || token !== process.env.token) {
-//     return res.status(401).json("Not authenticated!");
-//   }
-//   try {
-//     const product = await Product.create(req.body);
-//     res.status(201).json(product);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// }
-// }
+  // For example, if you're responding with JSON data:
+  const data = { message: "This is a sample response" };
+  res.status(200).json(data);
+}

@@ -32,13 +32,9 @@ const ReviewsPage = async ({ searchParams }) => {
               <td>{review.comment}</td>
               <td>
                 <div className={styles.star}>
-                  {[...Array(review.rating)].map((star) => {
-                    return (
-                      <span className={styles.star} key={star}>
-                        &#9733;
-                      </span>
-                    );
-                  })}
+                  {[...Array(review.rating)].map((_, index) => (
+                    <span key={index}>&#9733;</span>
+                  ))}
                 </div>
               </td>
               <td>

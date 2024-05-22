@@ -20,7 +20,7 @@ const Error = () => {
               <div className="screen_out">
                 <div className="screen_out1">
                   <div className="screen">
-                    <span className="notfound_text"> NOT FOUND</span>
+                    <span className="notfound_text">KHÔNG TÌM THẤY</span>
                   </div>
                 </div>
               </div>

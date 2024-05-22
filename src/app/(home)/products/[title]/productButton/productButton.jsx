@@ -3,22 +3,29 @@
 import { useEffect, useState } from "react";
 import styles from "./productButton.module.css";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "@/redux/cartReducer";
 import axios from "axios";
 import { BsDashLg, BsPlusLg } from "react-icons/bs";
 import Swal from "sweetalert2";
 
+const selectProductById = (state, productId) => {
+  return state.cart.products.find((product) => product.productId === productId);
+};
+
 const ProductButton = ({ product }) => {
+  const productId = product._id;
+  const selectedProduct = useSelector((state) =>
+    selectProductById(state, productId)
+  );
+
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
-  const id = product._id;
-
   useEffect(() => {
     const updateViews = async () => {
       try {
-        await axios.put(`https://huycuongaquarium.online/api/products/views`, {
-          id: id,
+        await axios.put(`http://localhost:3000/api/products/views`, {
+          id: productId,
           views: product.views + +1,
           next: { revalidate: 3600 },
         });
@@ -29,12 +36,13 @@ const ProductButton = ({ product }) => {
     };
 
     // Kiểm tra xem id có tồn tại hay không trước khi cập nhật lượt xem
-    if (id) {
+    if (productId) {
       updateViews();
     }
-  }, [id]);
+  }, [productId]);
 
   const handleAddToCart = () => {
+    const existingQuantity = selectedProduct ? selectedProduct.quantity : 0;
     dispatch(
       addToCart({
         id: product._id,
@@ -44,7 +52,7 @@ const ProductButton = ({ product }) => {
         price: product.price,
         stock: product.stock,
         sold: product.sold,
-        quantity: 1,
+        quantity: existingQuantity + +quantity,
       })
     );
     Swal.fire({
@@ -65,7 +73,7 @@ const ProductButton = ({ product }) => {
           <BsDashLg />
         </button>
         <input
-          type={styles.text}
+          type="text"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />

@@ -1,14 +1,13 @@
 import { fetchProduct } from "@/lib/products/data";
-import styles from "./singleProduct.module.css";
-import UpdateProductForm from "./updateProductForm";
+import ProductForm from "@/components/dashboard/productForm/ProductForm";
 
 const SingleProductPage = async ({ params }) => {
   const { id } = params;
   const product = await fetchProduct(id);
 
   return (
-    <div className={styles.container}>
-      <UpdateProductForm product={product} />
+    <div>
+      <ProductForm isUpdate={true} product={product} />
     </div>
   );
 };

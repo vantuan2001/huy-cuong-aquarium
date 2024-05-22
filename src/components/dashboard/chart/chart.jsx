@@ -148,7 +148,7 @@ const Chart = ({ orders }) => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Thống kê doanh thu</h2>
-      <div className={styles.timeRangeSelector}>
+      <div className={styles.time}>
         <label>
           <input
             type="radio"

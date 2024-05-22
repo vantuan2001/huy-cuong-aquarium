@@ -4,26 +4,31 @@ import { useEffect, useState } from "react";
 import styles from "./address.module.css";
 
 const Address = (error) => {
+  // Khai báo các state để lưu trữ danh sách tỉnh/thành phố, quận/huyện và phường/xã được fetch từ API
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
+
+  // Khai báo các state để lưu trữ giá trị được chọn của tỉnh/thành phố, quận/huyện và phường/xã
   const [getProvince, setGetProvince] = useState("");
   const [getDistrict, setGetDistrict] = useState("");
   const [getWard, setGetWard] = useState("");
-
+  // useEffect được sử dụng để fetch danh sách tỉnh/thành phố từ API khi component được render
   useEffect(() => {
     // Lấy danh sách tỉnh/thành phố
     const fetchProvinces = async () => {
       try {
+        // Gửi request GET đến API để lấy danh sách tỉnh/thành phố
         const response = await axios.get(
           "https://esgoo.net/api-tinhthanh/1/0.htm"
         );
+        // Cập nhật state provinces với dữ liệu được trả về từ API
         setProvinces(response.data.data);
       } catch (error) {
-        console.error("Error fetching provinces:", error);
+        console.error("Lỗi khi lấy danh sách tỉnh/thành phố:", error);
       }
     };
-
+    // Gọi hàm fetchProvinces khi component được render
     fetchProvinces();
   }, []);
 
@@ -35,17 +40,17 @@ const Address = (error) => {
       return;
     }
 
-    // Lấy tỉnh/thành phố đã chọn
+    // Lấy thông tin tỉnh/thành phố đã chọn từ danh sách provinces
     const province = provinces.find((province) => province.id === provinceId);
     if (!province) {
-      console.error("Province not found");
+      console.error("Không tìm thấy tỉnh/thành phố.");
       return;
     }
 
     // Lưu trữ thông tin tỉnh/thành phố đã chọn vào state
     setGetProvince(province.full_name);
 
-    // Lấy danh sách quận/huyện
+    // Lấy danh sách quận/huyện từ API dựa trên provinceId đã chọn
     try {
       const response = await axios.get(
         `https://esgoo.net/api-tinhthanh/2/${provinceId}.htm`
@@ -53,49 +58,48 @@ const Address = (error) => {
       setDistricts(response.data.data);
       setWards([]);
     } catch (error) {
-      console.error("Error fetching districts:", error);
+      console.error("Lỗi khi lấy danh sách quận/huyện:", error);
     }
   };
 
+  // Hàm xử lý sự kiện khi chọn quận/huyện
   const handleDistrictChange = async (e) => {
     const districtId = e.target.value;
     if (districtId === "0") {
       setWards([]);
       return;
     }
-
-    // Lấy quận/huyện đã chọn
+    // Lấy thông tin quận/huyện đã chọn từ danh sách districts
     const district = districts.find((district) => district.id === districtId);
     if (!district) {
-      console.error("District not found");
+      console.error("Không tìm thấy quận/huyện.");
       return;
     }
-
     // Lưu trữ thông tin quận/huyện đã chọn vào state
     setGetDistrict(district.full_name);
-
-    // Lấy danh sách phường/xã
+    // Lấy danh sách xã/phường từ API dựa trên districtId đã chọn
     try {
       const response = await axios.get(
         `https://esgoo.net/api-tinhthanh/3/${districtId}.htm`
       );
+      // Cập nhật state wards với dữ liệu được trả về từ API
       setWards(response.data.data);
     } catch (error) {
-      console.error("Error fetching wards:", error);
+      console.error("Lỗi khi lấy danh sách xã/phường:", error);
     }
   };
 
+  // Hàm xử lý sự kiện khi chọn xã/phường
   const handleWardChange = (e) => {
     const wardId = e.target.value;
-
-    // Lấy quận/huyện đã chọn
+    // Lấy thông tin xã/phường đã chọn từ danh sách wards
     const ward = wards.find((ward) => ward.id === wardId);
     if (!ward) {
-      console.error("ward not found");
+      console.error("Không tìm thấy xã/phường.");
       return;
     }
 
-    // Lưu trữ thông tin quận/huyện đã chọn vào state
+    // Lưu trữ thông tin xã/phường đã chọn vào state
     setGetWard(ward.full_name);
   };
 

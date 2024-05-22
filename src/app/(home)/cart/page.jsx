@@ -10,13 +10,17 @@ import { AiOutlineDoubleRight } from "react-icons/ai";
 
 const Cart = () => {
   const products = useSelector((state) => state.cart.products);
-  const totalPrice = () => {
-    let total = 0;
-    products.forEach((item) => {
-      total += item.price * item.quantity;
-    });
-    return total;
-  };
+  const totalPrice = products.reduce(
+    (total, item) => (total += item.price * item.quantity),
+    0
+  );
+  // const totalPrice = () => {
+  //   let total = 0;
+  //   products.forEach((item) => {
+  //     total += item.price * item.quantity;
+  //   });
+  //   return total;
+  // };
 
   const [isClient, setIsClient] = useState(false);
 
@@ -74,7 +78,7 @@ const Cart = () => {
                   {new Intl.NumberFormat("vi-VN", {
                     style: "currency",
                     currency: "VND",
-                  }).format(totalPrice())}
+                  }).format(totalPrice)}
                 </span>
               </div>
               <div>
@@ -83,7 +87,7 @@ const Cart = () => {
                   {new Intl.NumberFormat("vi-VN", {
                     style: "currency",
                     currency: "VND",
-                  }).format(totalPrice())}
+                  }).format(totalPrice)}
                 </span>
               </div>
               <Link href="/checkout" className={styles.btnCheckout}>

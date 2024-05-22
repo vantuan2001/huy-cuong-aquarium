@@ -5,8 +5,8 @@ export const fetchBrands = async (q, page, number) => {
   const regex = new RegExp(q, "i");
   const ITEM_PER_PAGE = number;
   try {
-    connectToDb();
-    const count = await Brand.find({ name: { $regex: regex } }).count();
+    await connectToDb(); // Connect to database
+    const count = await Brand.countDocuments({ name: { $regex: regex } }); // Use countDocuments method instead of count
     const brands = await Brand.find({ name: { $regex: regex } })
       .sort({ createdAt: -1 })
       .limit(ITEM_PER_PAGE)
@@ -20,7 +20,7 @@ export const fetchBrands = async (q, page, number) => {
 
 export const getBrands = async () => {
   try {
-    connectToDb();
+    await connectToDb();
     const brands = await Brand.find().sort({ createdAt: -1 });
     return brands;
   } catch (err) {

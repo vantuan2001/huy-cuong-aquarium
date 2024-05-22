@@ -1,7 +1,3 @@
-.container {
-  margin-top: 24px;
-}
-
 .sales {
   display: flex;
   gap: 24px;
@@ -50,16 +46,5 @@
 
 .info span {
   font-size: 30px;
-  font-weight: 500;
-}
-
-.recent {
-  display: flex;
-  gap: 25px;
-  margin-top: 25px;
-}
-
-.recent h2 {
-  font-size: 20px;
   font-weight: 500;
 }

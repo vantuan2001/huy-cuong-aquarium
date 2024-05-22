@@ -68,3 +68,27 @@
 .order {
   margin-top: 25px;
 }
+
+@media (max-width: 1536px) {
+}
+
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
+  .sales {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 640px) {
+}
+
+@media (max-width: 480px) {
+}

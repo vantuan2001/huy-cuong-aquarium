@@ -65,3 +65,15 @@ export const fetchOrderByUserId = async (userId) => {
     throw new Error("Không thể truy xuất đơn hàng!");
   }
 };
+
+export const fetchOrdersUnconfirmed = async () => {
+  const status = 1;
+  try {
+    connectToDb();
+    const order = await Order.find({ status: status }).sort({ createdAt: -1 });
+    return order;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Không thể truy xuất đơn hàng!");
+  }
+};

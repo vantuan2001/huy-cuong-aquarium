@@ -55,3 +55,69 @@ a {
 .txt-end {
   text-align: right;
 }
+
+/* form */
+.form {
+  display: flex;
+  margin-top: 20px;
+}
+
+.inputContainer {
+  flex: 3;
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.formItem input,
+.formItem textarea,
+.formItem select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ced4da;
+  border-radius: 5px;
+  color: var(--text);
+  margin: 10px 0px;
+}
+
+.formItem input:focus,
+.formItem textarea:focus,
+.formItem select:focus {
+  border: 2px solid var(--btnBg);
+  outline: none;
+}
+
+.formItem label {
+  font-size: 12px;
+}
+
+.inputContainer button {
+  width: 200px;
+  padding: 15px;
+  background-color: var(--btnBg);
+  color: var(--bg);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.w50 {
+  width: 49%;
+}
+
+.w30 {
+  width: 32%;
+}
