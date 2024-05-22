@@ -11,6 +11,17 @@ const useSwal = () => {
     });
   };
 
+  const ToastSuccess = ({ title }) => {
+    Swal.fire({
+      position: "top",
+      icon: "success",
+      title: "Thành công",
+      text: `${title} thành công`,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
   const Error = ({ title }) => {
     const Toast = Swal.mixin({
       toast: true,
@@ -30,25 +41,35 @@ const useSwal = () => {
     });
   };
 
-  // const Delete = ({ name, method, id }) => {
-  //   Swal.fire({
-  //     title: `Bạn có chắc muốn xoá ${name} này không?`,
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Xoá bỏ!",
-  //     cancelButtonText: "Huỷ bỏ",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       method(id);
-  //       Swal.fire("Đã xoá!", `${name} của bạn đã bị xóa.`, "success");
-  //       window.location.reload();
-  //     }
-  //   });
-  // };
+  const ToastDelete = async ({ name, method, id }) => {
+    const result = await Swal.fire({
+      title: `Bạn có chắc chắn muốn xoá ${name} này không?`,
+      text: "Dữ liệu này không thể khôi phục",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Xoá bỏ!",
+      cancelButtonText: "Huỷ bỏ",
+    });
 
-  return { Success, Error };
+    if (result.isConfirmed) {
+      try {
+        await method({ id });
+        Swal.fire({
+          title: "Thành công",
+          text: `Xoá ${name} thành công`,
+          icon: "success",
+        });
+        // window.location.reload();
+      } catch (error) {
+        Swal.fire("Lỗi!", `Không thể xóa ${name}.`, "error");
+        console.error("Error deleting item:", error);
+      }
+    }
+  };
+
+  return { Success, ToastSuccess, Error, ToastDelete };
 };
 
 export default useSwal;

@@ -2,12 +2,9 @@ import React from "react";
 
 const getReviews = async (postId) => {
   try {
-    const res = await fetch(
-      `https://www.huycuongaquarium.online/api/reviews/${postId}`,
-      {
-        next: { revalidate: 3600 },
-      }
-    );
+    const res = await fetch(`http://localhost:3000/api/reviews/${postId}`, {
+      next: { revalidate: 3600 },
+    });
     if (!res.ok) {
       throw new Error("Đã xảy ra lỗi");
     }

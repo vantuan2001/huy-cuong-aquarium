@@ -2,11 +2,13 @@
 import { useState } from "react";
 import { addUser, updateUser } from "@/lib/users/action";
 import Address from "@/components/address/address";
+import useSwal from "@/components/toast/useSwal";
 const UserForm = ({ user, isUpdate }) => {
   const [id, setId] = useState(user ? user._id : "");
   const [username, setUsername] = useState(user ? user.username : "");
   const [email, setEmail] = useState(user ? user.email : "");
   const [phone, setPhone] = useState(user ? user.phone : "");
+  const [password, setPassword] = useState(user ? user.password : "");
   const [isAdmin, setIsAdmin] = useState(user ? user.isAdmin : "");
   const [address, setAddress] = useState(user ? user.address : "");
   const {
@@ -18,6 +20,8 @@ const UserForm = ({ user, isUpdate }) => {
     SelectWard,
   } = Address();
 
+  const { ToastSuccess } = useSwal();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -26,13 +30,16 @@ const UserForm = ({ user, isUpdate }) => {
       formData.append("username", username);
       formData.append("email", email);
       formData.append("phone", phone);
+      formData.append("password", password);
       formData.append("isAdmin", isAdmin);
       formData.append("address", address);
 
       if (isUpdate) {
         await updateUser(formData);
+        ToastSuccess({ title: "Cập nhật người dùng" });
       } else {
         await addUser(formData);
+        ToastSuccess({ title: "Thêm người dùng" });
       }
     } catch (err) {
       console.error("Error submitting form:", err);
@@ -83,7 +90,12 @@ const UserForm = ({ user, isUpdate }) => {
         </div>
         <div className="formItem w50">
           <label>Mật khẩu</label>
-          <input type="password" name="password" />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
 
         <div className="formItem w50">

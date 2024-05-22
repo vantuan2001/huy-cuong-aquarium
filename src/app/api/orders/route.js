@@ -50,10 +50,7 @@ export async function POST(request) {
 
 export default function handler(req, res) {
   // Set CORS headers
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://www.huycuongaquarium.online"
-  );
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS"
@@ -66,10 +63,6 @@ export default function handler(req, res) {
     return;
   }
 
-  // Handle other HTTP methods
-  // Your actual API logic here
-
-  // For example, if you're responding with JSON data:
   const data = { message: "This is a sample response" };
   res.status(200).json(data);
 }

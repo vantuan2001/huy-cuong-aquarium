@@ -8,6 +8,11 @@ import { fetchOrders, getOrders } from "@/lib/orders/data";
 import { cancelOrder, updateStatusOrder } from "@/lib/orders/action";
 import SelectStatus from "./components/selectStatus";
 import SelectPayments from "./components/selectPayments";
+import {
+  BsClipboard2Check,
+  BsClipboard2X,
+  BsPencilSquare,
+} from "react-icons/bs";
 
 const OrdersPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -94,7 +99,7 @@ const OrdersPage = async ({ searchParams }) => {
                   <div className={styles.buttons}>
                     <Link href={`/dashboard/orders/${order._id}`}>
                       <button className={`${styles.button} ${styles.view}`}>
-                        Xem
+                        <BsPencilSquare />
                       </button>
                     </Link>
                     <>
@@ -109,7 +114,7 @@ const OrdersPage = async ({ searchParams }) => {
                           className={`${styles.button} ${styles.next}`}
                           disabled={next}
                         >
-                          Tiếp theo
+                          <BsClipboard2Check />
                         </button>
                       </form>
                       <form action={cancelOrder}>
@@ -118,7 +123,7 @@ const OrdersPage = async ({ searchParams }) => {
                           className={`${styles.button} ${styles.delete}`}
                           disabled={!cancel}
                         >
-                          Huỷ
+                          <BsClipboard2X />
                         </button>
                       </form>
                     </>

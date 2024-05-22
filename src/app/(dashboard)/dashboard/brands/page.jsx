@@ -5,6 +5,7 @@ import Pagination from "@/components/dashboard/pagination/pagination";
 import { fetchBrands } from "@/lib/brands/data";
 import { deleteBrand } from "@/lib/brands/action";
 import BrandForm from "@/components/dashboard/brandForm/brandForm";
+import DeleteForm from "@/components/dashboard/deleteForm/deleteForm";
 
 const BrandsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -12,6 +13,7 @@ const BrandsPage = async ({ searchParams }) => {
   const number = 10;
   const { count, brands } = await fetchBrands(q, page, number);
   const brandsObject = JSON.parse(JSON.stringify(brands));
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -46,13 +48,17 @@ const BrandsPage = async ({ searchParams }) => {
               <td>
                 <div className={styles.buttons}>
                   <BrandForm isUpdate={true} brand={brand} />
-
-                  <form action={deleteBrand}>
+                  <DeleteForm
+                    name="thương hiệu"
+                    deleteMethod={deleteBrand}
+                    type={brand}
+                  />
+                  {/* <form action={deleteBrand}>
                     <input type="hidden" name="id" value={brand.id} />
                     <button className={`${styles.button} ${styles.delete}`}>
-                      Xoá
+                      <BsTrash />
                     </button>
-                  </form>
+                  </form> */}
                 </div>
               </td>
             </tr>

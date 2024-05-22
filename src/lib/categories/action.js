@@ -74,15 +74,16 @@ export const updateCategory = async (formData) => {
   redirect("/dashboard/categories");
 };
 
-export const deleteCategory = async (formData) => {
-  const { id } = Object.fromEntries(formData);
-  try {
-    connectToDb();
-    await Category.findByIdAndDelete(id);
-    console.log("Xóa khỏi cơ sở dữ liệu");
-  } catch (err) {
-    console.log(err);
-    return { error: "Có điều gì đó đã sai" };
+export const deleteCategory = async ({ id }) => {
+  if (!id) {
+    throw new Error("Cần có id để xóa");
   }
-  revalidatePath("/dashboard/categories");
+
+  try {
+    await connectToDb();
+    await Category.findByIdAndDelete(id);
+  } catch (err) {
+    console.error("Lỗi khi xóa danh mục:", err);
+    throw new Error("Không thể xóa danh mục");
+  }
 };

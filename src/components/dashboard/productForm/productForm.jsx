@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import { addProduct, updateProduct } from "@/lib/products/action";
+import useSwal from "@/components/toast/useSwal";
 
 // Dynamic import of ReactQuill
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -47,7 +48,7 @@ const ProductForm = ({ product, isUpdate }) => {
     [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
     ["clean"], // remove formatting button
   ];
-
+  const { ToastSuccess } = useSwal();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -69,8 +70,10 @@ const ProductForm = ({ product, isUpdate }) => {
 
       if (isUpdate) {
         await updateProduct(formData);
+        ToastSuccess({ title: "Thêm sản phẩm" });
       } else {
         await addProduct(formData);
+        ToastSuccess({ title: "Thêm sản phẩm" });
       }
     } catch (err) {
       console.error("Error submitting form:", err);

@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import styles from "./categoryForm.module.css";
-import { BsSave, BsXLg } from "react-icons/bs";
+import { BsPencilSquare, BsSave, BsXLg } from "react-icons/bs";
 import Image from "next/image";
 import { addCategory, updateCategory } from "@/lib/categories/action";
+import useSwal from "@/components/toast/useSwal";
 
 const CategoryForm = ({ category, isUpdate }) => {
   const [openAdd, setOpenAdd] = useState(false);
@@ -16,7 +17,7 @@ const CategoryForm = ({ category, isUpdate }) => {
         }
         onClick={() => setOpenAdd(true)}
       >
-        {isUpdate ? "Xem" : "Thêm mới"}
+        {isUpdate ? <BsPencilSquare /> : "Thêm mới"}
       </button>
 
       <FormCategory
@@ -36,7 +37,7 @@ const FormCategory = ({ open, onClose, setOpenAdd, category, isUpdate }) => {
   const [file, setFile] = useState(null);
   const [id, setId] = useState(category ? category._id : "");
   const [name, setName] = useState(category ? category.name : "");
-
+  const { ToastSuccess } = useSwal();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -50,9 +51,11 @@ const FormCategory = ({ open, onClose, setOpenAdd, category, isUpdate }) => {
       if (isUpdate) {
         await updateCategory(formData);
         setOpenAdd(false);
+        ToastSuccess({ title: "Cập nhật danh mục" });
       } else {
         await addCategory(formData);
         setOpenAdd(false);
+        ToastSuccess({ title: "Thêm danh mục" });
       }
     } catch (err) {
       console.error("Error submitting form:", err);

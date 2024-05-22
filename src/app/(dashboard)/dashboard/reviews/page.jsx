@@ -3,6 +3,7 @@ import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
 import { fetchReviews } from "@/lib/reviews/data";
 import { deleteReview } from "@/lib/reviews/action";
+import DeleteForm from "@/components/dashboard/deleteForm/deleteForm";
 
 const ReviewsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -39,12 +40,11 @@ const ReviewsPage = async ({ searchParams }) => {
               </td>
               <td>
                 <div className={styles.buttons}>
-                  <form action={deleteReview}>
-                    <input type="hidden" name="id" value={review._id} />
-                    <button className={`${styles.button} ${styles.delete}`}>
-                      Xoá
-                    </button>
-                  </form>
+                  <DeleteForm
+                    name="đánh giá"
+                    deleteMethod={deleteReview}
+                    type={review}
+                  />
                 </div>
               </td>
             </tr>

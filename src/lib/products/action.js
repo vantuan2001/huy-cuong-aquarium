@@ -102,15 +102,17 @@ export const updateProduct = async (formData) => {
   redirect("/dashboard/products");
 };
 
-export const deleteProduct = async (formData) => {
-  const { id } = Object.fromEntries(formData);
+export const deleteProduct = async ({ id }) => {
+  if (!id) {
+    throw new Error("Cần có id để xóa");
+  }
+
   try {
-    connectToDb();
+    await connectToDb();
     await Product.findByIdAndDelete(id);
-    console.log("Xóa khỏi cơ sở dữ liệu");
   } catch (err) {
-    console.log(err);
-    return { error: "Có điều gì đó đã sai" };
+    console.error("Lỗi khi xóa sản phẩm:", err);
+    throw new Error("Không thể xóa sản phẩm");
   }
   revalidatePath("/dashboard/products");
 };

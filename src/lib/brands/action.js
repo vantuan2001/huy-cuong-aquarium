@@ -70,15 +70,17 @@ export const updateBrand = async (formData) => {
   redirect("/dashboard/brands");
 };
 
-export const deleteBrand = async (formData) => {
-  const { id } = Object.fromEntries(formData);
+export const deleteBrand = async ({ id }) => {
+  if (!id) {
+    throw new Error("Cần có id để xóa");
+  }
+
   try {
-    connectToDb();
+    await connectToDb();
     await Brand.findByIdAndDelete(id);
-    console.log("Xóa khỏi cơ sở dữ liệu");
   } catch (err) {
-    console.log(err);
-    return { error: "Có điều gì đó đã sai" };
+    console.error("Lỗi khi xóa thương hiệu:", err);
+    throw new Error("Không thể xóa thương hiệu");
   }
   revalidatePath("/dashboard/brands");
 };

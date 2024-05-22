@@ -25,16 +25,17 @@ export const addReview = async (formData) => {
   }
 };
 
-export const deleteReview = async (formData) => {
-  const { id } = Object.fromEntries(formData);
+export const deleteReview = async ({ id }) => {
+  if (!id) {
+    throw new Error("Cần có id để xóa");
+  }
 
   try {
-    connectToDb();
+    await connectToDb();
     await Review.findByIdAndDelete(id);
-    console.log("Xóa khỏi cơ sở dữ liệu");
   } catch (err) {
-    console.log(err);
-    return { error: "Có điều gì đó đã sai" };
+    console.error("Lỗi khi xóa đánh giá:", err);
+    throw new Error("Không thể xóa đánh giá");
   }
   revalidatePath("/dashboard/reviews");
 };

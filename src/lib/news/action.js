@@ -72,17 +72,17 @@ export const updateNews = async (formData) => {
   redirect("/dashboard/news");
 };
 
-export const deleteNews = async (formData) => {
-  const { id } = Object.fromEntries(formData);
+export const deleteNews = async ({ id }) => {
+  if (!id) {
+    throw new Error("Cần có id để xóa");
+  }
 
   try {
-    connectToDb();
-
+    await connectToDb();
     await News.findByIdAndDelete(id);
-    console.log("Xóa khỏi cơ sở dữ liệu");
   } catch (err) {
-    console.log(err);
-    return { error: "Có điều gì đó đã sai" };
+    console.error("Lỗi khi xóa tin tức:", err);
+    throw new Error("Không thể xóa tin tức");
   }
   revalidatePath("/dashboard/news");
   revalidatePath("/news");

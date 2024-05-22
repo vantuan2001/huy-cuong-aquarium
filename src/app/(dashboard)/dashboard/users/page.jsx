@@ -5,12 +5,15 @@ import Pagination from "@/components/dashboard/pagination/pagination";
 import moment from "moment";
 import { fetchUsers } from "@/lib/users/data";
 import { deleteUser } from "@/lib/users/action";
+import { BsPencilSquare } from "react-icons/bs";
+import DeleteForm from "@/components/dashboard/deleteForm/deleteForm";
 
 const UsersPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
   const number = 10;
   const { count, users } = await fetchUsers(q, page, number);
+  const usersObject = JSON.parse(JSON.stringify(users));
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -31,7 +34,7 @@ const UsersPage = async ({ searchParams }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {usersObject.map((user) => (
             <tr key={user._id}>
               <td>
                 <div className={styles.user}>
@@ -51,15 +54,14 @@ const UsersPage = async ({ searchParams }) => {
                 <div className={styles.buttons}>
                   <Link href={`/dashboard/users/${user.id}`}>
                     <button className={`${styles.button} ${styles.view}`}>
-                      Xem
+                      <BsPencilSquare />
                     </button>
                   </Link>
-                  <form action={deleteUser}>
-                    <input type="hidden" name="id" value={user.id} />
-                    <button className={`${styles.button} ${styles.delete}`}>
-                      Xoá
-                    </button>
-                  </form>
+                  <DeleteForm
+                    name="người dùng"
+                    deleteMethod={deleteUser}
+                    type={user}
+                  />
                 </div>
               </td>
             </tr>

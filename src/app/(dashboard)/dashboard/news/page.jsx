@@ -5,11 +5,14 @@ import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
 import { fetchNews } from "@/lib/news/data";
 import { deleteNews } from "@/lib/news/action";
+import { BsPencilSquare } from "react-icons/bs";
+import DeleteForm from "@/components/dashboard/deleteForm/deleteForm";
 
 const NewsPage = async ({ searchParams }) => {
   const { q = "", page = 1 } = searchParams || {};
   const number = 10;
   const { count, news } = await fetchNews(q, page, number);
+  const newsObject = JSON.parse(JSON.stringify(news));
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -27,7 +30,7 @@ const NewsPage = async ({ searchParams }) => {
           </tr>
         </thead>
         <tbody>
-          {news.map((news) => (
+          {newsObject.map((news) => (
             <tr key={news._id}>
               <td>
                 <div className={styles.product}>
@@ -50,17 +53,16 @@ const NewsPage = async ({ searchParams }) => {
               </td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/dashboard/news/${news.id}`}>
+                  <Link href={`/dashboard/news/${news._id}`}>
                     <button className={`${styles.button} ${styles.view}`}>
-                      Xem
+                      <BsPencilSquare />
                     </button>
                   </Link>
-                  <form action={deleteNews}>
-                    <input type="hidden" name="id" value={news.id} />
-                    <button className={`${styles.button} ${styles.delete}`}>
-                      Xoá
-                    </button>
-                  </form>
+                  <DeleteForm
+                    name="tin tức"
+                    deleteMethod={deleteNews}
+                    type={news}
+                  />
                 </div>
               </td>
             </tr>

@@ -138,7 +138,7 @@ const SidebarContainer = ({ user }) => {
             <li key={cat.title}>
               <span className={styles.cat}>{cat.title}</span>
               {cat.list.map((item) => (
-                <MenuLink item={item} key={item.title} />
+                <MenuLink item={item} key={item.title} setOpen={setOpen} />
               ))}
             </li>
           ))}

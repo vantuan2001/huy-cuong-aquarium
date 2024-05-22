@@ -4,6 +4,7 @@ import styles from "./newsForm.module.css";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { addNews, updateNews } from "@/lib/news/action";
+import useSwal from "@/components/toast/useSwal";
 
 // Dynamic import of ReactQuill
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -22,7 +23,7 @@ const NewsForm = ({ news, isUpdate }) => {
     [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
     ["clean"], // remove formatting button
   ];
-
+  const { ToastSuccess } = useSwal();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,8 +37,10 @@ const NewsForm = ({ news, isUpdate }) => {
 
       if (isUpdate) {
         await updateNews(formData);
+        ToastSuccess({ title: "Cập nhật tin tức" });
       } else {
         await addNews(formData);
+        ToastSuccess({ title: "Thêm tin tức" });
       }
     } catch (err) {
       console.error("Error submitting form:", err);

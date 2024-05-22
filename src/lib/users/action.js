@@ -61,15 +61,17 @@ export const updateUser = async (formData) => {
   redirect("/dashboard/users");
 };
 
-export const deleteUser = async (formData) => {
-  const { id } = Object.fromEntries(formData);
-  try {
-    connectToDb();
-    await User.findByIdAndDelete(id);
-  } catch (err) {
-    console.log(err);
-    throw new Error("Xóa người dùng không thành công!");
+export const deleteUser = async ({ id }) => {
+  if (!id) {
+    throw new Error("Cần có id để xóa");
   }
 
+  try {
+    await connectToDb();
+    await User.findByIdAndDelete(id);
+  } catch (err) {
+    console.error("Lỗi khi xóa người dùng:", err);
+    throw new Error("Không thể xóa người dùng");
+  }
   revalidatePath("/dashboard/users");
 };

@@ -10,6 +10,8 @@ import { getCategories } from "@/lib/categories/data";
 import SelectBrand from "./components/selectBrand";
 import { getBrands } from "@/lib/brands/data";
 import SortProduct from "@/components/home/sort/sortProduct";
+import { BsPencilSquare } from "react-icons/bs";
+import DeleteForm from "@/components/dashboard/deleteForm/deleteForm";
 
 const ProductsPage = async ({ searchParams }) => {
   const { q = "", b = "", c = "", sort = "", page = 1 } = searchParams || {};
@@ -88,15 +90,14 @@ const ProductsPage = async ({ searchParams }) => {
                 <div className={styles.buttons}>
                   <Link href={`/dashboard/products/${product._id}`}>
                     <button className={`${styles.button} ${styles.view}`}>
-                      Xem
+                      <BsPencilSquare />
                     </button>
                   </Link>
-                  <form action={deleteProduct}>
-                    <input type="hidden" name="id" value={product._id} />
-                    <button className={`${styles.button} ${styles.delete}`}>
-                      Xoá
-                    </button>
-                  </form>
+                  <DeleteForm
+                    name="sản phẩm"
+                    deleteMethod={deleteProduct}
+                    type={product}
+                  />
                 </div>
               </td>
             </tr>

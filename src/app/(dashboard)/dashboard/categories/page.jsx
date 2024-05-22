@@ -5,6 +5,7 @@ import Pagination from "@/components/dashboard/pagination/pagination";
 import { fetchCategories } from "@/lib/categories/data";
 import { deleteCategory } from "@/lib/categories/action";
 import CategoryForm from "@/components/dashboard/categoryForm/categoryForm";
+import DeleteForm from "@/components/dashboard/deleteForm/deleteForm";
 
 const CategoriesPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -47,12 +48,11 @@ const CategoriesPage = async ({ searchParams }) => {
               <td>
                 <div className={styles.buttons}>
                   <CategoryForm isUpdate={true} category={category} />
-                  <form action={deleteCategory}>
-                    <input type="hidden" name="id" value={category._id} />
-                    <button className={`${styles.button} ${styles.delete}`}>
-                      Xoá
-                    </button>
-                  </form>
+                  <DeleteForm
+                    name="danh mục"
+                    deleteMethod={deleteCategory}
+                    type={category}
+                  />
                 </div>
               </td>
             </tr>
