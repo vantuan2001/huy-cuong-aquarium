@@ -10,9 +10,12 @@ import { fetchLimitNews } from "@/lib/news/data";
 import StarRating from "@/components/home/starRating/starRating";
 
 const getData = async (title) => {
-  const res = await fetch(`http://localhost:3000/api/products/${title}`, {
-    next: { revalidate: 3600 },
-  });
+  const res = await fetch(
+    `https://www.huycuongaquarium.online/api/products/${title}`,
+    {
+      next: { revalidate: 3600 },
+    }
+  );
 
   if (!res.ok) {
     throw new Error("Đã xảy ra lỗi");
