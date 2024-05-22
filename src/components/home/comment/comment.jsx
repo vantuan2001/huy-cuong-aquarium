@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
 
 const getReviews = async (postId) => {
   const res = await fetch(
-    `https://huycuongaquarium.online/api/reviews/${postId}`,
+    `https://www.huycuongaquarium.online/api/reviews/${postId}`,
     {
       next: { revalidate: 3600 },
     }

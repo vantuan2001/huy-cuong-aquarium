@@ -26,7 +26,7 @@ export default function handler(req, res) {
   // Set CORS headers
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://huycuongaquarium.online"
+    "https://www.huycuongaquarium.online"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",

@@ -56,13 +56,16 @@ const FormTest = ({ product }) => {
   };
   const updateProduct = async () => {
     try {
-      await axios.put(`https://huycuongaquarium.online/api/products/quantity`, {
-        id: product._id,
-        stock: product.stock - stock,
-        sold: product.sold + +sold,
-        // stock: product.stock + stock,
-        // sold: product.sold + +sold,
-      });
+      await axios.put(
+        `https://www.huycuongaquarium.online/api/products/quantity`,
+        {
+          id: product._id,
+          stock: product.stock - stock,
+          sold: product.sold + +sold,
+          // stock: product.stock + stock,
+          // sold: product.sold + +sold,
+        }
+      );
       console.log("Product quantity updated successfully");
     } catch (err) {
       console.error("Error updating product quantity:", err);

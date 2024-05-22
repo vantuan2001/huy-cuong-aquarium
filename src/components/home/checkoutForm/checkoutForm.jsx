@@ -91,7 +91,7 @@ const CheckoutForm = ({ user }) => {
         };
 
         await axios.post(
-          "https://huycuongaquarium.online/api/orders",
+          "https://www.huycuongaquarium.online/api/orders",
           newOrder
         );
         console.log("saved to db");
@@ -99,7 +99,7 @@ const CheckoutForm = ({ user }) => {
           const updateProduct = async () => {
             try {
               await axios.put(
-                `https://huycuongaquarium.online/api/products/quantity`,
+                `https://www.huycuongaquarium.online/api/products/quantity`,
                 {
                   id: item.id,
                   stock: item.stock - item.quantity,
@@ -157,7 +157,7 @@ const CheckoutForm = ({ user }) => {
         };
 
         await axios.post(
-          "https://huycuongaquarium.online/api/orders",
+          "https://www.huycuongaquarium.online/api/orders",
           newOrder
         );
         console.log("saved to db");
@@ -165,7 +165,7 @@ const CheckoutForm = ({ user }) => {
           const updateProduct = async () => {
             try {
               await axios.put(
-                `https://huycuongaquarium.online/api/products/quantity`,
+                `https://www.huycuongaquarium.online/api/products/quantity`,
                 {
                   id: item.id,
                   stock: item.stock - item.quantity,

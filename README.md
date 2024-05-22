@@ -24,4 +24,4 @@ pnpm dev
 bun dev
 ```
 
-Open [https://huycuongaquarium.online](https://huycuongaquarium.online) with your browser to see the result.
+Open [https://www.huycuongaquarium.online](https://www.huycuongaquarium.online) with your browser to see the result.

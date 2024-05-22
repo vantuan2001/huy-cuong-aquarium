@@ -14,13 +14,6 @@ const Cart = () => {
     (total, item) => (total += item.price * item.quantity),
     0
   );
-  // const totalPrice = () => {
-  //   let total = 0;
-  //   products.forEach((item) => {
-  //     total += item.price * item.quantity;
-  //   });
-  //   return total;
-  // };
 
   const [isClient, setIsClient] = useState(false);
 

@@ -3,7 +3,7 @@ import React from "react";
 const getReviews = async (postId) => {
   try {
     const res = await fetch(
-      `https://huycuongaquarium.online/api/reviews/${postId}`,
+      `https://www.huycuongaquarium.online/api/reviews/${postId}`,
       {
         next: { revalidate: 3600 },
       }

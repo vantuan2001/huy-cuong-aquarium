@@ -31,7 +31,7 @@ const CommentForm = ({ post, session }) => {
         };
 
         await axios.post(
-          "https://huycuongaquarium.online/api/reviews",
+          "https://www.huycuongaquarium.online/api/reviews",
           newReview
         );
         console.log("saved to db");

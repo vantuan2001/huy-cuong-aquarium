@@ -11,7 +11,7 @@ import StarRating from "@/components/home/starRating/starRating";
 
 const getData = async (title) => {
   const res = await fetch(
-    `https://huycuongaquarium.online/api/products/${title}`,
+    `https://www.huycuongaquarium.online/api/products/${title}`,
     {
       next: { revalidate: 3600 },
     }
