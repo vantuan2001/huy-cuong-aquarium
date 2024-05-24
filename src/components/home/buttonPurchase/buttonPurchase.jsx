@@ -42,7 +42,7 @@ const ButtonPurchase = ({ order, purchase }) => {
         const updateProduct = async () => {
           try {
             await axios.put(
-              `http://localhost:3000/api/products/updatequantity`,
+              `https://www.huycuongaquarium.online/api/products/updatequantity`,
               {
                 id: item.productId,
                 stock: item.quantity,
@@ -76,7 +76,7 @@ const ButtonPurchase = ({ order, purchase }) => {
         const updateProduct = async () => {
           try {
             await axios.put(
-              `http://localhost:3000/api/products/updatequantity`,
+              `https://www.huycuongaquarium.online/api/products/updatequantity`,
               {
                 id: item.productId,
                 stock: item.quantity,

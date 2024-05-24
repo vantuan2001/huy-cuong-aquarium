@@ -4,7 +4,10 @@ import { NextResponse } from "next/server";
 
 // Helper function to set CORS headers
 function setCorsHeaders(response) {
-  response.headers.set("Access-Control-Allow-Origin", "http://localhost:3000");
+  response.headers.set(
+    "Access-Control-Allow-Origin",
+    "https://www.huycuongaquarium.online"
+  );
   response.headers.set(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS"
