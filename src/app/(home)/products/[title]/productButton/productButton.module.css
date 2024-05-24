@@ -50,6 +50,12 @@
   background-color: var(--btn-hover);
 }
 
+.button:disabled {
+  cursor: not-allowed;
+  color: #cc5833;
+  background-color: #e9ecef;
+}
+
 @media (max-width: 640px) {
   .quantity input {
     width: 50px;

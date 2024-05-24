@@ -9,15 +9,14 @@ import { BsPencilSquare } from "react-icons/bs";
 import DeleteForm from "@/components/dashboard/deleteForm/deleteForm";
 
 const UsersPage = async ({ searchParams }) => {
-  const q = searchParams?.q || "";
-  const page = searchParams?.page || 1;
+  const { q = "", page = 1 } = searchParams || {};
   const number = 10;
   const { count, users } = await fetchUsers(q, page, number);
   const usersObject = JSON.parse(JSON.stringify(users));
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <Search placeholder="Tìm kiếm tài khoản..." />
+        <Search placeholder="Tìm kiếm tên người dùng..." />
         <Link href="/dashboard/users/add">
           <button className={styles.addButton}>Thêm mới</button>
         </Link>
@@ -52,15 +51,15 @@ const UsersPage = async ({ searchParams }) => {
               <td>{user.isAdmin ? "Quản trị viên" : "Khách hàng"}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/dashboard/users/${user.id}`}>
+                  <Link href={`/dashboard/users/${user._id}`}>
                     <button className={`${styles.button} ${styles.view}`}>
                       <BsPencilSquare />
                     </button>
                   </Link>
                   <DeleteForm
-                    name="người dùng"
+                    name="xoá người dùng"
                     deleteMethod={deleteUser}
-                    type={user}
+                    type={usersObject}
                   />
                 </div>
               </td>

@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { connectToDb } from "../utils";
 import { Order } from "../models";
 
@@ -85,15 +85,16 @@ export const updateStatusOrder = async (formData) => {
     throw new Error("Không thể cập nhật đơn hàng!");
   }
 
-  revalidatePath("/dashboard/orders");
-  redirect("/dashboard/orders");
+  revalidatePath(`/dashboard/orders/${id}`);
 };
 
-export const cancelOrder = async (formData) => {
-  const { id } = Object.fromEntries(formData);
+export const cancelOrder = async ({ id }) => {
+  if (!id) {
+    throw new Error("Cần có id để huỷ");
+  }
 
   try {
-    connectToDb();
+    await connectToDb();
     const updateFields = {
       status: 0,
     };
@@ -103,11 +104,36 @@ export const cancelOrder = async (formData) => {
         (updateFields[key] === "" || undefined) && delete updateFields[key]
     );
 
-    console.log("Đã lưu vào cơ sở dữ liệu.");
     await Order.findByIdAndUpdate(id, updateFields);
   } catch (err) {
-    console.log(err);
-    throw new Error("Không thể huỷ đơn hàng!");
+    console.error("Lỗi khi huỷ đơn hàng:", err);
+    throw new Error("Không thể huỷ đơn hàng");
   }
+
   revalidatePath("/dashboard/orders");
+};
+
+export const cancelPurchase = async ({ id }) => {
+  if (!id) {
+    throw new Error("Cần có id để huỷ");
+  }
+
+  try {
+    await connectToDb();
+    const updateFields = {
+      status: 0,
+    };
+
+    Object.keys(updateFields).forEach(
+      (key) =>
+        (updateFields[key] === "" || undefined) && delete updateFields[key]
+    );
+
+    await Order.findByIdAndUpdate(id, updateFields);
+  } catch (err) {
+    console.error("Lỗi khi huỷ đơn hàng:", err);
+    throw new Error("Không thể huỷ đơn hàng");
+  }
+
+  revalidatePath(`/purchase/${id}`);
 };

@@ -4,19 +4,19 @@ import Image from "next/image";
 
 const DetailsProduct = async ({ item }) => {
   const product = await fetchProduct(item.productId);
-
+  const productObject = JSON.parse(JSON.stringify(product));
   return (
     <tr>
       <td>
         <div className={styles.product}>
           <Image
-            src={product.img}
+            src={productObject.img}
             alt=""
             width={70}
             height={70}
             className={styles.productImage}
           />
-          {product.title}
+          {productObject.title}
         </div>
       </td>
       <td style={{ textAlign: "center" }}>x{item.quantity}</td>
@@ -24,7 +24,7 @@ const DetailsProduct = async ({ item }) => {
         {new Intl.NumberFormat("vi-VN", {
           style: "currency",
           currency: "VND",
-        }).format(product.price)}
+        }).format(productObject.price)}
       </td>
     </tr>
   );

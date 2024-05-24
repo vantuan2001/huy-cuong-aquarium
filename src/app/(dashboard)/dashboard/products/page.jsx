@@ -21,9 +21,11 @@ const ProductsPage = async ({ searchParams }) => {
   const categories = await getCategories();
   const brands = await getBrands();
   const totalProducts = await getProducts();
-  const productsObject = JSON.parse(JSON.stringify(products));
-  const categoriesObject = JSON.parse(JSON.stringify(categories));
-  const brandsObject = JSON.parse(JSON.stringify(brands));
+  const [productsObject, categoriesObject, brandsObject] = [
+    products,
+    categories,
+    brands,
+  ].map((item) => JSON.parse(JSON.stringify(item)));
   const totalSold = totalProducts.reduce((total, item) => total + item.sold, 0);
   const stock = totalProducts.reduce((total, item) => total + item.stock, 0);
 
@@ -94,7 +96,7 @@ const ProductsPage = async ({ searchParams }) => {
                     </button>
                   </Link>
                   <DeleteForm
-                    name="sản phẩm"
+                    name="xoá sản phẩm"
                     deleteMethod={deleteProduct}
                     type={product}
                   />

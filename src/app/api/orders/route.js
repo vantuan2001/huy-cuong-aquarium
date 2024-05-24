@@ -49,23 +49,18 @@ export async function POST(request) {
 }
 
 export default function handler(req, res) {
-  // Set CORS headers
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://www.huycuongaquarium.online"
-  );
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS"
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-  // Handle preflight request
   if (req.method === "OPTIONS") {
     res.status(200).end();
     return;
   }
 
-  const data = { message: "This is a sample response" };
+  const data = { message: "Đây là một phản hồi mẫu" };
   res.status(200).json(data);
 }

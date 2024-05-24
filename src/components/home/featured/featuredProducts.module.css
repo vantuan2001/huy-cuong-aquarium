@@ -57,3 +57,14 @@
     font-size: 14px;
   }
 }
+@media (max-width: 430px) {
+  .center {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 380px) {
+  .center {
+    gap: 10px;
+  }
+}

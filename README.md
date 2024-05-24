@@ -24,4 +24,4 @@ pnpm dev
 bun dev
 ```
 
-Open [https://www.huycuongaquarium.online](https://www.huycuongaquarium.online) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

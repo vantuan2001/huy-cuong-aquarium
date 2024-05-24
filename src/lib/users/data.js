@@ -28,3 +28,14 @@ export const fetchUser = async (id) => {
     throw new Error("Không thể truy xuất người dùng!");
   }
 };
+
+export const getUsers = async () => {
+  try {
+    connectToDb();
+    const users = await User.find();
+    return users;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Không thể truy xuất người dùng!");
+  }
+};

@@ -102,10 +102,10 @@ export const getProducts = async () => {
   }
 };
 
-export const fetchProduct = async (_id) => {
+export const fetchProduct = async (id) => {
   try {
     await connectToDb();
-    const product = await Product.findById(_id);
+    const product = await Product.findById(id);
     return product;
   } catch (err) {
     console.log(err);
@@ -115,8 +115,8 @@ export const fetchProduct = async (_id) => {
 
 export const fetchProductTitle = async (title) => {
   try {
-    connectToDb();
-    const product = await Product.findOne(title);
+    await connectToDb();
+    const product = await Product.findOne({ title: title });
     return product;
   } catch (err) {
     console.log(err);

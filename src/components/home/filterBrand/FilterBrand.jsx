@@ -35,14 +35,17 @@ const FilterBrand = ({ brands, b }) => {
       <h3>Thương hiệu</h3>
       <div className="box">
         <div className={styles.inputItem}>
-          <label htmlFor="all-brand">
+          <label
+            htmlFor="all-brand"
+            className={`${styles.title}  ${b === "" && styles.active}`}
+          >
             Tất cả
             <input
               type="radio"
               id="all-brand"
               value=""
               name="brand"
-              onClick={handleDelete}
+              onChange={handleDelete}
               checked={b === ""}
             />
           </label>
@@ -50,14 +53,19 @@ const FilterBrand = ({ brands, b }) => {
 
         {brands.map((brand) => (
           <div className={styles.inputItem} key={brand._id}>
-            <label htmlFor={brand.name}>
+            <label
+              htmlFor={brand.name}
+              className={`${styles.title}  ${
+                b === brand.name && styles.active
+              }`}
+            >
               {brand.name}
               <input
                 type="radio"
                 id={brand.name}
                 value={brand.name}
                 name="brand"
-                onClick={handleFilter}
+                onChange={handleFilter}
                 checked={b === brand.name}
               />
             </label>

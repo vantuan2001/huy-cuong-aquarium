@@ -42,7 +42,12 @@ const Links = ({ header, session }) => {
     <div className={styles.container}>
       <div className={styles.links}>
         {links.map((link) => (
-          <NavLink item={link} key={link.title} header={header} />
+          <NavLink
+            item={link}
+            key={link.title}
+            header={header}
+            setOpen={setOpen}
+          />
         ))}
 
         <div
@@ -65,12 +70,14 @@ const Links = ({ header, session }) => {
                 item={{ title: "Bảng điều khiển", path: "/dashboard" }}
                 className={styles.container}
                 header={header}
+                setOpen={setOpen}
               />
             ) : (
               <NavLink
                 item={{ title: "Quản lý đơn hàng", path: "/purchase" }}
                 className={styles.container}
                 header={header}
+                setOpen={setOpen}
               />
             )}
 
@@ -89,6 +96,7 @@ const Links = ({ header, session }) => {
             item={{ title: "Đăng nhập", path: "/login" }}
             className={styles.container}
             header={header}
+            setOpen={setOpen}
           />
         )}
       </div>
@@ -102,13 +110,19 @@ const Links = ({ header, session }) => {
         <div className={styles.mobileLinks}>
           <div className={styles.mobileContainer}>
             {links.map((link) => (
-              <NavLink item={link} key={link.title} header={header} />
+              <NavLink
+                item={link}
+                key={link.title}
+                header={header}
+                setOpen={setOpen}
+              />
             ))}
 
             <div
               className={`${styles.cart} ${header === true && styles.small} ${
                 pathName === "/" && styles.navHome
               }`}
+              onClick={() => setOpen(false)}
             >
               <Link href="/cart">
                 <p>Giỏ hàng</p>
@@ -128,12 +142,14 @@ const Links = ({ header, session }) => {
                     item={{ title: "Bảng điều khiển", path: "/dashboard" }}
                     className={styles.container}
                     header={header}
+                    setOpen={setOpen}
                   />
                 ) : (
                   <NavLink
                     item={{ title: "Quản lý đơn hàng", path: "/purchase" }}
                     className={styles.container}
                     header={header}
+                    setOpen={setOpen}
                   />
                 )}
 
@@ -152,6 +168,7 @@ const Links = ({ header, session }) => {
                 item={{ title: "Đăng nhập", path: "/login" }}
                 className={styles.container}
                 header={header}
+                setOpen={setOpen}
               />
             )}
           </div>

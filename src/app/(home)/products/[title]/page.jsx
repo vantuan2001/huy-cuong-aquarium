@@ -8,25 +8,14 @@ import Filter from "@/components/home/filter/filter";
 import { getCategories } from "@/lib/categories/data";
 import { fetchLimitNews } from "@/lib/news/data";
 import StarRating from "@/components/home/starRating/starRating";
-
-const getData = async (title) => {
-  const res = await fetch(
-    `https://www.huycuongaquarium.online/api/products/${title}`,
-    {
-      next: { revalidate: 3600 },
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("Đã xảy ra lỗi");
-  }
-
-  return res.json();
-};
+import Accordion from "@/components/home/accordion/accordion";
+import { fetchProductTitle } from "@/lib/products/data";
 
 export const generateMetadata = async ({ params }) => {
   const { title } = params;
-  const post = await getData(title);
+  const encode = title;
+  const decode = decodeURIComponent(encode);
+  const post = await fetchProductTitle(decode);
 
   return {
     title: post.title,
@@ -37,11 +26,18 @@ export const generateMetadata = async ({ params }) => {
 const SingleProductPage = async ({ params }) => {
   const number = 5;
   const { title } = params;
-  const product = await getData(title);
+  const encode = title;
+  const decode = decodeURIComponent(encode);
+  const product = await fetchProductTitle(decode);
   const categories = await getCategories();
   const news = await fetchLimitNews(number);
-  const categoriesObject = JSON.parse(JSON.stringify(categories));
-  const newsObject = JSON.parse(JSON.stringify(news));
+
+  const [productObject, newsObject, categoriesObject] = [
+    product,
+    news,
+    categories,
+  ].map((item) => JSON.parse(JSON.stringify(item)));
+
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -53,7 +49,7 @@ const SingleProductPage = async ({ params }) => {
           Sản phẩm
         </Link>
         <AiOutlineDoubleRight />
-        <p className="breadcrumbs-link">{product.title}</p>
+        <p className="breadcrumbs-link">{productObject.title}</p>
       </div>
       <div className={styles.container}>
         <div className={styles.containerLeft}>
@@ -63,7 +59,7 @@ const SingleProductPage = async ({ params }) => {
           <div className={styles.content}>
             <div className={styles.images}>
               <Image
-                src={product.img}
+                src={productObject.img}
                 alt=""
                 width={300}
                 height={300}
@@ -71,29 +67,40 @@ const SingleProductPage = async ({ params }) => {
               />
             </div>
             <div className={styles.text}>
-              <h2>{product.title}</h2>
-              <StarRating postId={product._id} />
+              <h2>{productObject.title}</h2>
+              <StarRating postId={productObject._id} />
 
               <span className={styles.price}>
-                {new Intl.NumberFormat("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                }).format(product.price)}
+                {productObject.stock <= 0
+                  ? "Hết hàng"
+                  : new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(productObject.price)}
               </span>
               <div className={styles.info}>
                 <h3>Thông tin sản phẩm:</h3>
-                <div dangerouslySetInnerHTML={{ __html: product?.info }} />
+                <div
+                  dangerouslySetInnerHTML={{ __html: productObject?.info }}
+                />
               </div>
-              <ProductButton product={product} />
+              {productObject.stock <= 0 ? (
+                ""
+              ) : (
+                <ProductButton product={productObject} />
+              )}
             </div>
           </div>
 
-          <div
-            className={styles.desc}
-            dangerouslySetInnerHTML={{ __html: product?.desc }}
+          <Accordion
+            description={
+              <div
+                className={styles.desc}
+                dangerouslySetInnerHTML={{ __html: productObject?.desc }}
+              />
+            }
+            reviews={<Comment post={productObject} />}
           />
-
-          <Comment post={product} />
         </div>
       </div>
     </div>

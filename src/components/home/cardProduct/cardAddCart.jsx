@@ -1,12 +1,23 @@
 "use client";
+import useSwal from "@/components/toast/useSwal";
 import styles from "./productCard.module.css";
 import { addToCart } from "@/redux/cartReducer";
 import { BsBagPlus } from "react-icons/bs";
-import { useDispatch } from "react-redux";
-import Swal from "sweetalert2";
-const CardAddCart = ({ product }) => {
-  const dispatch = useDispatch();
+import { useDispatch, useSelector } from "react-redux";
+const selectProductById = (state, productId) => {
+  return state.cart.products.find((product) => product.productId === productId);
+};
 
+const CardAddCart = ({ product }) => {
+  const productId = product._id;
+  const dispatch = useDispatch();
+  const selectedProduct = useSelector((state) =>
+    selectProductById(state, productId)
+  );
+
+  const { AddToCart } = useSwal();
+  const existingQuantity = selectedProduct ? selectedProduct.quantity : 0;
+  const stock = existingQuantity >= product.stock || product.stock <= 0;
   const handleAddToCart = () => {
     dispatch(
       addToCart({
@@ -17,20 +28,17 @@ const CardAddCart = ({ product }) => {
         price: product.price,
         stock: product.stock,
         sold: product.sold,
-        quantity: 1,
+        quantity: existingQuantity + +1,
       })
     );
-    Swal.fire({
-      position: "top-end",
-      // icon: "success",
-      title: `${product.title} thêm vào giỏ hàng thành công!`,
-      showConfirmButton: false,
-      timer: 1500,
-      height: 40,
-    });
+    AddToCart({ title: `${product.title} thêm vào giỏ hàng thành công!` });
   };
   return (
-    <button className={styles.button} onClick={() => handleAddToCart()}>
+    <button
+      className={styles.button}
+      onClick={() => handleAddToCart()}
+      disabled={stock}
+    >
       <BsBagPlus />
     </button>
   );

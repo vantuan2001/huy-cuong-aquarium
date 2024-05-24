@@ -12,9 +12,9 @@ const UserForm = ({ user, isUpdate }) => {
   const [isAdmin, setIsAdmin] = useState(user ? user.isAdmin : "");
   const [address, setAddress] = useState(user ? user.address : "");
   const {
-    getProvince,
-    getDistrict,
-    getWard,
+    // getProvince,
+    // getDistrict,
+    // getWard,
     SelectProvince,
     SelectDistrict,
     SelectWard,
@@ -42,7 +42,7 @@ const UserForm = ({ user, isUpdate }) => {
         ToastSuccess({ title: "Thêm người dùng" });
       }
     } catch (err) {
-      console.error("Error submitting form:", err);
+      console.error("Lỗi khi gửi biểu mẫu:", err);
     }
   };
 
@@ -54,93 +54,128 @@ const UserForm = ({ user, isUpdate }) => {
         value={id}
         onChange={(e) => setId(e.target.value)}
       />
-      <div className="inputContainer">
-        <div className="formItem w50">
-          <label>Họ và tên</label>
-          <input
-            type="text"
-            placeholder="Nhập họ và tên"
-            name="title"
-            required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className="formItem w50">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Nhập địa chỉ email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="formItem w50">
-          <label>Số điện thoại</label>
-          <input
-            type="text"
-            name="phone"
-            placeholder="Nhập số điện thoại"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </div>
-        <div className="formItem w50">
-          <label>Mật khẩu</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
 
-        <div className="formItem w50">
-          <label>Vai trò</label>
-          <select
-            name="isAdmin"
-            id="isAdmin"
-            value={isAdmin}
-            onChange={(e) => setIsAdmin(e.target.value)}
-          >
-            <option value={true} selected="isAdmin">
-              Quản trị viên
-            </option>
-            <option value={false} selected="isAdmin">
-              Khách hàng
-            </option>
-          </select>
-        </div>
-        <div className="formItem w50">
-          <label>Địa chỉ</label>
-          <input
-            type="text"
-            name="address"
-            placeholder="Nhập địa chỉ"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        </div>
-        <div className="formItem w30">
-          <label>Chọn tỉnh / thành phố</label>
-          <SelectProvince />
-        </div>
-        <div className="formItem w30">
-          <label>Chọn quận / huyện</label>
-          <SelectDistrict />
-        </div>
-        <div className="formItem w30">
-          <label>Chọn phường / xã</label>
-          <SelectWard />
-        </div>
-
-        <button type="submit">
-          {isUpdate ? "Cập nhật người dùng" : "Thêm người dùng"}
-        </button>
+      <div className="inputItem w50">
+        <input
+          type="text"
+          name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="username" className="label">
+          Họ và tên
+        </label>
       </div>
+      <div className="inputItem w50">
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="email" className="label">
+          Email
+        </label>
+      </div>
+      <div className="inputItem w50">
+        <input
+          type="text"
+          name="phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="phone" className="label">
+          Số điện thoại
+        </label>
+      </div>
+      <div className="inputItem w50">
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="password" className="label">
+          Mật khẩu
+        </label>
+      </div>
+
+      <div className="inputItem w50">
+        <select
+          name="isAdmin"
+          id="isAdmin"
+          value={isAdmin}
+          onChange={(e) => setIsAdmin(e.target.value)}
+          className="select"
+        >
+          <option value={true}>Quản trị viên</option>
+          <option value={false}>Khách hàng</option>
+        </select>
+        <label htmlFor="isAdmin" className="label">
+          Vai trò
+        </label>
+      </div>
+      <div className="inputItem w50">
+        <input
+          type="text"
+          name="address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="address" className="label">
+          Địa chỉ
+        </label>
+      </div>
+      <div className="inputItem w30">
+        <SelectProvince />
+        <input
+          type="text"
+          className="input"
+          id="province"
+          style={{ display: "none" }}
+        />
+        <label htmlFor="province" className="label">
+          Tỉnh thành
+        </label>
+      </div>
+      <div className="inputItem w30">
+        <SelectDistrict />
+        <input
+          type="text"
+          className="input"
+          id="district"
+          style={{ display: "none" }}
+        />
+        <label htmlFor="district" className="label">
+          Quận huyện
+        </label>
+      </div>
+      <div className="inputItem w30">
+        <SelectWard />
+        <input
+          type="text"
+          className="input"
+          id="ward"
+          style={{ display: "none" }}
+        />
+        <label htmlFor="ward" className="label">
+          Phường xã
+        </label>
+      </div>
+
+      <button type="submit">
+        {isUpdate ? "Cập nhật người dùng" : "Thêm người dùng"}
+      </button>
     </form>
   );
 };

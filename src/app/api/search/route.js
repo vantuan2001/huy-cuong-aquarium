@@ -2,6 +2,21 @@ import { Product } from "@/lib/models";
 import { connectToDb } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
+// Helper function to set CORS headers
+function setCorsHeaders(response) {
+  response.headers.set("Access-Control-Allow-Origin", "http://localhost:3000");
+  response.headers.set(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  response.headers.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+  return response;
+}
+
+// Handle GET requests
 export const GET = async (request) => {
   try {
     await connectToDb();
@@ -13,32 +28,22 @@ export const GET = async (request) => {
       title: { $regex: regex },
     });
 
-    return NextResponse.json(products);
+    let response = NextResponse.json(products);
+    return setCorsHeaders(response);
   } catch (err) {
     console.error(err);
-    return NextResponse.error(new Error("Không thể lấy thông tin sản phẩm!"));
+    let response = NextResponse.error(
+      new Error("Không thể lấy thông tin sản phẩm!")
+    );
+    return setCorsHeaders(response);
   }
 };
 
+// Handle OPTIONS requests for CORS preflight
+export const OPTIONS = async () => {
+  let response = new NextResponse(null, { status: 200 });
+  return setCorsHeaders(response);
+};
+
+// Indicate that the response should be dynamically generated
 export const dynamic = "force-dynamic";
-
-export default function handler(req, res) {
-  // Set CORS headers
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://www.huycuongaquarium.online"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
-  }
-
-  const data = { message: "This is a sample response" };
-  res.status(200).json(data);
-}

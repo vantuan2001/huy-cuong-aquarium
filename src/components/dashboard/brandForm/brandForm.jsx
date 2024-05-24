@@ -12,9 +12,7 @@ const BrandForm = ({ brand, isUpdate }) => {
   return (
     <>
       <button
-        className={
-          isUpdate ? `${styles.button} ${styles.view}` : styles.addButton
-        }
+        className={isUpdate ? styles.buttonUpdate : styles.buttonAdd}
         onClick={() => setOpenAdd(true)}
       >
         {isUpdate ? <BsPencilSquare /> : "Thêm mới"}
@@ -58,7 +56,7 @@ const FormBrand = ({ open, onClose, setOpenAdd, brand, isUpdate }) => {
         ToastSuccess({ title: "Thêm thương hiệu" });
       }
     } catch (err) {
-      console.error("Error submitting form:", err);
+      console.error("Lỗi khi gửi biểu mẫu:", err);
     }
   };
 
@@ -70,7 +68,6 @@ const FormBrand = ({ open, onClose, setOpenAdd, brand, isUpdate }) => {
           e.stopPropagation();
         }}
         className={styles.wrapper}
-        style={{ width: "auto" }}
       >
         <div className={styles.title}>
           <span> {isUpdate ? "Cập nhật thương hiệu" : "Thêm thương hiệu"}</span>
@@ -79,60 +76,62 @@ const FormBrand = ({ open, onClose, setOpenAdd, brand, isUpdate }) => {
           </div>
         </div>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.infoContainer}>
-            <div className={styles.imgContainer}>
-              <label htmlFor="img">
-                <input
-                  type="file"
-                  id="img"
-                  name="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => setFile(e.target.files[0])}
-                />
-                {brand ? (
-                  <Image
-                    src={file ? URL.createObjectURL(file) : brand?.img}
-                    alt=""
-                    width={100}
-                    height={100}
-                  />
-                ) : (
-                  <Image
-                    src={file ? URL.createObjectURL(file) : "/no-image.png"}
-                    alt=""
-                    width={100}
-                    height={100}
-                  />
-                )}
-              </label>
-            </div>
-          </div>
-          <div className={styles.inputContainer}>
-            <div className={styles.input}>
+          <div className={styles.imgContainer}>
+            <label htmlFor="img">
               <input
-                type="hidden"
-                name="id"
-                value={id}
-                onChange={(e) => setId(e.target.value)}
+                type="file"
+                id="img"
+                name="file"
+                style={{ display: "none" }}
+                onChange={(e) => setFile(e.target.files[0])}
+                required
               />
-              <label>Tên thương hiệu</label>
+              {brand ? (
+                <Image
+                  src={file ? URL.createObjectURL(file) : brand?.img}
+                  alt=""
+                  className={styles.img}
+                  fill
+                />
+              ) : (
+                <Image
+                  src={file ? URL.createObjectURL(file) : "/no-image.png"}
+                  alt=""
+                  className={styles.img}
+                  fill
+                />
+              )}
+            </label>
+          </div>
+
+          <div className={styles.inputContainer}>
+            <input
+              type="hidden"
+              name="id"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
+            <div className="inputItem w100">
               <input
                 type="text"
                 name="name"
-                placeholder="Tên thương hiệu"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required
+                className="input"
               />
+              <label htmlFor="address" className="label">
+                Tên thương hiệu
+              </label>
             </div>
           </div>
-          <div className={styles.buttons} style={{ justifyContent: "center" }}>
-            <button className={styles.btnAdd}>
-              <BsSave className="button-add-icon" />
-              <span>
-                {isUpdate ? "Cập nhật thương hiệu" : "Thêm thương hiệu"}
-              </span>
-            </button>
-          </div>
+
+          <button className={styles.buttonForm}>
+            <BsSave />
+            <span>
+              {isUpdate ? "Cập nhật thương hiệu" : "Thêm thương hiệu"}
+            </span>
+          </button>
         </form>
       </div>
     </div>

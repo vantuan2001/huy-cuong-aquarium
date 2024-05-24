@@ -18,3 +18,9 @@
   color: #cc5833;
   background-color: #e9ecef;
 }
+
+@media (max-width: 430px) {
+  .container {
+    padding: 10px 0;
+  }
+}

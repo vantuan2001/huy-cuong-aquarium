@@ -59,7 +59,7 @@ const NewsPage = async ({ searchParams }) => {
                     </button>
                   </Link>
                   <DeleteForm
-                    name="tin tức"
+                    name="xoá xoá tin tức"
                     deleteMethod={deleteNews}
                     type={news}
                   />

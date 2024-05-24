@@ -1,24 +1,16 @@
-import Link from "next/link";
 import styles from "./orders.module.css";
 import Search from "@/components/dashboard/search/search";
 import Pagination from "@/components/dashboard/pagination/pagination";
 import moment from "moment";
 import Status from "@/components/dashboard/status/status";
 import { fetchOrders, getOrders } from "@/lib/orders/data";
-import { cancelOrder, updateStatusOrder } from "@/lib/orders/action";
 import SelectStatus from "./components/selectStatus";
 import SelectPayments from "./components/selectPayments";
-import {
-  BsClipboard2Check,
-  BsClipboard2X,
-  BsPencilSquare,
-} from "react-icons/bs";
+import ButtonOrder from "@/components/dashboard/buttonOrder/buttonOrder";
 
 const OrdersPage = async ({ searchParams }) => {
-  const q = searchParams?.q || "";
-  const status = searchParams?.status || "";
-  const payments = searchParams?.payments || "";
-  const page = searchParams?.page || 1;
+  const { q = "", status = "", payments = "", page = 1 } = searchParams || {};
+
   const number = 10;
   const { count, orders } = await fetchOrders(
     q,
@@ -29,14 +21,7 @@ const OrdersPage = async ({ searchParams }) => {
   );
   const ordersObject = JSON.parse(JSON.stringify(orders));
   const totalOrders = await getOrders();
-
-  const totalPrice = () => {
-    let total = 0;
-    totalOrders.forEach((item) => {
-      total += item.total;
-    });
-    return total;
-  };
+  const totalPrice = totalOrders.reduce((total, item) => total + item.total, 0);
 
   return (
     <div className={styles.container}>
@@ -68,70 +53,35 @@ const OrdersPage = async ({ searchParams }) => {
               {new Intl.NumberFormat("vi-VN", {
                 style: "currency",
                 currency: "VND",
-              }).format(totalPrice())}
+              }).format(totalPrice)}
             </td>
             <td></td>
           </tr>
-          {ordersObject.map((order) => {
-            const next = order.status < 1 || order.status >= 5;
-            const cancel = order.status === 1;
-            return (
-              <tr key={order._id}>
-                <td>{order.username}</td>
+          {ordersObject.map((order) => (
+            <tr key={order._id}>
+              <td>{order.username}</td>
 
-                <td> {moment(order.createdAt).format("HH:mm DD/MM/YYYY")}</td>
-                <td>
-                  {order.paymentMethods != "0"
-                    ? "Thanh toán VNPAY"
-                    : "Thanh toán khi nhận hàng"}
-                </td>
-                <td>
-                  <Status status={order.status} />
-                </td>
-                <td className="txt-end">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(order.total)}
-                </td>
+              <td> {moment(order.createdAt).format("HH:mm DD/MM/YYYY")}</td>
+              <td>
+                {order.paymentMethods != "0"
+                  ? "Thanh toán VNPAY"
+                  : "Thanh toán khi nhận hàng"}
+              </td>
+              <td>
+                <Status status={order.status} />
+              </td>
+              <td className="txt-end">
+                {new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                }).format(order.total)}
+              </td>
 
-                <td>
-                  <div className={styles.buttons}>
-                    <Link href={`/dashboard/orders/${order._id}`}>
-                      <button className={`${styles.button} ${styles.view}`}>
-                        <BsPencilSquare />
-                      </button>
-                    </Link>
-                    <>
-                      <form action={updateStatusOrder}>
-                        <input type="hidden" name="id" value={order._id} />
-                        <input
-                          type="hidden"
-                          name="status"
-                          value={order.status}
-                        />
-                        <button
-                          className={`${styles.button} ${styles.next}`}
-                          disabled={next}
-                        >
-                          <BsClipboard2Check />
-                        </button>
-                      </form>
-                      <form action={cancelOrder}>
-                        <input type="hidden" name="id" value={order._id} />
-                        <button
-                          className={`${styles.button} ${styles.delete}`}
-                          disabled={!cancel}
-                        >
-                          <BsClipboard2X />
-                        </button>
-                      </form>
-                    </>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
+              <td>
+                <ButtonOrder order={order} />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <Pagination count={count} />

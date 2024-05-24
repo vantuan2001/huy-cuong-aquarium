@@ -131,7 +131,6 @@ const Chart = ({ orders }) => {
       // Đảo ngược để hiển thị từ cũ nhất đến mới nhất
       filteredData.reverse();
     }
-
     return filteredData;
   };
 
@@ -147,35 +146,22 @@ const Chart = ({ orders }) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Thống kê doanh thu</h2>
-      <div className={styles.time}>
-        <label>
-          <input
-            type="radio"
-            value="30days"
-            checked={timeRange === "30days"}
-            onChange={() => setTimeRange("30days")}
-          />
-          30 ngày gần đây
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="6weeks"
-            checked={timeRange === "6weeks"}
-            onChange={() => setTimeRange("6weeks")}
-          />
-          6 tuần gần đây
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="12months"
-            checked={timeRange === "12months"}
-            onChange={() => setTimeRange("12months")}
-          />
-          12 tháng gần đây
-        </label>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Biểu Đồ Doanh Thu</h2>
+        <div className={`inputItem ${styles.item}`}>
+          <select
+            name="isAdmin"
+            id="isAdmin"
+            value={timeRange}
+            onChange={(e) => setTimeRange(e.target.value)}
+            className="select"
+          >
+            <option value="">Mặc định</option>
+            <option value="30days">30 ngày gần đây</option>
+            <option value="6weeks">6 tuần gần đây</option>
+            <option value="12months">12 tháng gần đây</option>
+          </select>
+        </div>
       </div>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart

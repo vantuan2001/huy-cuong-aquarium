@@ -28,6 +28,12 @@
   background-color: #5e5e5e4a;
 }
 
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .box {
   padding: 20px;
   border-radius: 5px;

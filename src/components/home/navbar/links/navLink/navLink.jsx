@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "./navLink.module.css";
 import { usePathname } from "next/navigation";
 
-const NavLink = ({ item, header }) => {
+const NavLink = ({ item, header, setOpen }) => {
   const pathName = usePathname();
 
   return (
@@ -16,6 +16,7 @@ const NavLink = ({ item, header }) => {
       ${header === true && styles.small} 
       ${pathName === "/" && styles.navHome}
       `}
+      onClick={() => setOpen(false)}
     >
       {item.title}
     </Link>

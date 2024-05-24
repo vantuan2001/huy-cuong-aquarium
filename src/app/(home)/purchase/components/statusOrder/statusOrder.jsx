@@ -3,6 +3,7 @@ import styles from "./statusOrder.module.css";
 import { BsCash, BsClipboard2Check, BsInboxFill } from "react-icons/bs";
 const StatusOrder = ({ order }) => {
   const status = order.status;
+  console.log(status);
   const paymentMethods = order.paymentMethods;
   const price = order.total;
 
@@ -11,12 +12,14 @@ const StatusOrder = ({ order }) => {
     if (index - status === 1) return styles.inProgress;
     if (index - status > 1) return styles.undone;
   };
-  const statusWidth = (status) => {
-    if (status === 0) return "0px";
-    if (status === 2) return "20%";
-    if (status === 3) return "calc(50% - 105px)";
-    if (status === 4) return "calc(70% - 105px)";
-    if (status >= 5) return "calc(89% - 105px)";
+
+  const statusLine = (status) => {
+    if (status === 0) return styles.canceled;
+    if (status === 1) return styles.canceled;
+    if (status === 2) return styles.confirm;
+    if (status === 3) return styles.delivery;
+    if (status === 4) return styles.transport;
+    if (status >= 5) return styles.success;
   };
   return (
     <>
@@ -24,7 +27,7 @@ const StatusOrder = ({ order }) => {
         ""
       ) : (
         <div className={styles.status}>
-          <div className={`${styles.item} ${statusClass(2)}`}>
+          <div className={`${styles.item} ${statusClass(1)}`}>
             <BsClipboard2Check className={styles.icon} />
             {status > 1 ? <p>Đơn hàng đã đặt</p> : <p>Chờ xác nhận</p>}
           </div>
@@ -61,10 +64,8 @@ const StatusOrder = ({ order }) => {
           </div>
           <div className={styles.stepper}>
             <div className={styles.line}></div>
-            <div
-              className={styles.lineForego}
-              style={{ width: statusWidth(status) }}
-            ></div>
+
+            <div className={`${styles.lineForego} ${statusLine(status)}`}></div>
           </div>
         </div>
       )}

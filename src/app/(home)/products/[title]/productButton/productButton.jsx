@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "@/redux/cartReducer";
 import axios from "axios";
 import { BsDashLg, BsPlusLg } from "react-icons/bs";
-import Swal from "sweetalert2";
+import useSwal from "@/components/toast/useSwal";
 
 const selectProductById = (state, productId) => {
   return state.cart.products.find((product) => product.productId === productId);
@@ -19,19 +19,17 @@ const ProductButton = ({ product }) => {
     selectProductById(state, productId)
   );
 
+  const { AddToCart } = useSwal();
+
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
     const updateViews = async () => {
       try {
-        await axios.put(
-          `https://www.huycuongaquarium.online/api/products/views`,
-          {
-            id: productId,
-            views: product.views + +1,
-            next: { revalidate: 3600 },
-          }
-        );
+        await axios.put(`http://localhost:3000/api/products/views`, {
+          id: productId,
+          views: product.views + +1,
+        });
         console.log("Đã cập nhật lượt xem sản phẩm thành công");
       } catch (err) {
         console.error("Lỗi cập nhật lượt xem sản phẩm:", err);
@@ -44,8 +42,10 @@ const ProductButton = ({ product }) => {
     }
   }, [productId]);
 
+  const existingQuantity = selectedProduct ? selectedProduct.quantity : 0;
+  const stock = existingQuantity >= product.stock || product.stock <= 0;
+
   const handleAddToCart = () => {
-    const existingQuantity = selectedProduct ? selectedProduct.quantity : 0;
     dispatch(
       addToCart({
         id: product._id,
@@ -58,14 +58,7 @@ const ProductButton = ({ product }) => {
         quantity: existingQuantity + +quantity,
       })
     );
-    Swal.fire({
-      position: "top-end",
-      // icon: "success",
-      title: `${product.title} thêm vào giỏ hàng thành công!`,
-      showConfirmButton: false,
-      timer: 1500,
-      height: 40,
-    });
+    AddToCart({ title: `${product.title} thêm vào giỏ hàng thành công!` });
   };
   return (
     <>
@@ -85,7 +78,11 @@ const ProductButton = ({ product }) => {
         </button>
       </div>
       <div className={styles.links}>
-        <button className={styles.button} onClick={() => handleAddToCart()}>
+        <button
+          className={styles.button}
+          onClick={() => handleAddToCart()}
+          disabled={stock}
+        >
           <AiOutlineShoppingCart />
           Thêm vào giỏ hàng
         </button>

@@ -11,6 +11,8 @@ import Link from "next/link";
 const CartProductCardMobile = ({ product }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(product.quantity);
+  const stock = quantity >= product.stock;
+  const decrement = quantity <= 1;
 
   return (
     <div className={styles.container}>
@@ -39,6 +41,7 @@ const CartProductCardMobile = ({ product }) => {
         <div className={styles.quantity}>
           <button
             className={styles.decrement}
+            disabled={decrement}
             onClick={() =>
               setQuantity((prev) => (prev === 1 ? 1 : prev - 1)) ||
               dispatch(
@@ -67,6 +70,7 @@ const CartProductCardMobile = ({ product }) => {
 
           <button
             className={styles.increment}
+            disabled={stock}
             onClick={() =>
               setQuantity((prev) => prev + 1) ||
               dispatch(

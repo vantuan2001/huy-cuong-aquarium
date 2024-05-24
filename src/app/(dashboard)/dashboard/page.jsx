@@ -1,4 +1,12 @@
-import { BsBasket, BsCreditCard2Front, BsHandbag } from "react-icons/bs";
+import {
+  BsBasket,
+  BsCreditCard2Front,
+  BsHandbag,
+  BsLayoutTextWindow,
+  BsNewspaper,
+  BsPersonCircle,
+  BsTags,
+} from "react-icons/bs";
 import styles from "./dashboard.module.css";
 
 import Chart from "@/components/dashboard/chart/chart";
@@ -8,65 +16,101 @@ import RecentReviews from "@/components/dashboard/recentReviews/recentReviews";
 
 import { fetchReviews } from "@/lib/reviews/data";
 import { getOrders } from "@/lib/orders/data";
-import { getViewedProduct, getbestSellingProduct } from "@/lib/products/data";
+import {
+  getProducts,
+  getViewedProduct,
+  getbestSellingProduct,
+} from "@/lib/products/data";
 import StatisticsCard from "@/components/dashboard/statisticsCard/statisticsCard";
+import { getBrands } from "@/lib/brands/data";
+import { getCategories } from "@/lib/categories/data";
+import { getAllNews } from "@/lib/news/data";
+import { getUsers } from "@/lib/users/data";
 
 const Dashboard = async () => {
   const q = "";
   const page = 1;
   const number = 5;
   const { reviews } = await fetchReviews(q, page, number);
-  const reviewsObject = JSON.parse(JSON.stringify(reviews));
-  const orders = await getOrders();
-  const ordersObject = JSON.parse(JSON.stringify(orders));
   const productsSelling = await getbestSellingProduct(number);
   const productsViewed = await getViewedProduct(number);
+  const brands = await getBrands();
+  const categories = await getCategories();
+  const orders = await getOrders();
+  const news = await getAllNews();
+  const products = await getProducts();
+  const users = await getUsers();
 
-  const totalPrice = () => {
-    let total = 0;
-    orders.forEach((item) => {
-      total += item.total;
-    });
+  const [reviewsObject, ordersObject] = [reviews, orders].map((item) =>
+    JSON.parse(JSON.stringify(item))
+  );
 
-    return total;
-  };
+  const totalPrice = orders.reduce((total, item) => total + item.total, 0);
+
   return (
     <div className={styles.container}>
       <div className={styles.sales}>
         <StatisticsCard
           icon={<BsHandbag />}
-          title="Đơn đặt hàng"
-          path="orders"
-          data={orders.length}
+          title="Sản Phẩm"
+          path="products"
+          data={products.length}
         />
         <StatisticsCard
           icon={<BsCreditCard2Front />}
-          title="Doanh thu"
+          title="Tổng Doanh thu"
           path="orders"
           data={new Intl.NumberFormat("vi-VN", {
             style: "currency",
             currency: "VND",
-          }).format(totalPrice())}
+          }).format(totalPrice)}
           img="null"
         />
         <StatisticsCard
           icon={<BsBasket />}
-          title="Đơn đặt hàng"
+          title="Đơn Đặt Hàng"
           path="orders"
+          img="/line-2.png"
           data={orders.length}
         />
 
         <RecentReviews reviews={reviewsObject} />
       </div>
+      <div className={styles.total}>
+        <StatisticsCard
+          icon={<BsPersonCircle />}
+          title="Người Dùng"
+          data={users.length}
+          small={true}
+        />
+        <StatisticsCard
+          icon={<BsNewspaper />}
+          title="Tin Tức"
+          data={news.length}
+          small={true}
+        />
+        <StatisticsCard
+          icon={<BsLayoutTextWindow />}
+          title="Danh Mục"
+          data={categories.length}
+          small={true}
+        />
+        <StatisticsCard
+          icon={<BsTags />}
+          title="Thương Hiệu"
+          data={brands.length}
+          small={true}
+        />
+      </div>
       <Chart orders={ordersObject} />
 
       <div className={styles.recent}>
         <div style={{ flex: 1 }}>
-          <h2>Sản phẩm bán chạy</h2>
+          <h2>Sản Phẩm Bán Chạy</h2>
           <SellingProducts products={productsSelling} type="sale" />
         </div>
         <div style={{ flex: 1 }}>
-          <h2>Sản phẩm được xem nhất</h2>
+          <h2>Sản Phẩm Được Xem Nhiều Nhất</h2>
           <SellingProducts products={productsViewed} type="views" />
         </div>
       </div>

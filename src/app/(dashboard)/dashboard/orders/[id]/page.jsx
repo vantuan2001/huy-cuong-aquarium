@@ -4,22 +4,19 @@ import moment from "moment";
 import Link from "next/link";
 import { BsChevronLeft } from "react-icons/bs";
 import Status from "@/components/home/status/status";
-import { cancelOrder, updateStatusOrder } from "@/lib/orders/action";
 import { fetchOrder } from "@/lib/orders/data";
+import ButtonPurchase from "@/components/home/buttonPurchase/buttonPurchase";
 
 const SingleOrderPage = async ({ params }) => {
   const { id } = params;
   const order = await fetchOrder(id);
-  const status = order.status;
-  const next = order.status < 1 || order.status >= 5;
-  const cancel = order.status === 1;
-  const totalPrice = () => {
-    let total = 0;
-    order.products.forEach((item) => {
-      total += item.price * item.quantity;
-    });
-    return total;
-  };
+  const orderObject = JSON.parse(JSON.stringify(order));
+  const status = orderObject.status;
+
+  const totalPrice = orderObject.products.reduce(
+    (total, item) => (total += item.price * item.quantity),
+    0
+  );
 
   return (
     <div className={styles.container}>
@@ -30,11 +27,11 @@ const SingleOrderPage = async ({ params }) => {
         </Link>
         {status <= 0 ? (
           <div className={styles.text}>
-            <span>MÃ ĐƠN HÀNG: {order._id}</span>
+            <span>MÃ ĐƠN HÀNG: {orderObject._id}</span>
           </div>
         ) : (
           <div className={styles.text}>
-            <span>MÃ ĐƠN HÀNG: {order._id}</span>
+            <span>MÃ ĐƠN HÀNG: {orderObject._id}</span>
             <span className={styles.status}>
               <Status status={status} />
             </span>
@@ -46,25 +43,7 @@ const SingleOrderPage = async ({ params }) => {
           <p className={styles.cancel}>Đã hủy đơn hàng</p>
         </div>
       ) : (
-        <div className={styles.buttons}>
-          <form action={cancelOrder}>
-            <input type="hidden" name="id" value={order._id} />
-            <button
-              className={`${styles.button} ${styles.btnCancel}`}
-              disabled={!cancel}
-            >
-              Huỷ Đơn Hàng
-            </button>
-          </form>
-
-          <form action={updateStatusOrder}>
-            <input type="hidden" name="id" value={order._id} />
-            <input type="hidden" name="status" value={order.status} />
-            <button className={styles.button} disabled={next}>
-              Bước tiếp theo
-            </button>
-          </form>
-        </div>
+        <ButtonPurchase order={orderObject} />
       )}
       <div className={styles.user}>
         <h2>Địa chỉ giao hàng</h2>
@@ -97,7 +76,7 @@ const SingleOrderPage = async ({ params }) => {
             </tr>
           </thead>
           <tbody>
-            {order.products.map((item) => (
+            {orderObject.products.map((item) => (
               <DetailsProduct item={item} key={item._id} />
             ))}
           </tbody>
@@ -110,7 +89,7 @@ const SingleOrderPage = async ({ params }) => {
                 {new Intl.NumberFormat("vi-VN", {
                   style: "currency",
                   currency: "VND",
-                }).format(totalPrice())}
+                }).format(totalPrice)}
               </span>
             </div>
 
@@ -129,13 +108,13 @@ const SingleOrderPage = async ({ params }) => {
                 {new Intl.NumberFormat("vi-VN", {
                   style: "currency",
                   currency: "VND",
-                }).format(totalPrice() + 30000)}
+                }).format(totalPrice + 30000)}
               </span>
             </div>
             <div className={styles.priceItem}>
               <span>Phương thức Thanh toán</span>
               <span>
-                {order.paymentMethods != "0"
+                {orderObject.paymentMethods != "0"
                   ? "Thanh toán VNPAY"
                   : "Thanh toán khi nhận hàng"}
               </span>

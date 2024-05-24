@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import { addNews, updateNews } from "@/lib/news/action";
 import useSwal from "@/components/toast/useSwal";
 
-// Dynamic import of ReactQuill
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const NewsForm = ({ news, isUpdate }) => {
@@ -16,12 +15,12 @@ const NewsForm = ({ news, isUpdate }) => {
   const [desc, setDesc] = useState(news ? news.desc : "");
 
   const toolbarOptions = [
-    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["bold", "italic", "underline", "strike"],
     ["link", "image", "video"],
-    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ header: 1 }, { header: 2 }],
     [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
-    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-    ["clean"], // remove formatting button
+    [{ indent: "-1" }, { indent: "+1" }],
+    ["clean"],
   ];
   const { ToastSuccess } = useSwal();
   const handleSubmit = async (e) => {
@@ -43,85 +42,87 @@ const NewsForm = ({ news, isUpdate }) => {
         ToastSuccess({ title: "Thêm tin tức" });
       }
     } catch (err) {
-      console.error("Error submitting form:", err);
+      console.error("Lỗi khi gửi biểu mẫu:", err);
     }
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <input
         type="hidden"
         name="id"
         value={id}
         onChange={(e) => setId(e.target.value)}
       />
-      <div className="inputContainer">
-        <div className="formItem w50">
-          <label>Tên tin tức</label>
-          <input
-            type="text"
-            placeholder="Nhập tên tin tức"
-            name="title"
-            required
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
 
-        <div className="formItem w50">
-          <label htmlFor="img">Hình ảnh</label>
-          <input
-            type="file"
-            id="img"
-            name="file"
-            onChange={(e) => setFile(e.target.files[0])}
+      <div className="inputItem w50">
+        <input
+          type="text"
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="title" className="label">
+          Tên tin tức
+        </label>
+      </div>
+
+      <div className="inputItem w50">
+        <input
+          type="file"
+          id="img"
+          name="file"
+          onChange={(e) => setFile(e.target.files[0])}
+          className="input"
+        />
+        <label htmlFor="img" className="label">
+          Hình ảnh
+        </label>
+      </div>
+      {news ? (
+        <div className={styles.imgContainer}>
+          <Image
+            src={file ? URL.createObjectURL(file) : news?.img}
+            alt=""
+            fill
+            className={styles.img}
           />
         </div>
-        {news ? (
+      ) : (
+        file && (
           <div className={styles.imgContainer}>
             <Image
-              src={file ? URL.createObjectURL(file) : news?.img}
+              src={file ? URL.createObjectURL(file) : "/no-image.png"}
               alt=""
               fill
               className={styles.img}
             />
           </div>
-        ) : (
-          file && (
-            <div className={styles.imgContainer}>
-              <Image
-                src={file ? URL.createObjectURL(file) : "/no-image.png"}
-                alt=""
-                fill
-                className={styles.img}
-              />
-            </div>
-          )
-        )}
+        )
+      )}
 
-        <div className="w100">
-          <label
-            htmlFor="desc"
-            style={{ fontSize: "14px", marginBottom: "10px" }}
-          >
-            Mô tả tin tức
-          </label>
+      <div className="w100">
+        <label
+          htmlFor="desc"
+          style={{ fontSize: "14px", marginBottom: "10px" }}
+        >
+          Mô tả tin tức
+        </label>
 
-          <ReactQuill
-            className={`editor ${styles.editor}`}
-            theme="snow"
-            name="desc"
-            value={desc}
-            onChange={setDesc}
-            modules={{ toolbar: toolbarOptions }}
-          />
-
-          <input type="hidden" name="desc" value={desc} />
-        </div>
-        <button type="submit">
-          {isUpdate ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
-        </button>
+        <ReactQuill
+          className={`editor ${styles.editor}`}
+          theme="snow"
+          name="desc"
+          value={desc}
+          onChange={setDesc}
+          modules={{ toolbar: toolbarOptions }}
+        />
       </div>
+      <button type="submit">
+        {isUpdate ? "Cập nhật tin tức" : "Thêm tin tức"}
+      </button>
     </form>
   );
 };

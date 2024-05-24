@@ -5,13 +5,44 @@
   gap: 30px;
 }
 
-.form input {
-  padding: 20px;
+.item {
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  font-size: 14px;
+  color: #000;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  padding: 18px;
   background-color: var(--bg);
   border: 1px solid var(--btn-hover);
   color: var(--text);
   border-radius: 5px;
   outline: none;
+  resize: none;
+}
+
+.input:focus {
+  border-color: transparent;
+  border-image: linear-gradient(to right, #38ef7d, #11998e) 2;
+  outline: none;
+}
+
+.input:focus ~ .label,
+.input:valid ~ .label {
+  top: -10px;
+  left: 18px;
+  font-size: 14px;
+  color: #000;
+  background: #fff;
 }
 
 .form button {

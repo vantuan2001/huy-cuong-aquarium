@@ -1,9 +1,9 @@
-.form {
-  display: flex;
-  gap: 50px;
+.imgContainer {
   margin-top: 20px;
+  border: 1px dotted #ced4da;
+  width: 205px;
+  height: 205px;
 }
-
 .editor {
   margin-top: 10px;
   margin-bottom: 20px;

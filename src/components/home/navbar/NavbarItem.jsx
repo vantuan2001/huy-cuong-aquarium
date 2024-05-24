@@ -4,12 +4,12 @@ import Links from "./links/Links";
 import styles from "./navbar.module.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 import Search from "./search/search";
 
-const NavbarItem = ({ session, imgLogo, title }) => {
+const NavbarItem = ({ session, imgLogo }) => {
   const [header, setHeader] = useState(false);
-  const pathName = usePathname();
+  // const pathName = usePathname();
 
   const handleScroll = () => {
     if (window.scrollY >= 50) {

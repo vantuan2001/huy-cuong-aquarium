@@ -34,19 +34,19 @@ const ProductForm = ({ product, isUpdate }) => {
         setBrands(resBrands.data);
         setCategories(resCategories.data);
       } catch (err) {
-        console.error("Error fetching categories:", err);
+        console.error("Lỗi khi lấy dữ liệu", err);
       }
     };
     fetchData();
   }, []);
 
   const toolbarOptions = [
-    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["bold", "italic", "underline", "strike"],
     ["link", "image", "video"],
-    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ header: 1 }, { header: 2 }],
     [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
-    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-    ["clean"], // remove formatting button
+    [{ indent: "-1" }, { indent: "+1" }],
+    ["clean"],
   ];
   const { ToastSuccess } = useSwal();
   const handleSubmit = async (e) => {
@@ -70,207 +70,230 @@ const ProductForm = ({ product, isUpdate }) => {
 
       if (isUpdate) {
         await updateProduct(formData);
-        ToastSuccess({ title: "Thêm sản phẩm" });
+        ToastSuccess({ title: "Cập nhật sản phẩm" });
       } else {
         await addProduct(formData);
         ToastSuccess({ title: "Thêm sản phẩm" });
       }
     } catch (err) {
-      console.error("Error submitting form:", err);
+      console.error("Lỗi khi gửi biểu mẫu:", err);
     }
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <input
         type="hidden"
         name="id"
         value={id}
         onChange={(e) => setId(e.target.value)}
       />
-      <div className="inputContainer">
-        <div className="formItem w50">
-          <label>Tên sản phẩm</label>
-          <input
-            type="text"
-            placeholder="Nhập tên sản phẩm"
-            name="title"
-            required
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div className="formItem w50">
-          <label>Số lượng</label>
-          <input
-            type="number"
-            placeholder="Nhập số lượng tồn kho"
-            name="stock"
-            required
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
-          />
-        </div>
-        <div className="formItem w50">
-          <label>Giá vốn</label>
-          <input
-            type="number"
-            placeholder="Nhập giá vốn"
-            name="costPrice"
-            required
-            value={costPrice}
-            onChange={(e) => setCostPrice(e.target.value)}
-          />
-        </div>
-        <div className="formItem w50">
-          <label>Giá bán</label>
-          <input
-            type="number"
-            placeholder="Nhập giá bán"
-            name="price"
-            required
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </div>
-        {isUpdate && (
-          <>
-            <div className="formItem w50">
-              <label>Số lượng đã bán</label>
-              <input
-                type="number"
-                placeholder="Nhập số lượng đã bán"
-                name="sold"
-                required
-                value={sold}
-                onChange={(e) => setSold(e.target.value)}
-              />
-            </div>
-            <div className="formItem w50">
-              <label>Số lượng lượt xem</label>
-              <input
-                type="number"
-                placeholder="Nhập số lượng lượt xem"
-                name="views"
-                required
-                value={views}
-                onChange={(e) => setViews(e.target.value)}
-              />
-            </div>
-          </>
-        )}
-        <div className="formItem w50">
-          <label>Danh mục sản phẩm</label>
-          <select
-            name="category"
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">Chọn danh mục</option>
-            {categories.map((category) => (
-              <option
-                id={category.name}
-                value={category.name}
-                name="category"
-                key={category._id}
-                className={styles.option}
-              >
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="formItem w50">
-          <label>Thương hiệu sản phẩm</label>
-          <select
-            name="brand"
-            id="brand"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-          >
-            <option value="">Chọn thương hiệu</option>
-            {brands.map((brand) => (
-              <option
-                id={brand.name}
-                value={brand.name}
-                name="brand"
-                key={brand._id}
-                className={styles.option}
-              >
-                {brand.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="formItem w100">
-          <label htmlFor="img">Hình ảnh</label>
-          <input
-            type="file"
-            id="img"
-            name="file"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
 
-          {product ? (
+      <div className="inputItem w50">
+        <input
+          type="text"
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="title" className="label">
+          Tên sản phẩm
+        </label>
+      </div>
+      <div className="inputItem w50">
+        <input
+          type="number"
+          name="stock"
+          value={stock}
+          onChange={(e) => setStock(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="stock" className="label">
+          Số lượng
+        </label>
+      </div>
+      <div className="inputItem w50">
+        <input
+          type="number"
+          name="costPrice"
+          value={costPrice}
+          onChange={(e) => setCostPrice(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="costPrice" className="label">
+          Giá vốn
+        </label>
+      </div>
+      <div className="inputItem w50">
+        <input
+          type="number"
+          name="price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          required
+          className="input"
+        />
+        <label htmlFor="price" className="label">
+          Giá bán
+        </label>
+      </div>
+      {isUpdate && (
+        <>
+          <div className="inputItem w50">
+            <input
+              type="number"
+              name="sold"
+              value={sold}
+              onChange={(e) => setSold(e.target.value)}
+              required
+              className="input"
+            />
+            <label htmlFor="sold" className="label">
+              Số lượng đã bán
+            </label>
+          </div>
+          <div className="inputItem w50">
+            <input
+              type="number"
+              name="views"
+              value={views}
+              onChange={(e) => setViews(e.target.value)}
+              required
+              className="input"
+            />
+            <label htmlFor="views" className="label">
+              Số lượng lượt xem
+            </label>
+          </div>
+        </>
+      )}
+      <div className="inputItem w50">
+        <select
+          name="category"
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="select"
+        >
+          <option value="">---</option>
+          {categories.map((category) => (
+            <option
+              id={category.name}
+              value={category.name}
+              name="category"
+              key={category._id}
+              className={styles.option}
+            >
+              {category.name}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="category" className="label">
+          Danh mục sản phẩm
+        </label>
+      </div>
+      <div className="inputItem w50">
+        <select
+          name="brand"
+          id="brand"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+          className="input"
+        >
+          <option value="">---</option>
+          {brands.map((brand) => (
+            <option
+              id={brand.name}
+              value={brand.name}
+              name="brand"
+              key={brand._id}
+              className={styles.option}
+            >
+              {brand.name}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="brand" className="label">
+          Thương hiệu sản phẩm
+        </label>
+      </div>
+      <div className="inputItem w100">
+        <input
+          type="file"
+          id="img"
+          name="file"
+          onChange={(e) => setFile(e.target.files[0])}
+          className="input"
+        />
+        <label htmlFor="img" className="label">
+          Hình ảnh
+        </label>
+
+        {product ? (
+          <div className={styles.imgContainer}>
             <Image
               src={file ? URL.createObjectURL(file) : product?.img}
               alt=""
-              width={300}
-              height={300}
+              className={styles.img}
+              width={200}
+              height={200}
             />
-          ) : (
-            file && (
+          </div>
+        ) : (
+          file && (
+            <div className={styles.imgContainer}>
               <Image
                 src={file ? URL.createObjectURL(file) : "/no-image.png"}
                 alt=""
-                width={300}
-                height={300}
+                className={styles.img}
+                width={200}
+                height={200}
               />
-            )
-          )}
-        </div>
-        <div className="w100">
-          <label
-            htmlFor="info"
-            style={{ fontSize: "14px", marginBottom: "10px" }}
-          >
-            Thông tin sản phẩm
-          </label>
-
-          <ReactQuill
-            className={`editor w100 ${styles.editor}`}
-            theme="snow"
-            name="info"
-            id="info"
-            value={info}
-            onChange={setInfo}
-            modules={{ toolbar: toolbarOptions }}
-          />
-
-          <input type="hidden" name="info" value={info} />
-          <label
-            htmlFor="desc"
-            style={{ fontSize: "14px", marginBottom: "10px" }}
-          >
-            Mô tả sản phẩm
-          </label>
-
-          <ReactQuill
-            className={`editor ${styles.editor}`}
-            theme="snow"
-            name="desc"
-            value={desc}
-            onChange={setDesc}
-            modules={{ toolbar: toolbarOptions }}
-          />
-
-          <input type="hidden" name="desc" value={desc} />
-        </div>
-        <button type="submit">
-          {isUpdate ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
-        </button>
+            </div>
+          )
+        )}
       </div>
+      <div className="w100">
+        <label
+          htmlFor="info"
+          style={{ fontSize: "14px", marginBottom: "10px" }}
+        >
+          Thông tin sản phẩm
+        </label>
+
+        <ReactQuill
+          className={`editor w100 ${styles.editor}`}
+          theme="snow"
+          name="info"
+          id="info"
+          value={info}
+          onChange={setInfo}
+          modules={{ toolbar: toolbarOptions }}
+        />
+
+        <label
+          htmlFor="desc"
+          style={{ fontSize: "14px", marginBottom: "10px" }}
+        >
+          Mô tả sản phẩm
+        </label>
+
+        <ReactQuill
+          className={`editor ${styles.editor}`}
+          theme="snow"
+          name="desc"
+          value={desc}
+          onChange={setDesc}
+          modules={{ toolbar: toolbarOptions }}
+        />
+      </div>
+      <button type="submit">
+        {isUpdate ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
+      </button>
     </form>
   );
 };

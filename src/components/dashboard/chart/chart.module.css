@@ -6,25 +6,14 @@
   padding-bottom: 90px;
 }
 
-.title {
-  font-weight: 200;
-  color: var(--textSoft);
-  margin-bottom: 20px;
-}
-
-.time {
+.header {
   display: flex;
-  gap: 20px;
-}
-
-.time label,
-.time input {
-  cursor: pointer;
-}
-
-.time label {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 5px;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: 300;
+  color: var(--textSoft);
+  margin-bottom: 5px;
 }

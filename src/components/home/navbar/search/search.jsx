@@ -26,10 +26,9 @@ const Search = () => {
   useEffect(() => {
     const getData = async () => {
       if (!query) return;
-
       try {
         const res = await axios.get(
-          `https://www.huycuongaquarium.online/api/search?title=${query}`
+          `http://localhost:3000/api/search?title=${query}`
         );
         setProducts(res.data);
       } catch (err) {
@@ -96,7 +95,7 @@ const Search = () => {
                 <div
                   className={styles.item}
                   onClick={() => handleLink(product.title)}
-                  key={product.id}
+                  key={product._id}
                 >
                   <div className={styles.itemContainer}>
                     <Image

@@ -56,9 +56,9 @@
 .lineForego {
   box-sizing: border-box;
   height: 100%;
-  margin: 0 80px;
+  margin: 0 110px;
   position: absolute;
-  width: calc(100% - 200px);
+  width: calc(100% - 280px);
   display: block;
   background: rgb(224, 224, 224);
 }
@@ -78,6 +78,111 @@
 .inProgress .icon {
   color: #e0e0e0;
   border: 4px solid #e0e0e0;
+}
+
+.canceled {
+  width: 0px;
+}
+.confirm {
+  width: 20%;
+}
+.delivery {
+  width: calc(50% - 105px);
+}
+.transport {
+  width: calc(70% - 105px);
+}
+.success {
+  width: calc(89% - 105px);
+}
+
+@media (max-width: 1536px) {
+  .line,
+  .lineForego {
+    margin: 0 100px;
+    width: calc(100% - 240px);
+  }
+  .canceled {
+    width: 0px;
+  }
+  .confirm {
+    width: 20%;
+  }
+  .delivery {
+    width: calc(50% - 105px);
+  }
+  .transport {
+    width: calc(70% - 105px);
+  }
+  .success {
+    width: calc(89% - 105px);
+  }
+}
+
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 640px) {
+  .status {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .item {
+    flex-direction: row;
+  }
+
+  .icon {
+    height: 45px;
+    width: 45px;
+    padding: 10px;
+  }
+
+  .item p {
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .stepper {
+    top: 170px;
+    width: 100%;
+    left: -175px;
+    transform: rotate(90deg) translate3d(0%, 0%, 0);
+  }
+
+  .line,
+  .lineForego {
+    width: calc(100% - 185px);
+  }
+
+  .canceled {
+    width: 0px;
+  }
+
+  .confirm {
+    width: 20%;
+  }
+
+  .delivery {
+    width: 34%;
+  }
+
+  .transport {
+    width: 45%;
+  }
+
+  .success {
+    width: 55%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -102,14 +207,38 @@
   }
 
   .stepper {
-    top: 166px;
+    top: 134px;
     width: 100%;
-    left: -158px;
+    left: -152px;
     transform: rotate(90deg) translate3d(0%, 0%, 0);
   }
 
   .line,
   .lineForego {
-    width: calc(100% - 150px);
+    width: calc(100% - 110px);
+  }
+
+  .delivery {
+    width: 40%;
+  }
+
+  .transport {
+    width: 55%;
+  }
+
+  .success {
+    width: 70%;
+  }
+}
+
+@media (max-width: 430px) {
+  .stepper {
+    left: -138px;
+  }
+}
+
+@media (max-width: 380px) {
+  .stepper {
+    left: -132px;
   }
 }

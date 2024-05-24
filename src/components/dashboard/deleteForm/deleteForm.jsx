@@ -16,7 +16,7 @@ const DeleteForm = ({ name, deleteMethod, type }) => {
         id: type._id,
       });
     } catch (err) {
-      console.error("Error submitting form:", err);
+      console.error("Lỗi khi gửi biểu mẫu:", err);
     }
   };
   return (

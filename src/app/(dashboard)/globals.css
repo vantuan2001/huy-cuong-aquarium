@@ -62,44 +62,7 @@ a {
   margin-top: 20px;
 }
 
-.inputContainer {
-  flex: 3;
-  background-color: var(--bgSoft);
-  padding: 20px;
-  border-radius: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.formItem {
-  display: flex;
-  flex-direction: column;
-}
-
-.formItem input,
-.formItem textarea,
-.formItem select {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid #ced4da;
-  border-radius: 5px;
-  color: var(--text);
-  margin: 10px 0px;
-}
-
-.formItem input:focus,
-.formItem textarea:focus,
-.formItem select:focus {
-  border: 2px solid var(--btnBg);
-  outline: none;
-}
-
-.formItem label {
-  font-size: 12px;
-}
-
-.inputContainer button {
+.form button {
   width: 200px;
   padding: 15px;
   background-color: var(--btnBg);
@@ -107,7 +70,69 @@ a {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
+}
+
+.form {
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.inputItem {
+  position: relative;
+}
+
+.input,
+.textarea,
+.select,
+.inputItem select {
+  width: 100%;
+  padding: 13px;
+  background-color: transparent;
+  border: 2px solid #ced4da;
+  border-radius: 5px;
+  color: var(--text);
+}
+
+.select,
+.select option {
+  cursor: pointer;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus,
+.inputItem select:focus {
+  border: 2px solid var(--btnBg);
+  outline: none;
+}
+
+.label {
+  position: absolute;
+  top: 14px;
+  left: 13px;
+  font-size: 14px;
+  color: #000;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.input:focus ~ .label,
+.input:valid ~ .label,
+.textarea:focus ~ .label,
+.textarea:valid ~ .label,
+.select:focus ~ .label,
+.select:valid ~ .label {
+  top: -10px;
+  left: 13px;
+  font-size: 14px;
+  color: #000;
+  background: #fff;
+  transition: all 0.3s ease;
 }
 
 .w100 {

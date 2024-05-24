@@ -17,9 +17,11 @@ const Products = async ({ searchParams }) => {
   const { count, products } = await fetchProducts(q, b, c, page, number, sort);
   const categories = await getCategories();
   const brands = await getBrands();
-  const productsObject = JSON.parse(JSON.stringify(products));
-  const categoriesObject = JSON.parse(JSON.stringify(categories));
-  const brandsObject = JSON.parse(JSON.stringify(brands));
+  const [productsObject, categoriesObject, brandsObject] = [
+    products,
+    categories,
+    brands,
+  ].map((item) => JSON.parse(JSON.stringify(item)));
 
   return (
     <div className="container">

@@ -65,22 +65,6 @@
   min-height: 180px;
 }
 
-/* .social {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-} */
-
-/* .social a {
-  background: #3a589d;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-} */
-
 .social {
   display: flex;
   gap: 10px;

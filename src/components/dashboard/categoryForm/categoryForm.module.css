@@ -1,15 +1,4 @@
-.container {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  cursor: default;
-}
-
-.addButton {
+.buttonAdd {
   position: relative;
   background-color: rgb(255, 110, 66);
   border-radius: 5px;
@@ -25,7 +14,7 @@
   overflow: hidden;
 }
 
-.addButton::before {
+.buttonAdd::before {
   content: "";
   background-color: rgb(273, 126, 82);
   width: 0;
@@ -38,12 +27,36 @@
   display: inline-block;
 }
 
-.addButton:hover::before {
+.buttonAdd:hover::before {
   width: 100%;
 }
 
+.buttonUpdate {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border-radius: 5px;
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  background-color: teal;
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  cursor: default;
+}
+
 .wrapper {
-  max-width: 900px;
+  max-width: 500px;
   width: 100%;
   position: fixed;
   top: 50%;
@@ -84,89 +97,39 @@
   color: #2e2e2e;
 }
 
-.content {
-  display: flex;
-}
-
 .form {
   display: flex;
   flex-direction: column;
-  flex: 6;
   width: 100%;
+  gap: 30px;
   padding: 30px;
   color: #000;
 }
 
-.content {
-  height: 32px;
-  margin-bottom: 10px;
-  display: flex;
-}
-
-.infoContainer {
-  background-color: var(--bgSoft);
-  padding: 20px;
-  border-radius: 10px;
-  font-weight: bold;
-  color: var(--textSoft);
-  height: max-content;
-}
-
 .imgContainer {
-  width: 100px;
-  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 20px;
 }
 
 .imgContainer label {
-  width: 100px;
-  height: 100px;
+  width: 205px;
+  height: 205px;
   display: flex;
   cursor: pointer;
+  border: 1px dotted #ced4da;
 }
 
-.inputContainer {
-  background-color: var(--bgSoft);
-  border-radius: 10px;
+.img {
+  object-fit: contain;
+  width: 200px !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
 }
 
-.input {
-  display: flex;
-  flex-direction: column;
-}
-
-.input input,
-.input textarea,
-.input select {
-  width: 300px;
-  padding: 20px;
-  border: 2px solid #ced4da;
-  border-radius: 5px;
-  color: var(--text);
-  margin: 10px 0px;
-}
-
-.input input:focus,
-.input textarea:focus,
-.input select:focus {
-  border: 2px solid var(--btnBg);
-  outline: none;
-}
-
-.input label {
-  font-size: 14px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-}
-
-.buttons button {
+.buttonForm {
   width: 100%;
   padding: 15px;
   background-color: var(--btnBg);
@@ -178,24 +141,4 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-}
-
-.button {
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  border-radius: 5px;
-  color: var(--bg);
-  border: none;
-  cursor: pointer;
-}
-
-.view {
-  background-color: teal;
-}
-
-.delete {
-  background-color: crimson;
 }

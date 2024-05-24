@@ -33,8 +33,21 @@ export const fetchReview = async (postId) => {
 export const fetchRating = async (postId) => {
   try {
     connectToDb();
-    const review = await Review.find(postId);
+    const review = await Review.find({ postId: postId }).sort({
+      createdAt: -1,
+    });
     return review;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Không thể truy xuất đánh giá!");
+  }
+};
+
+export const getReviews = async () => {
+  try {
+    connectToDb();
+    const reviews = await Review.find();
+    return reviews;
   } catch (err) {
     console.log(err);
     throw new Error("Không thể truy xuất đánh giá!");

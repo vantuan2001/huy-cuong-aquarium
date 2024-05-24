@@ -13,9 +13,11 @@ const News = async ({ searchParams }) => {
   const { count, news } = await fetchNews(q, page, number);
   const newsSmall = await fetchLimitNews(5);
   const categories = await getCategories();
-  const newsObject = JSON.parse(JSON.stringify(news));
-  const newsSmallObject = JSON.parse(JSON.stringify(newsSmall));
-  const categoriesObject = JSON.parse(JSON.stringify(categories));
+  const [newsObject, newsSmallObject, categoriesObject] = [
+    news,
+    newsSmall,
+    categories,
+  ].map((item) => JSON.parse(JSON.stringify(item)));
   return (
     <div className="container">
       <div className="breadcrumbs">

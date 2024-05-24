@@ -8,8 +8,7 @@ import CategoryForm from "@/components/dashboard/categoryForm/categoryForm";
 import DeleteForm from "@/components/dashboard/deleteForm/deleteForm";
 
 const CategoriesPage = async ({ searchParams }) => {
-  const q = searchParams?.q || "";
-  const page = searchParams?.page || 1;
+  const { q = "", page = 1 } = searchParams || {};
   const number = 10;
   const { count, categories } = await fetchCategories(q, page, number);
   const categoriesObject = JSON.parse(JSON.stringify(categories));
@@ -49,7 +48,7 @@ const CategoriesPage = async ({ searchParams }) => {
                 <div className={styles.buttons}>
                   <CategoryForm isUpdate={true} category={category} />
                   <DeleteForm
-                    name="danh mục"
+                    name="xoá xoá xoá xoá danh mục"
                     deleteMethod={deleteCategory}
                     type={category}
                   />

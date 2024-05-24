@@ -24,3 +24,25 @@
 .sort select option {
   outline: none;
 }
+
+@media (max-width: 430px) {
+  .sort {
+    width: 100%;
+    font-size: 13px;
+    justify-content: space-between;
+  }
+
+  .sort select {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .sort {
+    font-size: 12px;
+  }
+
+  .sort select {
+    font-size: 12px;
+  }
+}

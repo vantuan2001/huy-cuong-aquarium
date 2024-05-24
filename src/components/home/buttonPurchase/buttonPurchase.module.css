@@ -1,0 +1,86 @@
+.btnGroup {
+  display: flex;
+  gap: 20px;
+}
+
+.buttons {
+  width: 100%;
+  padding: 20px;
+  background: #fffcf5;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0px 0px 20px;
+  gap: 20px;
+}
+
+.button,
+.purchase {
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 15px 35px;
+  background-color: var(--btnBg);
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.purchase {
+  background-color: var(--text-active);
+}
+
+.btnCancel {
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  color: #555;
+  background-color: var(--bg);
+}
+
+.btnCancel:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+.button:disabled,
+.purchase:disabled {
+  cursor: not-allowed;
+  color: #cc5833;
+  background-color: #e9ecef;
+}
+
+.cancel {
+  color: #ee4d2d;
+  font-size: 20px !important;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .btnGroup {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 430px) {
+  .buttons {
+    gap: 15px;
+  }
+
+  .button {
+    font-size: 13px;
+    padding: 10px 25px;
+  }
+
+  .btnGroup {
+    gap: 15px;
+    width: 100%;
+    justify-content: space-between;
+  }
+}

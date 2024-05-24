@@ -1,6 +1,6 @@
 .container {
-  padding: 20px 200px;
   background-color: #f5f5f5;
+  padding-top: 50px;
 }
 
 .top {
@@ -96,7 +96,6 @@
   color: #ee4d2d;
   font-size: 20px !important;
   font-weight: 500;
-  line-height: 32px;
 }
 
 .center {
@@ -138,7 +137,6 @@
 .priceItem {
   font-size: 16px;
   height: 40px;
-  line-height: 40px;
   border-bottom: 1px solid #dedddd;
   display: flex;
   align-items: center;
@@ -164,9 +162,60 @@
   gap: 20px;
 }
 
+@media (max-width: 1536px) {
+}
+
+@media (max-width: 1366px) {
+}
+
+@media (max-width: 1280px) {
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+  .price {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 15px 10px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .priceList {
+    width: 100%;
+  }
+
+  .priceItem {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .buttons {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .buttons p {
+    width: 100%;
+  }
+
+  .btnGroup {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .priceItem {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 480px) {
   .container {
-    padding: 20px;
+    padding-top: 30px;
   }
 
   .top {
@@ -198,37 +247,35 @@
   }
 
   .buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .buttons p {
-    width: 100%;
-  }
-
-  .btnGroup {
-    justify-content: space-between;
-    width: 100%;
+    gap: 15px;
   }
 
   .cancel {
     font-size: 16px !important;
   }
+}
 
-  .price {
-    margin-top: 20px;
-    margin-bottom: 15px;
-    padding: 15px 10px;
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-  }
-
-  .priceList {
-    width: 100%;
-  }
-
+@media (max-width: 430px) {
   .priceItem {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .buttons {
+    gap: 15px;
+  }
+
+  .button {
+    font-size: 13px;
+    padding: 10px 25px;
+  }
+
+  .buttons p {
+    font-size: 12px;
+  }
+
+  .btnGroup {
+    gap: 15px;
+    width: 100%;
+    justify-content: space-between;
   }
 }

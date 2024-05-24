@@ -40,6 +40,7 @@
 .item {
   position: relative;
 }
+
 .input,
 .textarea {
   width: 100%;
@@ -50,6 +51,38 @@
   border-radius: 5px;
   outline: none;
   resize: none;
+}
+
+.label {
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  font-size: 14px;
+  color: #000;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.input:focus ~ .label,
+.input:valid ~ .label,
+.textarea:focus ~ .label,
+.textarea:valid ~ .label {
+  top: -10px;
+  left: 18px;
+  font-size: 14px;
+  color: #000;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus,
+.inputItem select:focus {
+  border-color: transparent;
+  border-image: linear-gradient(to right, #38ef7d, #11998e) 2;
+
+  outline: none;
 }
 
 .right {

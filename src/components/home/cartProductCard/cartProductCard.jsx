@@ -11,6 +11,8 @@ import Link from "next/link";
 const CartProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(product.quantity);
+  const stock = quantity >= product.stock;
+  const decrement = quantity <= 1;
 
   return (
     <tr>
@@ -32,12 +34,13 @@ const CartProductCard = ({ product }) => {
         {new Intl.NumberFormat("vi-VN", {
           style: "currency",
           currency: "VND",
-        }).format(product.price)}{" "}
+        }).format(product.price)}
       </td>
       <td className={styles.quantity}>
         <div className={styles.quantity}>
           <button
             className={styles.decrement}
+            disabled={decrement}
             onClick={() =>
               setQuantity((prev) => (prev === 1 ? 1 : prev - 1)) ||
               dispatch(
@@ -65,6 +68,7 @@ const CartProductCard = ({ product }) => {
           />
           <button
             className={styles.increment}
+            disabled={stock}
             onClick={() =>
               setQuantity((prev) => prev + 1) ||
               dispatch(

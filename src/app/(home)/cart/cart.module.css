@@ -224,3 +224,39 @@
     font-size: 16px;
   }
 }
+
+@media (max-width: 430px) {
+  .cartNoProduct {
+    margin: 190px 20px;
+  }
+
+  .cartNoProduct .btnCheckout {
+    font-size: 14px;
+    padding: 0px 20px;
+    height: 40px;
+  }
+
+  .btnCheckout {
+    font-size: 14px;
+    padding: 0px 20px;
+    height: 40px;
+  }
+
+  .top {
+    display: none;
+  }
+
+  .cartMobile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .bottom {
+    padding: 20px;
+    width: 100%;
+  }
+  .bottom h3 {
+    font-size: 16px;
+  }
+}

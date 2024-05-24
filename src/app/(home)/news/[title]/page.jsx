@@ -6,27 +6,14 @@ import Comment from "@/components/home/comment/comment";
 import moment from "moment";
 import Filter from "@/components/home/filter/filter";
 import { getCategories } from "@/lib/categories/data";
-import { fetchLimitNews } from "@/lib/news/data";
-
-// LẤY DỮ LIỆU BẰNG API
-const getData = async (title) => {
-  const res = await fetch(
-    `https://www.huycuongaquarium.online/api/news/${title}`,
-    {
-      next: { revalidate: 3600 },
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("Đã xảy ra lỗi");
-  }
-
-  return res.json();
-};
+import { fetchLimitNews, fetchNewsTitle } from "@/lib/news/data";
 
 export const generateMetadata = async ({ params }) => {
   const { title } = params;
-  const post = await getData(title);
+  const encode = title;
+  const decode = decodeURIComponent(encode);
+  const post = await fetchNewsTitle(decode);
+
   return {
     title: post.title,
     description: post.desc,
@@ -36,11 +23,17 @@ export const generateMetadata = async ({ params }) => {
 const SingleNewsPage = async ({ params }) => {
   const { title } = params;
   const number = 5;
-  const postNews = await getData(title);
+  const encode = title;
+  const decode = decodeURIComponent(encode);
+  const postNews = await fetchNewsTitle(decode);
   const categories = await getCategories();
   const news = await fetchLimitNews(number);
-  const categoriesObject = JSON.parse(JSON.stringify(categories));
-  const brandsObject = JSON.parse(JSON.stringify(news));
+  const [postNewsObject, newsObject, categoriesObject] = [
+    postNews,
+    news,
+    categories,
+  ].map((item) => JSON.parse(JSON.stringify(item)));
+
   return (
     <div className="container">
       <div className="breadcrumbs">
@@ -52,19 +45,19 @@ const SingleNewsPage = async ({ params }) => {
           Tin tức
         </Link>
         <AiOutlineDoubleRight />
-        <p className="breadcrumbs-link">{postNews.title}</p>
+        <p className="breadcrumbs-link">{postNewsObject.title}</p>
       </div>
       <div className={styles.container}>
         <div className={styles.left}>
-          <Filter news={brandsObject} categories={categoriesObject} />
+          <Filter news={newsObject} categories={categoriesObject} />
         </div>
         <div className={styles.right}>
-          <h3 className={styles.title}>{postNews.title}</h3>
+          <h3 className={styles.title}>{postNewsObject.title}</h3>
           <span className={styles.date}>
-            {moment(postNews.createdAt).format("DD/MM/YYYY")}
+            {moment(postNewsObject?.createdAt).format("HH:mm DD/MM/YYYY")}
           </span>
           <Image
-            src={postNews.img}
+            src={postNewsObject.img}
             alt=""
             width={450}
             height={450}
@@ -72,9 +65,9 @@ const SingleNewsPage = async ({ params }) => {
           />
           <div
             className={styles.desc}
-            dangerouslySetInnerHTML={{ __html: postNews?.desc }}
+            dangerouslySetInnerHTML={{ __html: postNewsObject?.desc }}
           />
-          <Comment post={postNews} />
+          <Comment post={postNewsObject} />
         </div>
       </div>
     </div>

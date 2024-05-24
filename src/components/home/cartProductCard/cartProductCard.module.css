@@ -177,3 +177,10 @@
   color: var(--bg);
   background-color: var(--btn-hover);
 }
+
+.increment:disabled,
+.decrement:disabled {
+  cursor: not-allowed;
+  color: #cc5833;
+  background-color: #e9ecef;
+}

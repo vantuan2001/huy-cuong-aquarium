@@ -7,7 +7,7 @@ import Link from "next/link";
 import useSwal from "@/components/toast/useSwal";
 
 const CommentForm = ({ post, session }) => {
-  const { Error } = useSwal();
+  const { Success, Error } = useSwal();
   const [rating, setRating] = useState(1);
   const [hover, setHover] = useState(1);
   const [username, setUsername] = useState(session?.user.username);
@@ -30,11 +30,8 @@ const CommentForm = ({ post, session }) => {
           userId: session.user._id,
         };
 
-        await axios.post(
-          "https://www.huycuongaquarium.online/api/reviews",
-          newReview
-        );
-        console.log("saved to db");
+        await axios.post("http://localhost:3000/api/reviews", newReview);
+        Success({ title: "Đánh giá bài viết thành công!" });
         window.location.reload();
       } catch (err) {
         console.log(err);
@@ -64,35 +61,63 @@ const CommentForm = ({ post, session }) => {
       </div>
 
       <div className={styles.form}>
-        <div className={styles.item}>
-          <input
-            type="text"
-            placeholder="Họ Và Tên"
-            name="username"
-            value={username}
-            required
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <div className={`w100 ${styles.item}`}>
+          <div className="inputItem w50">
+            <input
+              type="text"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className="input"
+            />
+            <label htmlFor="username" className="label">
+              Họ Và Tên
+            </label>
+            {error && email.length < 3 ? (
+              <div className="error">Xin vui lòng nhập họ và tên</div>
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="inputItem w50">
+            <input
+              type="text"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="input"
+            />
+            <label htmlFor="email" className="label">
+              Email
+            </label>
+            {error && email.length < 3 ? (
+              <div className="error">Xin vui lòng nhập địa chỉ email</div>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
-        <div className={styles.item}>
+        <div className="inputItem w100">
           <textarea
             name="comment"
-            id=""
+            id="comment"
             cols="30"
             rows="10"
-            placeholder="Nhận Xét Của Bạn"
             value={comment}
-            required
             onChange={(e) => setComment(e.target.value)}
+            required
+            className={`textarea ${styles.form}`}
           ></textarea>
+          <label htmlFor="comment" className="label">
+            Nhận Xét Của Bạn
+          </label>
+          {error && comment.length < 3 ? (
+            <div className="error">Xin vui lòng nhập nhận xét của bạn</div>
+          ) : (
+            ""
+          )}
         </div>
         {session?.user ? (
           <button className={styles.button} onClick={handleCreate}>

@@ -94,3 +94,10 @@
   color: var(--bg);
   background-color: #fb4646;
 }
+
+.increment:disabled,
+.decrement:disabled {
+  cursor: not-allowed;
+  color: #cc5833;
+  background-color: #e9ecef;
+}

@@ -104,3 +104,19 @@
     height: 380px;
   }
 }
+
+@media (max-width: 430px) {
+  .right {
+    width: 100%;
+  }
+
+  .list {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 380px) {
+  .center {
+    gap: 10px;
+  }
+}

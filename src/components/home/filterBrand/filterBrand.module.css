@@ -22,12 +22,20 @@
   cursor: pointer;
 }
 
-.inputItem label {
+.title {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 30px;
+  cursor: pointer;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.inputItem input {
   cursor: pointer;
 }
 

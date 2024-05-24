@@ -32,8 +32,8 @@ const SelectPayments = () => {
 
   return (
     <select
-      name="payment"
-      id="payment"
+      name="payments"
+      id="payments"
       onClick={handleFilter}
       className={styles.select}
     >

@@ -2,13 +2,11 @@ import { MdOutlineLocalShipping } from "react-icons/md";
 import styles from "./purchaseOrder.module.css";
 import ProductItem from "../productItem/productItem";
 import Link from "next/link";
-import { cancelOrder, updateStatusOrder } from "@/lib/orders/action";
 import Status from "@/components/home/status/status";
+import ButtonPurchase from "@/components/home/buttonPurchase/buttonPurchase";
 
 const PurchaseOrder = ({ order }) => {
   const status = order.status;
-  const hasPrev = status === 4;
-  const cancel = status === 5;
   return (
     <>
       <Link href={`/purchase/${order._id}`}>
@@ -54,25 +52,7 @@ const PurchaseOrder = ({ order }) => {
                 ? "Cảm ơn bạn đã mua sắm tại Huy cường Aquarium!"
                 : "Hãy kiểm tra cẩn thận tất cả các sản phẩm trong đơn hàng trước khi bấm 'Đã nhận được hàng'"}
             </p>
-            <div className={styles.btnGroup}>
-              <form action={cancelOrder}>
-                <input type="hidden" name="id" value={order._id} />
-                <button
-                  className={`${styles.button} ${styles.btnCancel}`}
-                  disabled={cancel}
-                >
-                  Huỷ Đơn Hàng
-                </button>
-              </form>
-
-              <form action={updateStatusOrder}>
-                <input type="hidden" name="id" value={order._id} />
-                <input type="hidden" name="status" value={order.status} />
-                <button className={styles.button} disabled={!hasPrev}>
-                  Đã Nhận Hàng
-                </button>
-              </form>
-            </div>
+            <ButtonPurchase order={order} purchase={true} />
           </div>
         )}
       </div>

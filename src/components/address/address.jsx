@@ -110,10 +110,10 @@ const Address = (error) => {
           value={getProvince}
           className={styles.select}
           onChange={handleProvinceChange}
-          title="Chọn Tỉnh Thành"
+          required
         >
           {!getProvince ? (
-            <option value="0">Chọn Tỉnh Thành</option>
+            <option value="0">---</option>
           ) : (
             <>
               <option value={getProvince}>{getProvince}</option>
@@ -140,17 +140,19 @@ const Address = (error) => {
         <select
           className={styles.select}
           onChange={handleDistrictChange}
-          title="Chọn Quận Huyện"
           value={getDistrict}
+          disabled={!getProvince}
+          required
         >
-          {!getDistrict ? (
-            <option value="0">Chọn Quận Huyện</option>
+          {!getProvince ? (
+            ""
+          ) : !getDistrict ? (
+            <option value="0">---</option>
           ) : (
             <>
               <option value={getDistrict}>{getDistrict}</option>
             </>
           )}
-
           {districts.map((district) => (
             <option key={district.id} value={district.id}>
               {district.full_name}
@@ -171,18 +173,21 @@ const Address = (error) => {
       <div className={styles.item}>
         <select
           className={styles.select}
-          // title="Chọn Phường Xã"
           onChange={handleWardChange}
           value={getWard}
+          disabled={!getDistrict}
+          id="ward"
+          required
         >
-          {!getWard ? (
-            <option value="0">Chọn Phường Xã</option>
+          {!getDistrict ? (
+            ""
+          ) : !getWard ? (
+            <option value="0">---</option>
           ) : (
             <>
               <option value={getWard}>{getWard}</option>
             </>
           )}
-
           {wards.map((ward) => (
             <option key={ward.id} value={ward.id}>
               {ward.full_name}

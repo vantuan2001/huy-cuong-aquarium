@@ -8,8 +8,7 @@ import BrandForm from "@/components/dashboard/brandForm/brandForm";
 import DeleteForm from "@/components/dashboard/deleteForm/deleteForm";
 
 const BrandsPage = async ({ searchParams }) => {
-  const q = searchParams?.q || "";
-  const page = searchParams?.page || 1;
+  const { q = "", page = 1 } = searchParams || {};
   const number = 10;
   const { count, brands } = await fetchBrands(q, page, number);
   const brandsObject = JSON.parse(JSON.stringify(brands));
@@ -49,16 +48,10 @@ const BrandsPage = async ({ searchParams }) => {
                 <div className={styles.buttons}>
                   <BrandForm isUpdate={true} brand={brand} />
                   <DeleteForm
-                    name="thương hiệu"
+                    name="xoá thương hiệu"
                     deleteMethod={deleteBrand}
                     type={brand}
                   />
-                  {/* <form action={deleteBrand}>
-                    <input type="hidden" name="id" value={brand.id} />
-                    <button className={`${styles.button} ${styles.delete}`}>
-                      <BsTrash />
-                    </button>
-                  </form> */}
                 </div>
               </td>
             </tr>

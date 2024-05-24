@@ -1,6 +1,5 @@
 import { fetchOrderByUserId } from "@/lib/orders/data";
 import PurchaseOrder from "./components/purchaseOrder/purchaseOrder";
-import styles from "./purchase.module.css";
 import { auth } from "@/lib/auth";
 
 const Purchase = async () => {
@@ -9,7 +8,7 @@ const Purchase = async () => {
   const orders = await fetchOrderByUserId(userId);
   const ordersObject = JSON.parse(JSON.stringify(orders));
   return (
-    <div className={styles.container}>
+    <div className="container">
       {ordersObject.map((order) => (
         <PurchaseOrder order={order} key={order._id} />
       ))}

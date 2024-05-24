@@ -76,6 +76,14 @@
 }
 
 @media (max-width: 480px) {
+  .banner {
+    height: 180px;
+  }
+
+  .switcherContainer {
+    height: 235px;
+  }
+
   .switcherContainer:after {
     width: 25px;
     height: 25px;

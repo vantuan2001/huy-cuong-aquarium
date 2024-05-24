@@ -109,6 +109,23 @@
   }
 
   .search {
-    width: 390px;
+    width: -webkit-fill-available;
+  }
+}
+
+@media (max-width: 430px) {
+  .right {
+    width: 100%;
+  }
+
+  .list {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .list {
+    gap: 10px;
   }
 }

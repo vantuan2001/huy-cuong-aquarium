@@ -31,10 +31,32 @@ export const fetchLimitNews = async (number) => {
   }
 };
 
+export const getAllNews = async () => {
+  try {
+    connectToDb();
+    const news = await News.find();
+    return news;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Không thể truy xuất tin tức!");
+  }
+};
+
 export const getNews = async (id) => {
   try {
     connectToDb();
     const news = await News.findById(id);
+    return news;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Không thể truy xuất tin tức!");
+  }
+};
+
+export const fetchNewsTitle = async (title) => {
+  try {
+    connectToDb();
+    const news = await News.findOne({ title: title });
     return news;
   } catch (err) {
     console.log(err);

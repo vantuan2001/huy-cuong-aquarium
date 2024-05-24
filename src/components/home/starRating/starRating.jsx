@@ -1,25 +1,8 @@
+import { fetchRating } from "@/lib/reviews/data";
 import React from "react";
 
-const getReviews = async (postId) => {
-  try {
-    const res = await fetch(
-      `https://www.huycuongaquarium.online/api/reviews/${postId}`,
-      {
-        next: { revalidate: 3600 },
-      }
-    );
-    if (!res.ok) {
-      throw new Error("Đã xảy ra lỗi");
-    }
-    return res.json();
-  } catch (error) {
-    console.error("Lỗi khi lấy đánh giá:", error);
-    return [];
-  }
-};
-
 const StarRating = async ({ postId }) => {
-  const reviews = await getReviews(postId);
+  const reviews = await fetchRating(postId);
   const ratings = reviews.map((item) => item.rating);
 
   // Hàm tính điểm trung bình từ một mảng đánh giá
