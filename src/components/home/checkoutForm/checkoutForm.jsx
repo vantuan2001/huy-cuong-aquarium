@@ -160,6 +160,7 @@ const CheckoutForm = ({ user }) => {
           "https://www.huycuongaquarium.online/api/orders",
           newOrder
         );
+        ToastSuccess({ title: "Đặt hàng" });
         console.log("saved to db");
         products.map((item) => {
           const updateProduct = async () => {
@@ -182,7 +183,6 @@ const CheckoutForm = ({ user }) => {
         sendEmail();
         dispatch(resetCart());
         window.location.href = url;
-        return url;
       } catch (err) {
         console.log(err);
       }

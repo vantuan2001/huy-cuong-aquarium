@@ -10,6 +10,12 @@ import { getCategories } from "@/lib/categories/data";
 import { getBrands } from "@/lib/brands/data";
 import SortProduct from "@/components/home/sort/sortProduct";
 
+export const generateMetadata = ({ searchParams }) => {
+  return {
+    title: !searchParams?.c ? "Sản phẩm" : searchParams?.c,
+  };
+};
+
 const Products = async ({ searchParams }) => {
   const { q = "", b = "", c = "", sort = "", page = 1 } = searchParams || {};
   const number = 16;

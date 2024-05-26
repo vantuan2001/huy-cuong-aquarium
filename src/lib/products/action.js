@@ -99,7 +99,7 @@ export const updateProduct = async (formData) => {
 
   revalidatePath("/dashboard/products");
   revalidatePath("/products");
-  redirect("/dashboard/products");
+  // redirect("/dashboard/products");
 };
 
 export const deleteProduct = async ({ id }) => {

@@ -6,6 +6,11 @@ import Filter from "@/components/home/filter/filter";
 import { getCategories } from "@/lib/categories/data";
 import { fetchLimitNews, fetchNews } from "@/lib/news/data";
 import Pagination from "@/components/dashboard/pagination/pagination";
+export const generateMetadata = () => {
+  return {
+    title: "Tin tức",
+  };
+};
 
 const News = async ({ searchParams }) => {
   const { q = "", page = 1 } = searchParams || {};
