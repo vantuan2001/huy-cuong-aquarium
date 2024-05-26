@@ -127,7 +127,11 @@ const ButtonPurchase = ({ order, purchase }) => {
           </form>
           <form onSubmit={handleSubmit}>
             <button
-              className={!purchase ? styles.button : styles.purchase}
+              className={
+                !purchase
+                  ? styles.button
+                  : `${styles.purchase} ${styles.button}`
+              }
               disabled={!confirm}
             >
               Đã Nhận Hàng

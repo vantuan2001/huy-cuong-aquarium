@@ -209,6 +209,11 @@
     width: 177px;
     height: 177px;
   }
+
+  .sell {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 @media (max-width: 480px) {
